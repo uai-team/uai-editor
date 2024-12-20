@@ -5,6 +5,13 @@ import { EditorEvents } from "@tiptap/core";
 import { UAIEditorEventListener, UAIEditorOptions } from "../../../core/UAIEditor.ts";
 
 import { t } from "i18next";
+import { ScrollableDiv } from "./ScrollableDiv";
+
+import { Redo } from "./base/Redo";
+import { Undo } from "./base/Undo";
+
+import { FormatPainter } from "./base/FormatPainter";
+import { ClearFormat } from "./base/ClearFormat";
 
 /**
  * 经典菜单栏
@@ -17,6 +24,17 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     // 经典菜单栏容器
     ribbonMenu!: HTMLElement;
     ribbonScrollableContainer!: HTMLElement;
+
+    // 基础菜单容器
+    ribbonMenuBaseScrollable!: ScrollableDiv;
+    ribbonMenuBaseGroup!: HTMLElement;
+
+    // 基础菜单
+    baseMenuUndo!: Undo;
+    baseMenuRedo!: Redo;
+
+    baseMenuFormatPainter!: FormatPainter;
+    baseMenuClearFormat!: ClearFormat;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -54,6 +72,10 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
                     ribbonTabs.children[i].classList.remove("active");
                 }
                 tab.classList.add("active");
+                this.ribbonMenuBaseScrollable.style.display = "none";
+                if (menu.value === "base") {
+                    this.ribbonMenuBaseScrollable.style.display = "flex";
+                }
             })
             ribbonTabs.appendChild(tab);
         });
@@ -69,6 +91,10 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
             const level = i + 1
             this.headingOptions.push({ label: `${t('base.heading.text')}`.replace("{level}", `${level}`), desc: `h${level}`, value: level, element: document.createElement("div") })
         }
+
+        // 创建分组菜单
+        this.createBaseMenu(event, options);
+        this.ribbonMenuBaseScrollable.style.display = "flex";
     }
 
     /**
@@ -104,5 +130,46 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
      * 初始化菜单
      */
     initMenus() {
+        this.baseMenuUndo = new Undo({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuUndo);
+
+        this.baseMenuRedo = new Redo({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuRedo);
+
+        this.baseMenuFormatPainter = new FormatPainter({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuFormatPainter);
+
+        this.baseMenuClearFormat = new ClearFormat({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuClearFormat);
+    }
+
+    /**
+     * 创建基础菜单
+     * @param event 
+     * @param options 
+     */
+    createBaseMenu(event: EditorEvents["create"], _options: UAIEditorOptions) {
+        this.ribbonMenuBaseGroup = document.createElement("div");
+        this.ribbonMenuBaseGroup.classList.add("uai-ribbon-container");
+        this.ribbonMenuBaseGroup.style.display = "flex";
+        this.ribbonMenuBaseScrollable = new ScrollableDiv(this.ribbonMenuBaseGroup);
+        this.ribbonMenuBaseScrollable.style.display = "none";
+        this.ribbonScrollableContainer.appendChild(this.ribbonMenuBaseScrollable);
+
+        const group1 = document.createElement("div");
+        group1.classList.add("uai-ribbon-virtual-group");
+        this.ribbonMenuBaseGroup.appendChild(group1);
+
+        const group1row1 = document.createElement("div");
+        group1row1.classList.add("uai-ribbon-virtual-group-row");
+        group1.appendChild(group1row1);
+        group1row1.appendChild(this.baseMenuUndo);
+        group1row1.appendChild(this.baseMenuRedo);
+
+        const group1row2 = document.createElement("div");
+        group1row2.classList.add("uai-ribbon-virtual-group-row");
+        group1.appendChild(group1row2);
+        group1row2.appendChild(this.baseMenuFormatPainter);
+        group1row2.appendChild(this.baseMenuClearFormat);
     }
 }
