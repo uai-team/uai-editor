@@ -7,11 +7,17 @@ import { UAIEditorEventListener, UAIEditorOptions } from "../../../core/UAIEdito
 import { t } from "i18next";
 import { ScrollableDiv } from "./ScrollableDiv";
 
+import { FontSizeIncrease } from "../common/FontSizeIncrease.ts";
+import { FontSizeDecrease } from "../common/FontSizeDecrease.ts";
+
 import { Redo } from "./base/Redo";
 import { Undo } from "./base/Undo";
 
 import { FormatPainter } from "./base/FormatPainter";
 import { ClearFormat } from "./base/ClearFormat";
+
+import { FontFamily } from "./base/FontFamily";
+import { FontSize } from "./base/FontSize";
 
 /**
  * 经典菜单栏
@@ -32,9 +38,13 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     // 基础菜单
     baseMenuUndo!: Undo;
     baseMenuRedo!: Redo;
-
     baseMenuFormatPainter!: FormatPainter;
     baseMenuClearFormat!: ClearFormat;
+
+    baseMenuFontFamily!: FontFamily;
+    baseMenuFontSize!: FontSize;
+    baseMenuFontSizeIncrease!: FontSizeIncrease;
+    baseMenuFontSizeDecrease!: FontSizeDecrease;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -141,6 +151,18 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
         this.baseMenuClearFormat = new ClearFormat({ menuType: "button", enable: true });
         this.eventComponents.push(this.baseMenuClearFormat);
+
+        this.baseMenuFontFamily = new FontFamily({ menuType: "select", enable: true });
+        this.eventComponents.push(this.baseMenuFontFamily);
+
+        this.baseMenuFontSize = new FontSize({ menuType: "select", enable: true });
+        this.eventComponents.push(this.baseMenuFontSize);
+
+        this.baseMenuFontSizeIncrease = new FontSizeIncrease({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuFontSizeIncrease);
+
+        this.baseMenuFontSizeDecrease = new FontSizeDecrease({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuFontSizeDecrease);
     }
 
     /**
@@ -171,5 +193,18 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         group1.appendChild(group1row2);
         group1row2.appendChild(this.baseMenuFormatPainter);
         group1row2.appendChild(this.baseMenuClearFormat);
+
+        const group2 = document.createElement("div");
+        group2.classList.add("uai-ribbon-virtual-group");
+        this.ribbonMenuBaseGroup.appendChild(group2);
+
+        const group2row1 = document.createElement("div");
+        group2row1.classList.add("uai-ribbon-virtual-group-row");
+        group2.appendChild(group2row1);
+        group2row1.appendChild(this.baseMenuFontFamily);
+        group2row1.appendChild(this.baseMenuFontSize);
+        group2row1.appendChild(this.baseMenuFontSizeIncrease);
+        group2row1.appendChild(this.baseMenuFontSizeDecrease);
+
     }
 }

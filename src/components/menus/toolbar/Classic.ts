@@ -7,10 +7,16 @@ import { UAIEditorEventListener, UAIEditorOptions } from "../../../core/UAIEdito
 import menuIcon from "../../../assets/icons/menu.svg";
 import { ScrollableDiv } from "./ScrollableDiv";
 
+import { FontSizeIncrease } from "../common/FontSizeIncrease.ts";
+import { FontSizeDecrease } from "../common/FontSizeDecrease.ts";
+
 import { Redo } from "./base/Redo";
 import { Undo } from "./base/Undo";
 import { FormatPainter } from "./base/FormatPainter";
 import { ClearFormat } from "./base/ClearFormat";
+
+import { FontFamily } from "./base/FontFamily";
+import { FontSize } from "./base/FontSize";
 
 /**
  * 传统菜单栏
@@ -32,6 +38,11 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     baseMenuRedo!: Redo;
     baseMenuFormatPainter!: FormatPainter;
     baseMenuClearFormat!: ClearFormat;
+
+    baseMenuFontFamily!: FontFamily;
+    baseMenuFontSize!: FontSize;
+    baseMenuFontSizeIncrease!: FontSizeIncrease;
+    baseMenuFontSizeDecrease!: FontSizeDecrease;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -118,6 +129,18 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
         this.baseMenuClearFormat = new ClearFormat({ menuType: "button", enable: true });
         this.eventComponents.push(this.baseMenuClearFormat);
+
+        this.baseMenuFontFamily = new FontFamily({ menuType: "select", enable: true });
+        this.eventComponents.push(this.baseMenuFontFamily);
+
+        this.baseMenuFontSize = new FontSize({ menuType: "select", enable: true });
+        this.eventComponents.push(this.baseMenuFontSize);
+
+        this.baseMenuFontSizeIncrease = new FontSizeIncrease({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuFontSizeIncrease);
+
+        this.baseMenuFontSizeDecrease = new FontSizeDecrease({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuFontSizeDecrease);
     }
     /**
      * 创建基础菜单
@@ -139,5 +162,13 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         group1.appendChild(this.baseMenuRedo);
         group1.appendChild(this.baseMenuFormatPainter);
         group1.appendChild(this.baseMenuClearFormat);
+
+        const group2 = document.createElement("div");
+        group2.classList.add("uai-classic-virtual-group");
+        this.classicMenuBaseGroup.appendChild(group2);
+        group2.appendChild(this.baseMenuFontFamily);
+        group2.appendChild(this.baseMenuFontSize);
+        group2.appendChild(this.baseMenuFontSizeIncrease);
+        group2.appendChild(this.baseMenuFontSizeDecrease);
     }
 }

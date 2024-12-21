@@ -9,7 +9,7 @@ import tippy, { Instance, Props } from "tippy.js";
  * 菜单按钮选项
  */
 export type MenuButtonOptions = {
-    menuType: "button",
+    menuType: "button" | "select",
     enable: boolean,
     className?: string,
     header?: "ribbon" | "classic",
@@ -54,6 +54,10 @@ export class MenuButton extends HTMLElement implements UAIEditorEventListener {
         if (this.menuButtonOptions.menuType === "button") {
             // 按钮
             this.createMenuButton()
+        }
+        if (this.menuButtonOptions.menuType === "select") {
+            // 下拉选择
+            this.createMenuSelect()
         }
 
         // 提示信息
@@ -128,5 +132,18 @@ export class MenuButton extends HTMLElement implements UAIEditorEventListener {
             menuButtonText.innerHTML = this.menuButtonOptions.text;
             this.menuButtonContent.appendChild(menuButtonText);
         }
+    }
+
+    /**
+     * 创建下拉选择框
+     */
+    createMenuSelect() {
+        this.menuButton = document.createElement("div");
+        this.menuButton.classList.add("uai-menu-button");
+        this.container.appendChild(this.menuButton);
+
+        this.menuButtonContent = document.createElement("select");
+        this.menuButtonContent.classList.add("uai-button-content");
+        this.menuButton.appendChild(this.menuButtonContent);
     }
 }
