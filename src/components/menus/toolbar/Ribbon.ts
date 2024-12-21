@@ -10,6 +10,13 @@ import { ScrollableDiv } from "./ScrollableDiv";
 import { FontSizeIncrease } from "../common/FontSizeIncrease.ts";
 import { FontSizeDecrease } from "../common/FontSizeDecrease.ts";
 
+import { Bold } from "../common/Bold.ts";
+import { Italic } from "../common/Italic.ts";
+import { Underline } from "../common/Underline.ts";
+import { Strike } from "../common/Strike.ts";
+import { Subscript } from "../common/Subscript.ts";
+import { Superscript } from "../common/Superscript.ts";
+
 import { Redo } from "./base/Redo";
 import { Undo } from "./base/Undo";
 
@@ -45,6 +52,13 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     baseMenuFontSize!: FontSize;
     baseMenuFontSizeIncrease!: FontSizeIncrease;
     baseMenuFontSizeDecrease!: FontSizeDecrease;
+
+    baseMenuBold!: Bold;
+    baseMenuItalic!: Italic;
+    baseMenuUnderline!: Underline;
+    baseMenuStrike!: Strike;
+    baseMenuSubscript!: Subscript;
+    baseMenuSuperscript!: Superscript;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -163,6 +177,24 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
         this.baseMenuFontSizeDecrease = new FontSizeDecrease({ menuType: "button", enable: true });
         this.eventComponents.push(this.baseMenuFontSizeDecrease);
+
+        this.baseMenuBold = new Bold({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuBold);
+
+        this.baseMenuItalic = new Italic({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuItalic);
+
+        this.baseMenuUnderline = new Underline({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuUnderline);
+
+        this.baseMenuStrike = new Strike({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuStrike);
+
+        this.baseMenuSubscript = new Subscript({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuSubscript);
+
+        this.baseMenuSuperscript = new Superscript({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuSuperscript);
     }
 
     /**
@@ -206,5 +238,14 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         group2row1.appendChild(this.baseMenuFontSizeIncrease);
         group2row1.appendChild(this.baseMenuFontSizeDecrease);
 
+        const group2row2 = document.createElement("div");
+        group2row2.classList.add("uai-ribbon-virtual-group-row");
+        group2.appendChild(group2row2);
+        group2row2.appendChild(this.baseMenuBold);
+        group2row2.appendChild(this.baseMenuItalic);
+        group2row2.appendChild(this.baseMenuUnderline);
+        group2row2.appendChild(this.baseMenuStrike);
+        group2row2.appendChild(this.baseMenuSubscript);
+        group2row2.appendChild(this.baseMenuSuperscript);
     }
 }

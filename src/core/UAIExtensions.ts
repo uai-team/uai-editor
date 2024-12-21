@@ -6,7 +6,10 @@ import { UAIEditor, UAIEditorOptions } from "./UAIEditor";
 
 import { StarterKit } from "@tiptap/starter-kit";
 import { FontFamily } from "@tiptap/extension-font-family";
+import { Subscript } from "@tiptap/extension-subscript";
+import { Superscript } from "@tiptap/extension-superscript";
 import { TextStyle } from "@tiptap/extension-text-style";
+import { Underline } from "@tiptap/extension-underline";
 
 import FontSize from "../extensions/FontSize.ts";
 
@@ -26,7 +29,10 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
         FontSize.configure({
 
         }),
+        Subscript,
+        Superscript,
         TextStyle,
+        Underline,
     ];
 
     return extensions;
