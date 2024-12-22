@@ -4,12 +4,13 @@
 import { EditorEvents } from "@tiptap/core";
 import { UAIEditorEventListener, UAIEditorOptions } from "../../core/UAIEditor.ts";
 import tippy, { Instance, Props } from "tippy.js";
+import { Icons } from "../Icons.ts";
 
 /**
  * 菜单按钮选项
  */
 export type MenuButtonOptions = {
-    menuType: "button" | "select",
+    menuType: "button" | "select" | "color",
     enable: boolean,
     className?: string,
     header?: "ribbon" | "classic",
@@ -58,6 +59,10 @@ export class MenuButton extends HTMLElement implements UAIEditorEventListener {
         if (this.menuButtonOptions.menuType === "select") {
             // 下拉选择
             this.createMenuSelect()
+        }
+        if (this.menuButtonOptions.menuType === "color") {
+            // 颜色选择
+            this.createMenuColor()
         }
 
         // 提示信息
@@ -145,5 +150,43 @@ export class MenuButton extends HTMLElement implements UAIEditorEventListener {
         this.menuButtonContent = document.createElement("select");
         this.menuButtonContent.classList.add("uai-button-content");
         this.menuButton.appendChild(this.menuButtonContent);
+    }
+
+    /**
+     * 创建颜色选择框
+     */
+    createMenuColor() {
+        this.menuButton = document.createElement("div");
+        this.menuButton.classList.add("uai-menu-button");
+        this.container.appendChild(this.menuButton);
+
+        // 按钮内容
+        this.menuButtonContent = document.createElement("div");
+        this.menuButtonContent.classList.add("uai-button-content");
+
+        // 按钮图标，偏小一点
+        const iconDiv = document.createElement("div");
+        iconDiv.style.height = "14px";
+        iconDiv.style.display = "flex";
+        if (this.menuButtonOptions.icon) {
+            iconDiv.innerHTML = `<img src="${this.menuButtonOptions.icon}" width="14" height="14" />`
+        }
+        // 当前颜色展示容器，展示当前选中的颜色
+        const colorDiv = document.createElement("div");
+        colorDiv.id = "currentColor";
+        colorDiv.style.height = "3px";
+        colorDiv.style.marginTop = "1px";
+        this.menuButtonContent.style.display = "block";
+        this.menuButtonContent.appendChild(iconDiv);
+        this.menuButtonContent.appendChild(colorDiv);
+
+        this.menuButton.style.display = "flex";
+        this.menuButton.appendChild(this.menuButtonContent);
+
+        // 颜色弹出框下拉三角箭头
+        this.menuButtonArrow = document.createElement("div");
+        this.menuButtonArrow.classList.add("uai-button-icon-arrow");
+        this.menuButtonArrow.innerHTML = Icons.ArrowDown;
+        this.menuButton.appendChild(this.menuButtonArrow);
     }
 }

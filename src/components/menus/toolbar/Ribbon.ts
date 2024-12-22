@@ -17,6 +17,9 @@ import { Strike } from "../common/Strike.ts";
 import { Subscript } from "../common/Subscript.ts";
 import { Superscript } from "../common/Superscript.ts";
 
+import { FontColor } from "../common/FontColor.ts";
+import { Highlight } from "../common/Highlight.ts";
+
 import { Redo } from "./base/Redo";
 import { Undo } from "./base/Undo";
 
@@ -59,6 +62,8 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     baseMenuStrike!: Strike;
     baseMenuSubscript!: Subscript;
     baseMenuSuperscript!: Superscript;
+    baseMenuFontColor!: FontColor;
+    baseMenuHighlight!: Highlight;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -195,6 +200,12 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
         this.baseMenuSuperscript = new Superscript({ menuType: "button", enable: true });
         this.eventComponents.push(this.baseMenuSuperscript);
+
+        this.baseMenuFontColor = new FontColor({ menuType: "color", enable: true });
+        this.eventComponents.push(this.baseMenuFontColor);
+
+        this.baseMenuHighlight = new Highlight({ menuType: "color", enable: true });
+        this.eventComponents.push(this.baseMenuHighlight);
     }
 
     /**
@@ -247,5 +258,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         group2row2.appendChild(this.baseMenuStrike);
         group2row2.appendChild(this.baseMenuSubscript);
         group2row2.appendChild(this.baseMenuSuperscript);
+        group2row2.appendChild(this.baseMenuFontColor);
+        group2row2.appendChild(this.baseMenuHighlight);
     }
 }

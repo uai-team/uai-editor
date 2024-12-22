@@ -10,6 +10,7 @@ import { Classic } from "./menus/toolbar/Classic.ts";
 
 import { ScrollableDiv } from "./menus/toolbar/ScrollableDiv.ts";
 import { MenuButton } from "./menus/MenuButton.ts";
+import { ColorPicker } from "./popups/ColorPicker.ts";
 
 import { FontSizeIncrease } from "./menus/common/FontSizeIncrease.ts";
 import { FontSizeDecrease } from "./menus/common/FontSizeDecrease.ts";
@@ -20,6 +21,9 @@ import { Underline } from "./menus/common/Underline.ts";
 import { Strike } from "./menus/common/Strike.ts";
 import { Subscript } from "./menus/common/Subscript.ts";
 import { Superscript } from "./menus/common/Superscript.ts";
+
+import { FontColor } from "./menus/common/FontColor.ts";
+import { Highlight } from "./menus/common/Highlight.ts";
 
 import { Undo } from "./menus/toolbar/base/Undo.ts";
 import { Redo } from "./menus/toolbar/base/Redo.ts";
@@ -39,6 +43,7 @@ defineCustomElement('uai-editor-classic-menu', Classic);
 
 defineCustomElement('uai-editor-scrollable-div', ScrollableDiv);
 defineCustomElement('uai-editor-menu-button', MenuButton);
+defineCustomElement('uai-editor-popup-color-picker', ColorPicker);
 
 defineCustomElement('uai-editor-common-menu-font-size-increase', FontSizeIncrease);
 defineCustomElement('uai-editor-common-menu-font-size-decrease', FontSizeDecrease);
@@ -49,6 +54,9 @@ defineCustomElement('uai-editor-common-menu-underline', Underline);
 defineCustomElement('uai-editor-common-menu-strike', Strike);
 defineCustomElement('uai-editor-common-menu-subscript', Subscript);
 defineCustomElement('uai-editor-common-menu-superscript', Superscript);
+
+defineCustomElement('uai-editor-common-menu-font-color', FontColor);
+defineCustomElement('uai-editor-common-menu-highlight', Highlight);
 
 defineCustomElement('uai-editor-base-menu-undo', Undo);
 defineCustomElement('uai-editor-base-menu-redo', Redo);

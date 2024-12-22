@@ -5,7 +5,9 @@ import { Extensions } from "@tiptap/core";
 import { UAIEditor, UAIEditorOptions } from "./UAIEditor";
 
 import { StarterKit } from "@tiptap/starter-kit";
+import { Color } from "@tiptap/extension-color";
 import { FontFamily } from "@tiptap/extension-font-family";
+import { Highlight } from "@tiptap/extension-highlight";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
 import { TextStyle } from "@tiptap/extension-text-style";
@@ -25,9 +27,13 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
             bulletList: false,
             orderedList: false,
         }),
+        Color,
         FontFamily,
         FontSize.configure({
 
+        }),
+        Highlight.configure({
+            multicolor: true
         }),
         Subscript,
         Superscript,
