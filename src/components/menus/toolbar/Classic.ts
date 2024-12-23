@@ -20,6 +20,12 @@ import { Superscript } from "../common/Superscript.ts";
 import { FontColor } from "../common/FontColor.ts";
 import { Highlight } from "../common/Highlight.ts";
 
+import { AlignLeft } from "../common/AlignLeft.ts";
+import { AlignCenter } from "../common/AlignCenter.ts";
+import { AlignRight } from "../common/AlignRight.ts";
+import { AlignJustify } from "../common/AlignJustify.ts";
+import { AlignDistributed } from "../common/AlignDistributed.ts";
+
 import { Redo } from "./base/Redo.ts";
 import { Undo } from "./base/Undo.ts";
 
@@ -35,6 +41,9 @@ import { TaskList } from "./base/TaskList.ts";
 import { Indent } from "./base/Indent.ts";
 import { Outdent } from "./base/Outdent.ts";
 import { LineHeight } from "./base/LineHeight.ts";
+
+import { BlockQuote } from "./base/BlockQuote.ts";
+import { CodeBlock } from "./base/CodeBlock.ts";
 
 /**
  * 传统菜单栏
@@ -77,6 +86,14 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     baseMenuIndent!: Indent;
     baseMenuOutdent!: Outdent;
     baseMenuLineHeight!: LineHeight;
+
+    baseMenuAlignLeft!: AlignLeft;
+    baseMenuAlignCenter!: AlignCenter;
+    baseMenuAlignRight!: AlignRight;
+    baseMenuAlignJustify!: AlignJustify;
+    baseMenuAlignDistributed!: AlignDistributed;
+    baseMenuBlockQuote!: BlockQuote;
+    baseMenuCodeBlock!: CodeBlock;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -217,6 +234,27 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
         this.baseMenuLineHeight = new LineHeight({ menuType: "popup", enable: true });
         this.eventComponents.push(this.baseMenuLineHeight);
+
+        this.baseMenuAlignLeft = new AlignLeft({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuAlignLeft);
+
+        this.baseMenuAlignCenter = new AlignCenter({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuAlignCenter);
+
+        this.baseMenuAlignRight = new AlignRight({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuAlignRight);
+
+        this.baseMenuAlignJustify = new AlignJustify({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuAlignJustify);
+
+        this.baseMenuAlignDistributed = new AlignDistributed({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuAlignDistributed);
+
+        this.baseMenuBlockQuote = new BlockQuote({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuBlockQuote);
+
+        this.baseMenuCodeBlock = new CodeBlock({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuCodeBlock);
     }
     /**
      * 创建基础菜单
@@ -264,5 +302,12 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         group3.appendChild(this.baseMenuIndent);
         group3.appendChild(this.baseMenuOutdent);
         group3.appendChild(this.baseMenuLineHeight);
+        group3.appendChild(this.baseMenuAlignLeft);
+        group3.appendChild(this.baseMenuAlignCenter);
+        group3.appendChild(this.baseMenuAlignRight);
+        group3.appendChild(this.baseMenuAlignJustify);
+        group3.appendChild(this.baseMenuAlignDistributed);
+        group3.appendChild(this.baseMenuBlockQuote);
+        group3.appendChild(this.baseMenuCodeBlock);
     }
 }

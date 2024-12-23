@@ -12,6 +12,12 @@ import { ScrollableDiv } from "./menus/toolbar/ScrollableDiv.ts";
 import { MenuButton } from "./menus/MenuButton.ts";
 import { ColorPicker } from "./popups/ColorPicker.ts";
 
+import { AlignLeft } from "./menus/common/AlignLeft.ts";
+import { AlignCenter } from "./menus/common/AlignCenter.ts";
+import { AlignRight } from "./menus/common/AlignRight.ts";
+import { AlignJustify } from "./menus/common/AlignJustify.ts";
+import { AlignDistributed } from "./menus/common/AlignDistributed.ts";
+
 import { FontSizeIncrease } from "./menus/common/FontSizeIncrease.ts";
 import { FontSizeDecrease } from "./menus/common/FontSizeDecrease.ts";
 
@@ -40,6 +46,9 @@ import { Indent } from "./menus/toolbar/base/Indent.ts";
 import { Outdent } from "./menus/toolbar/base/Outdent.ts";
 import { LineHeight } from "./menus/toolbar/base/LineHeight.ts";
 
+import { BlockQuote } from "./menus/toolbar/base/BlockQuote.ts";
+import { CodeBlock } from "./menus/toolbar/base/CodeBlock.ts";
+
 // 注册组件
 defineCustomElement('uai-editor-header', Header);
 defineCustomElement('uai-editor-editor', Editor);
@@ -51,6 +60,12 @@ defineCustomElement('uai-editor-classic-menu', Classic);
 defineCustomElement('uai-editor-scrollable-div', ScrollableDiv);
 defineCustomElement('uai-editor-menu-button', MenuButton);
 defineCustomElement('uai-editor-popup-color-picker', ColorPicker);
+
+defineCustomElement('uai-editor-common-menu-align-left', AlignLeft);
+defineCustomElement('uai-editor-common-menu-align-center', AlignCenter);
+defineCustomElement('uai-editor-common-menu-align-right', AlignRight);
+defineCustomElement('uai-editor-common-menu-align-justify', AlignJustify);
+defineCustomElement('uai-editor-common-menu-align-distributed', AlignDistributed);
 
 defineCustomElement('uai-editor-common-menu-font-size-increase', FontSizeIncrease);
 defineCustomElement('uai-editor-common-menu-font-size-decrease', FontSizeDecrease);
@@ -79,3 +94,6 @@ defineCustomElement('uai-editor-base-menu-task-list', TaskList);
 defineCustomElement('uai-editor-base-menu-indent', Indent);
 defineCustomElement('uai-editor-base-menu-outdent', Outdent);
 defineCustomElement('uai-editor-base-menu-lineheight', LineHeight);
+
+defineCustomElement('uai-editor-base-menu-blockquote', BlockQuote);
+defineCustomElement('uai-editor-base-menu-codeblock', CodeBlock);

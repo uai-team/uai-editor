@@ -12,13 +12,15 @@ import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
 import { TaskItem } from "@tiptap/extension-task-item";
 import { TaskList } from "@tiptap/extension-task-list";
+import { TextAlign } from "@tiptap/extension-text-align";
 import { TextStyle } from "@tiptap/extension-text-style";
 import { Underline } from "@tiptap/extension-underline";
-
+;
+import BulletList from "../extensions/BulletList.ts";
 import FontSize from "../extensions/FontSize.ts";
 import Indent from "../extensions/Indent.ts";
-import LineHeight from "../extensions/LineHeight.ts";
-import BulletList from "../extensions/BulletList.ts";
+import LineHeight from "../extensions/LineHeight.ts"
+import NodeAlign from "../extensions/NodeAlign.ts";
 import OrderedList from "../extensions/OrderedList.ts";
 
 /**
@@ -44,12 +46,16 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
         }),
         Indent,
         LineHeight,
+        NodeAlign,
         OrderedList,
         Subscript,
         Superscript,
         TaskList,
         TaskItem.configure({
             nested: true,
+        }),
+        TextAlign.configure({
+            types: ['heading', 'paragraph'],
         }),
         TextStyle,
         Underline,
