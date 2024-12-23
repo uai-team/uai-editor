@@ -10,6 +10,8 @@ import { FontFamily } from "@tiptap/extension-font-family";
 import { Highlight } from "@tiptap/extension-highlight";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
+import { TaskItem } from "@tiptap/extension-task-item";
+import { TaskList } from "@tiptap/extension-task-list";
 import { TextStyle } from "@tiptap/extension-text-style";
 import { Underline } from "@tiptap/extension-underline";
 
@@ -45,6 +47,10 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
         OrderedList,
         Subscript,
         Superscript,
+        TaskList,
+        TaskItem.configure({
+            nested: true,
+        }),
         TextStyle,
         Underline,
     ];
