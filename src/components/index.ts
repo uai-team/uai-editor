@@ -33,6 +33,13 @@ import { ClearFormat } from "./menus/toolbar/base/ClearFormat.ts";
 import { FontFamily } from "./menus/toolbar/base/FontFamily.ts";
 import { FontSize } from "./menus/toolbar/base/FontSize.ts";
 
+import { OrderedList } from "./menus/toolbar/base/OrderedList.ts";
+import { BulletList } from "./menus/toolbar/base/BulletList.ts";
+import { TaskList } from "./menus/toolbar/base/TaskList.ts";
+import { Indent } from "./menus/toolbar/base/Indent.ts";
+import { Outdent } from "./menus/toolbar/base/Outdent.ts";
+import { LineHeight } from "./menus/toolbar/base/LineHeight.ts";
+
 // 注册组件
 defineCustomElement('uai-editor-header', Header);
 defineCustomElement('uai-editor-editor', Editor);
@@ -65,3 +72,10 @@ defineCustomElement('uai-editor-base-menu-clear-format', ClearFormat);
 
 defineCustomElement('uai-editor-base-menu-font-family', FontFamily);
 defineCustomElement('uai-editor-base-menu-font-size', FontSize);
+
+defineCustomElement('uai-editor-base-menu-ordered-list', OrderedList);
+defineCustomElement('uai-editor-base-menu-bullet-list', BulletList);
+defineCustomElement('uai-editor-base-menu-task-list', TaskList);
+defineCustomElement('uai-editor-base-menu-indent', Indent);
+defineCustomElement('uai-editor-base-menu-outdent', Outdent);
+defineCustomElement('uai-editor-base-menu-lineheight', LineHeight);

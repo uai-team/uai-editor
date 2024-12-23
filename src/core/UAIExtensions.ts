@@ -14,6 +14,10 @@ import { TextStyle } from "@tiptap/extension-text-style";
 import { Underline } from "@tiptap/extension-underline";
 
 import FontSize from "../extensions/FontSize.ts";
+import Indent from "../extensions/Indent.ts";
+import LineHeight from "../extensions/LineHeight.ts";
+import BulletList from "../extensions/BulletList.ts";
+import OrderedList from "../extensions/OrderedList.ts";
 
 /**
  * 定义编辑器的所有自定义扩展组件
@@ -27,6 +31,7 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
             bulletList: false,
             orderedList: false,
         }),
+        BulletList,
         Color,
         FontFamily,
         FontSize.configure({
@@ -35,6 +40,9 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
         Highlight.configure({
             multicolor: true
         }),
+        Indent,
+        LineHeight,
+        OrderedList,
         Subscript,
         Superscript,
         TextStyle,

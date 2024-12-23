@@ -10,7 +10,7 @@ import { Icons } from "../Icons.ts";
  * 菜单按钮选项
  */
 export type MenuButtonOptions = {
-    menuType: "button" | "select" | "color",
+    menuType: "button" | "select" | "color" | "popup",
     enable: boolean,
     className?: string,
     header?: "ribbon" | "classic",
@@ -63,6 +63,10 @@ export class MenuButton extends HTMLElement implements UAIEditorEventListener {
         if (this.menuButtonOptions.menuType === "color") {
             // 颜色选择
             this.createMenuColor()
+        }
+        if (this.menuButtonOptions.menuType === "popup") {
+            // 弹出框
+            this.createMenuPopup()
         }
 
         // 提示信息
@@ -184,6 +188,52 @@ export class MenuButton extends HTMLElement implements UAIEditorEventListener {
         this.menuButton.appendChild(this.menuButtonContent);
 
         // 颜色弹出框下拉三角箭头
+        this.menuButtonArrow = document.createElement("div");
+        this.menuButtonArrow.classList.add("uai-button-icon-arrow");
+        this.menuButtonArrow.innerHTML = Icons.ArrowDown;
+        this.menuButton.appendChild(this.menuButtonArrow);
+    }
+
+    /**
+     * 创建弹出框
+     */
+    createMenuPopup() {
+        var size = 16;
+        this.menuButton = document.createElement("div");
+        this.menuButton.classList.add("uai-menu-button");
+        if (this.menuButtonOptions.huge) {
+            // 大按钮大小
+            this.menuButton.classList.add("huge");
+            size = 28;
+        } else {
+            // 小按钮大小
+            size = 16;
+        }
+        // 传统样式设置，文字在图标右侧
+        if (this.menuButtonOptions.header === "classic") {
+            this.menuButton.classList.add("classic-text");
+        }
+        this.container.appendChild(this.menuButton);
+
+        // 按钮内容
+        this.menuButtonContent = document.createElement("div");
+        this.menuButtonContent.classList.add("uai-button-content");
+        this.menuButton.appendChild(this.menuButtonContent);
+
+        // 按钮图标
+        if (this.menuButtonOptions.icon) {
+            this.menuButtonContent.innerHTML = `<img src="${this.menuButtonOptions.icon}" width="${size}" />`
+        }
+
+        // 按钮文字描述
+        if (!this.menuButtonOptions.hideText && this.menuButtonOptions.text) {
+            const menuButtonText = document.createElement("span");
+            menuButtonText.classList.add("uai-button-text");
+            menuButtonText.innerHTML = this.menuButtonOptions.text;
+            this.menuButtonContent.appendChild(menuButtonText);
+        }
+
+        // 按钮弹出框三角箭头
         this.menuButtonArrow = document.createElement("div");
         this.menuButtonArrow.classList.add("uai-button-icon-arrow");
         this.menuButtonArrow.innerHTML = Icons.ArrowDown;

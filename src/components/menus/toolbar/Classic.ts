@@ -20,13 +20,21 @@ import { Superscript } from "../common/Superscript.ts";
 import { FontColor } from "../common/FontColor.ts";
 import { Highlight } from "../common/Highlight.ts";
 
-import { Redo } from "./base/Redo";
-import { Undo } from "./base/Undo";
-import { FormatPainter } from "./base/FormatPainter";
-import { ClearFormat } from "./base/ClearFormat";
+import { Redo } from "./base/Redo.ts";
+import { Undo } from "./base/Undo.ts";
 
-import { FontFamily } from "./base/FontFamily";
-import { FontSize } from "./base/FontSize";
+import { FormatPainter } from "./base/FormatPainter.ts";
+import { ClearFormat } from "./base/ClearFormat.ts";
+
+import { FontFamily } from "./base/FontFamily.ts";
+import { FontSize } from "./base/FontSize.ts";
+
+import { OrderedList } from "./base/OrderedList.ts";
+import { BulletList } from "./base/BulletList.ts";
+import { TaskList } from "./base/TaskList.ts";
+import { Indent } from "./base/Indent.ts";
+import { Outdent } from "./base/Outdent.ts";
+import { LineHeight } from "./base/LineHeight.ts";
 
 /**
  * 传统菜单栏
@@ -62,6 +70,13 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     baseMenuSuperscript!: Superscript;
     baseMenuFontColor!: FontColor;
     baseMenuHighlight!: Highlight;
+
+    baseMenuOrderedList!: OrderedList;
+    baseMenuBulletList!: BulletList;
+    baseMenuTaskList!: TaskList;
+    baseMenuIndent!: Indent;
+    baseMenuOutdent!: Outdent;
+    baseMenuLineHeight!: LineHeight;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -184,6 +199,24 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
         this.baseMenuHighlight = new Highlight({ menuType: "color", enable: true });
         this.eventComponents.push(this.baseMenuHighlight);
+
+        this.baseMenuOrderedList = new OrderedList({ menuType: "popup", enable: true });
+        this.eventComponents.push(this.baseMenuOrderedList);
+
+        this.baseMenuBulletList = new BulletList({ menuType: "popup", enable: true });
+        this.eventComponents.push(this.baseMenuBulletList);
+
+        this.baseMenuTaskList = new TaskList({ menuType: "popup", enable: true });
+        this.eventComponents.push(this.baseMenuTaskList);
+
+        this.baseMenuIndent = new Indent({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuIndent);
+
+        this.baseMenuOutdent = new Outdent({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuOutdent);
+
+        this.baseMenuLineHeight = new LineHeight({ menuType: "popup", enable: true });
+        this.eventComponents.push(this.baseMenuLineHeight);
     }
     /**
      * 创建基础菜单
@@ -221,5 +254,15 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         group2.appendChild(this.baseMenuSuperscript);
         group2.appendChild(this.baseMenuFontColor);
         group2.appendChild(this.baseMenuHighlight);
+
+        const group3 = document.createElement("div");
+        group3.classList.add("uai-classic-virtual-group");
+        this.classicMenuBaseGroup.appendChild(group3);
+        group3.appendChild(this.baseMenuOrderedList);
+        group3.appendChild(this.baseMenuBulletList);
+        group3.appendChild(this.baseMenuTaskList);
+        group3.appendChild(this.baseMenuIndent);
+        group3.appendChild(this.baseMenuOutdent);
+        group3.appendChild(this.baseMenuLineHeight);
     }
 }
