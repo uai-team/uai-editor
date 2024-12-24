@@ -51,6 +51,8 @@ import { CodeBlock } from "./menus/toolbar/base/CodeBlock.ts";
 
 import { Print } from "./menus/toolbar/base/Print.ts";
 
+import { Link } from "./menus/toolbar/insert/Link.ts";
+
 // 注册组件
 defineCustomElement('uai-editor-header', Header);
 defineCustomElement('uai-editor-editor', Editor);
@@ -101,3 +103,5 @@ defineCustomElement('uai-editor-base-menu-blockquote', BlockQuote);
 defineCustomElement('uai-editor-base-menu-codeblock', CodeBlock);
 
 defineCustomElement('uai-editor-base-menu-print', Print);
+
+defineCustomElement('uai-editor-insert-menu-link', Link);

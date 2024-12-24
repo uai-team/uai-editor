@@ -46,6 +46,8 @@ import { BlockQuote } from "./base/BlockQuote.ts";
 import { CodeBlock } from "./base/CodeBlock.ts";
 import { Print } from "./base/Print.ts";
 
+import { Link } from "./insert/Link";
+
 /**
  * 传统菜单栏
  */
@@ -60,6 +62,10 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     // 基础菜单容器
     classicMenuBaseScrollable!: ScrollableDiv;
     classicMenuBaseGroup!: HTMLElement;
+
+    // 插入菜单容器
+    classicMenuInsertScrollable!: ScrollableDiv;
+    classicMenuInsertGroup!: HTMLElement;
 
     // 基础菜单
     baseMenuUndo!: Undo;
@@ -96,6 +102,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     baseMenuBlockQuote!: BlockQuote;
     baseMenuCodeBlock!: CodeBlock;
     baseMenuPrint!: Print;
+
+    // 插入菜单
+    insertMenuLink!: Link;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -141,12 +150,17 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         selectMuenus.addEventListener("change", () => {
             const menu = selectMuenus.selectedOptions[0].value;
             this.classicMenuBaseScrollable.style.display = "none";
+            this.classicMenuInsertScrollable.style.display = "none";
             if (menu === "base") {
                 this.classicMenuBaseScrollable.style.display = "flex";
+            }
+            if (menu === "insert") {
+                this.classicMenuInsertScrollable.style.display = "flex";
             }
         })
         // 创建分组菜单
         this.createBaseMenu(event, options);
+        this.createInsertMenu(event, options);
         this.classicMenuBaseScrollable.style.display = "flex";
     }
 
@@ -260,6 +274,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
         this.baseMenuPrint = new Print({ menuType: "button", enable: true, header: "classic", hideText: false });
         this.eventComponents.push(this.baseMenuPrint);
+
+        this.insertMenuLink = new Link({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.insertMenuLink);
     }
     /**
      * 创建基础菜单
@@ -319,5 +336,24 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         group4.classList.add("uai-classic-virtual-group");
         this.classicMenuBaseGroup.appendChild(group4);
         group4.appendChild(this.baseMenuPrint);
+    }
+
+    /**
+     * 创建插入菜单
+     * @param event 
+     * @param options 
+     */
+    createInsertMenu(event: EditorEvents["create"], options: UAIEditorOptions) {
+        this.classicMenuInsertGroup = document.createElement("div");
+        this.classicMenuInsertGroup.style.display = "flex";
+        this.classicMenuInsertScrollable = new ScrollableDiv(this.classicMenuInsertGroup);
+        this.classicMenuInsertScrollable.style.display = "none";
+        this.classicMenu.appendChild(this.classicMenuInsertScrollable);
+        this.classicMenuInsertScrollable.onCreate(event, options);
+
+        const group1 = document.createElement("div");
+        group1.classList.add("uai-classic-virtual-group");
+        this.classicMenuInsertGroup.appendChild(group1);
+        group1.appendChild(this.insertMenuLink);
     }
 }
