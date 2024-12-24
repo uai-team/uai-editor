@@ -6,6 +6,7 @@ import { UAIEditorEventListener, UAIEditorOptions } from "../../../core/UAIEdito
 
 import { t } from "i18next";
 import { ScrollableDiv } from "./ScrollableDiv";
+import { Icons } from "../../Icons.ts";
 
 import { FontSizeIncrease } from "../common/FontSizeIncrease.ts";
 import { FontSizeDecrease } from "../common/FontSizeDecrease.ts";
@@ -44,6 +45,8 @@ import { LineHeight } from "./base/LineHeight.ts";
 
 import { BlockQuote } from "./base/BlockQuote.ts";
 import { CodeBlock } from "./base/CodeBlock.ts";
+
+import { Print } from "./base/Print.ts";
 
 /**
  * 经典菜单栏
@@ -95,6 +98,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     baseMenuAlignDistributed!: AlignDistributed;
     baseMenuBlockQuote!: BlockQuote;
     baseMenuCodeBlock!: CodeBlock;
+    baseMenuPrint!: Print;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -276,6 +280,9 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
         this.baseMenuCodeBlock = new CodeBlock({ menuType: "button", enable: true });
         this.eventComponents.push(this.baseMenuCodeBlock);
+
+        this.baseMenuPrint = new Print({ menuType: "button", enable: true, huge: true, hideText: false });
+        this.eventComponents.push(this.baseMenuPrint);
     }
 
     /**
@@ -355,5 +362,59 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         group3row2.appendChild(this.baseMenuAlignDistributed);
         group3row2.appendChild(this.baseMenuBlockQuote);
         group3row2.appendChild(this.baseMenuCodeBlock);
+
+        const group4 = document.createElement("div");
+        group4.classList.add("uai-ribbon-virtual-group");
+        this.ribbonMenuBaseGroup.appendChild(group4);
+
+        const headingContainer = document.createElement("div");
+        headingContainer.classList.add("uai-ribbon-heading-container")
+
+        const headingList = document.createElement("div");
+        headingList.classList.add("uai-ribbon-heading-list");
+
+        const headingArrow = document.createElement("div");
+        headingArrow.classList.add("uai-ribbon-heading-arrow");
+        headingArrow.innerHTML = Icons.ArrowDown;
+        headingArrow.addEventListener("click", () => {
+            headingContainer.style.height = "104px";
+        });
+        document.addEventListener('click', (event) => {
+            if (!headingContainer.contains(event.target as Node)) {
+                headingContainer.style.height = "56px";
+            }
+        });
+
+        this.headingOptions.forEach(headingOption => {
+            const item = headingOption.element;
+            item.classList.add("uai-ribbon-heading-item");
+
+            const title = document.createElement("div");
+            title.classList.add("uai-ribbon-heading-item-title");
+            title.classList.add(headingOption.desc);
+            title.innerHTML = headingOption.label;
+            const subtitle = document.createElement("div");
+            subtitle.classList.add("uai-ribbon-heading-item-subtitle");
+            subtitle.innerHTML = headingOption.desc
+            item.appendChild(title);
+            item.appendChild(subtitle);
+            item.addEventListener("click", () => {
+                if (headingOption.value === 'paragraph') {
+                    event.editor.chain().focus().setParagraph().run();
+                } else {
+                    event.editor.chain().focus().toggleHeading({ level: headingOption.value }).run();
+                }
+            });
+            headingList.appendChild(item);
+        })
+
+        headingContainer.appendChild(headingList);
+        headingContainer.appendChild(headingArrow);
+        group4.appendChild(headingContainer);
+
+        const group5 = document.createElement("div");
+        group5.classList.add("uai-ribbon-virtual-group");
+        this.ribbonMenuBaseGroup.appendChild(group5);
+        group5.appendChild(this.baseMenuPrint);
     }
 }

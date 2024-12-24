@@ -44,6 +44,7 @@ import { LineHeight } from "./base/LineHeight.ts";
 
 import { BlockQuote } from "./base/BlockQuote.ts";
 import { CodeBlock } from "./base/CodeBlock.ts";
+import { Print } from "./base/Print.ts";
 
 /**
  * 传统菜单栏
@@ -94,6 +95,7 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     baseMenuAlignDistributed!: AlignDistributed;
     baseMenuBlockQuote!: BlockQuote;
     baseMenuCodeBlock!: CodeBlock;
+    baseMenuPrint!: Print;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -255,6 +257,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
         this.baseMenuCodeBlock = new CodeBlock({ menuType: "button", enable: true });
         this.eventComponents.push(this.baseMenuCodeBlock);
+
+        this.baseMenuPrint = new Print({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.baseMenuPrint);
     }
     /**
      * 创建基础菜单
@@ -309,5 +314,10 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         group3.appendChild(this.baseMenuAlignDistributed);
         group3.appendChild(this.baseMenuBlockQuote);
         group3.appendChild(this.baseMenuCodeBlock);
+
+        const group4 = document.createElement("div");
+        group4.classList.add("uai-classic-virtual-group");
+        this.classicMenuBaseGroup.appendChild(group4);
+        group4.appendChild(this.baseMenuPrint);
     }
 }

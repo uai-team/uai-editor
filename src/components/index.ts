@@ -49,6 +49,8 @@ import { LineHeight } from "./menus/toolbar/base/LineHeight.ts";
 import { BlockQuote } from "./menus/toolbar/base/BlockQuote.ts";
 import { CodeBlock } from "./menus/toolbar/base/CodeBlock.ts";
 
+import { Print } from "./menus/toolbar/base/Print.ts";
+
 // 注册组件
 defineCustomElement('uai-editor-header', Header);
 defineCustomElement('uai-editor-editor', Editor);
@@ -97,3 +99,5 @@ defineCustomElement('uai-editor-base-menu-lineheight', LineHeight);
 
 defineCustomElement('uai-editor-base-menu-blockquote', BlockQuote);
 defineCustomElement('uai-editor-base-menu-codeblock', CodeBlock);
+
+defineCustomElement('uai-editor-base-menu-print', Print);
