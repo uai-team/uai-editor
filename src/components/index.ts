@@ -53,6 +53,7 @@ import { Print } from "./menus/toolbar/base/Print.ts";
 
 import { Link } from "./menus/toolbar/insert/Link.ts";
 import { Image } from "./menus/toolbar/insert/Image.ts";
+import { Video } from "./menus/toolbar/insert/Video.ts";
 
 // 注册组件
 defineCustomElement('uai-editor-header', Header);
@@ -107,3 +108,4 @@ defineCustomElement('uai-editor-base-menu-print', Print);
 
 defineCustomElement('uai-editor-insert-menu-link', Link);
 defineCustomElement('uai-editor-insert-menu-image', Image);
+defineCustomElement('uai-editor-insert-menu-video', Video);

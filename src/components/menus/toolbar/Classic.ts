@@ -48,6 +48,7 @@ import { Print } from "./base/Print.ts";
 
 import { Link } from "./insert/Link.ts";
 import { Image } from "./insert/Image.ts";
+import { Video } from "./insert/Video.ts";
 
 /**
  * 传统菜单栏
@@ -107,6 +108,7 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     // 插入菜单
     insertMenuLink!: Link;
     insertMenuImage!: Image;
+    insertMenuVideo!: Video;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -282,6 +284,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
         this.insertMenuImage = new Image({ menuType: "button", enable: true, header: "classic", hideText: false });
         this.eventComponents.push(this.insertMenuImage);
+
+        this.insertMenuVideo = new Video({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.insertMenuVideo);
     }
     /**
      * 创建基础菜单
@@ -361,5 +366,6 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         this.classicMenuInsertGroup.appendChild(group1);
         group1.appendChild(this.insertMenuLink);
         group1.appendChild(this.insertMenuImage);
+        group1.appendChild(this.insertMenuVideo);
     }
 }

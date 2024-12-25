@@ -88,6 +88,12 @@ export type UAIEditorOptions = {
         uploadFormName?: string,
         uploader?: Uploader,
     },
+    video?: {
+        uploadUrl?: string,
+        uploadHeaders?: (() => Record<string, any>) | Record<string, any>,
+        uploadFormName?: string,
+        uploader?: Uploader,
+    },
 }
 
 /**

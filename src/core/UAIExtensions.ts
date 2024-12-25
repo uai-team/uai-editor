@@ -25,6 +25,7 @@ import LineHeight from "../extensions/LineHeight.ts"
 import NodeAlign from "../extensions/NodeAlign.ts";
 import OrderedList from "../extensions/OrderedList.ts";
 import SelectFile from "../extensions/SelectFile.ts";
+import Video from "../extensions/Video.ts";
 
 /**
  * 定义编辑器的所有自定义扩展组件
@@ -67,6 +68,7 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
         }),
         TextStyle,
         Underline,
+        Video,
     ];
 
     return extensions;

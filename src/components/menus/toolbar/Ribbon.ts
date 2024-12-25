@@ -50,6 +50,7 @@ import { Print } from "./base/Print.ts";
 
 import { Link } from "./insert/Link.ts";
 import { Image } from "./insert/Image.ts";
+import { Video } from "./insert/Video.ts";
 
 /**
  * 经典菜单栏
@@ -110,6 +111,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     // 插入菜单
     insertMenuLink!: Link;
     insertMenuImage!: Image;
+    insertMenuVideo!: Video;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -305,6 +307,9 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
         this.insertMenuImage = new Image({ menuType: "button", enable: true, huge: true });
         this.eventComponents.push(this.insertMenuImage);
+
+        this.insertMenuVideo = new Video({ menuType: "button", enable: true, huge: true });
+        this.eventComponents.push(this.insertMenuVideo);
     }
 
     /**
@@ -458,5 +463,6 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         this.ribbonMenuInsertGroup.appendChild(group1);
         group1.appendChild(this.insertMenuLink);
         group1.appendChild(this.insertMenuImage);
+        group1.appendChild(this.insertMenuVideo);
     }
 }
