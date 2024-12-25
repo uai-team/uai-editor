@@ -5,7 +5,7 @@ import { EditorEvents } from "@tiptap/core";
 import { UAIEditorEventListener, UAIEditorOptions } from "../../../core/UAIEditor.ts";
 
 import { t } from "i18next";
-import { ScrollableDiv } from "./ScrollableDiv";
+import { ScrollableDiv } from "./ScrollableDiv.ts";
 import { Icons } from "../../Icons.ts";
 
 import { FontSizeIncrease } from "../common/FontSizeIncrease.ts";
@@ -48,7 +48,8 @@ import { CodeBlock } from "./base/CodeBlock.ts";
 
 import { Print } from "./base/Print.ts";
 
-import { Link } from "./insert/Link";
+import { Link } from "./insert/Link.ts";
+import { Image } from "./insert/Image.ts";
 
 /**
  * 经典菜单栏
@@ -108,6 +109,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
     // 插入菜单
     insertMenuLink!: Link;
+    insertMenuImage!: Image;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -300,6 +302,9 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
         this.insertMenuLink = new Link({ menuType: "button", enable: true, huge: true });
         this.eventComponents.push(this.insertMenuLink);
+
+        this.insertMenuImage = new Image({ menuType: "button", enable: true, huge: true });
+        this.eventComponents.push(this.insertMenuImage);
     }
 
     /**
@@ -452,5 +457,6 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         group1.classList.add("uai-ribbon-virtual-group");
         this.ribbonMenuInsertGroup.appendChild(group1);
         group1.appendChild(this.insertMenuLink);
+        group1.appendChild(this.insertMenuImage);
     }
 }

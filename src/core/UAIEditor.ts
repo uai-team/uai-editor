@@ -20,6 +20,7 @@ import i18next from "i18next";
 import { zh } from "../i18n/zh.ts";
 import { Resource } from "i18next";
 import { allExtensions } from "./UAIExtensions.ts";
+import { Uploader } from "../utils/FileUploader.ts";
 
 self.MonacoEnvironment = {
     getWorker(_workerId, _label) {
@@ -81,6 +82,12 @@ export type UAIEditorOptions = {
     theme?: "light" | "dark",
     lang?: string,
     i18n?: Record<string, Record<string, string>>,
+    image?: {
+        uploadUrl?: string,
+        uploadHeaders?: (() => Record<string, any>) | Record<string, any>,
+        uploadFormName?: string,
+        uploader?: Uploader,
+    },
 }
 
 /**

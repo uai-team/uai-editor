@@ -5,7 +5,7 @@ import { EditorEvents } from "@tiptap/core";
 import { UAIEditorEventListener, UAIEditorOptions } from "../../../core/UAIEditor.ts";
 
 import menuIcon from "../../../assets/icons/menu.svg";
-import { ScrollableDiv } from "./ScrollableDiv";
+import { ScrollableDiv } from "./ScrollableDiv.ts";
 
 import { FontSizeIncrease } from "../common/FontSizeIncrease.ts";
 import { FontSizeDecrease } from "../common/FontSizeDecrease.ts";
@@ -46,7 +46,8 @@ import { BlockQuote } from "./base/BlockQuote.ts";
 import { CodeBlock } from "./base/CodeBlock.ts";
 import { Print } from "./base/Print.ts";
 
-import { Link } from "./insert/Link";
+import { Link } from "./insert/Link.ts";
+import { Image } from "./insert/Image.ts";
 
 /**
  * 传统菜单栏
@@ -105,6 +106,7 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
     // 插入菜单
     insertMenuLink!: Link;
+    insertMenuImage!: Image;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -277,6 +279,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
         this.insertMenuLink = new Link({ menuType: "button", enable: true, header: "classic", hideText: false });
         this.eventComponents.push(this.insertMenuLink);
+
+        this.insertMenuImage = new Image({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.insertMenuImage);
     }
     /**
      * 创建基础菜单
@@ -355,5 +360,6 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         group1.classList.add("uai-classic-virtual-group");
         this.classicMenuInsertGroup.appendChild(group1);
         group1.appendChild(this.insertMenuLink);
+        group1.appendChild(this.insertMenuImage);
     }
 }

@@ -19,10 +19,12 @@ import { Underline } from "@tiptap/extension-underline";
 
 import BulletList from "../extensions/BulletList.ts";
 import FontSize from "../extensions/FontSize.ts";
+import Image from "../extensions/Image.ts";
 import Indent from "../extensions/Indent.ts";
 import LineHeight from "../extensions/LineHeight.ts"
 import NodeAlign from "../extensions/NodeAlign.ts";
 import OrderedList from "../extensions/OrderedList.ts";
+import SelectFile from "../extensions/SelectFile.ts";
 
 /**
  * 定义编辑器的所有自定义扩展组件
@@ -45,11 +47,15 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
         Highlight.configure({
             multicolor: true
         }),
+        Image,
         Indent,
         LineHeight,
         Link,
         NodeAlign,
         OrderedList,
+        SelectFile.configure({
+            allowedMimeTypes: []
+        }),
         Subscript,
         Superscript,
         TaskList,
