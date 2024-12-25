@@ -55,6 +55,7 @@ const mimeTypes: any = {
         'image/apng',
     ],
     video: ['video/mp4', 'video/webm', 'video/ogg'],
+    audio: ['audio/mp3', 'audio/wav', 'audio/ogg', 'audio/aac', 'audio/flac'],
 }
 
 /**
@@ -178,6 +179,26 @@ export default Node.create<SelectFileOptions>({
 
                             uploader = editorOptions.video?.uploader ?? Base64Uploader;
                             uploader(file, editorOptions.video?.uploadUrl, editorOptions.video?.uploadHeaders, editorOptions.video?.uploadFormName || "video")
+                                .then(json => {
+                                    view.dispatch(tr.setMeta(actionKey, { type: "remove", id }));
+                                    this.editor.commands.insertContentAt(tr.selection.from, {
+                                        type: autoType ? (previewType ?? 'file') : 'file',
+                                        attrs: {
+                                            [previewType === 'file' ? 'url' : 'src']: json.data.src,
+                                            name,
+                                            type,
+                                            size,
+                                            file,
+                                            previewType,
+                                        },
+                                    });
+                                });
+                        }
+                        // 音频
+                        if (type.startsWith('audio/') && mimeTypes.audio.includes(type)) {
+                            previewType = 'audio';
+                            uploader = editorOptions.audio?.uploader ?? Base64Uploader;
+                            uploader(file, editorOptions.audio?.uploadUrl, editorOptions.audio?.uploadHeaders, editorOptions.audio?.uploadFormName || "audio")
                                 .then(json => {
                                     view.dispatch(tr.setMeta(actionKey, { type: "remove", id }));
                                     this.editor.commands.insertContentAt(tr.selection.from, {

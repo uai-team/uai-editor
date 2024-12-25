@@ -94,6 +94,12 @@ export type UAIEditorOptions = {
         uploadFormName?: string,
         uploader?: Uploader,
     },
+    audio?: {
+        uploadUrl?: string,
+        uploadHeaders?: (() => Record<string, any>) | Record<string, any>,
+        uploadFormName?: string,
+        uploader?: Uploader,
+    },
 }
 
 /**
