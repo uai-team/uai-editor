@@ -50,6 +50,9 @@ import { Link } from "./insert/Link.ts";
 import { Image } from "./insert/Image.ts";
 import { Video } from "./insert/Video.ts";
 import { Audio } from "./insert/Audio.ts";
+import { HardBreak } from "./insert/HardBreak.ts";
+import { Emoji } from "./insert/Emoji.ts";
+import { Symbol } from "./insert/Symbol.ts";
 
 /**
  * 传统菜单栏
@@ -111,6 +114,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     insertMenuImage!: Image;
     insertMenuVideo!: Video;
     insertMenuAudio!: Audio;
+    insertMenuHardBreak!: HardBreak;
+    insertMenuEmoji!: Emoji;
+    insertMenuSymbol!: Symbol;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -292,6 +298,15 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
         this.insertMenuAudio = new Audio({ menuType: "button", enable: true, header: "classic", hideText: false });
         this.eventComponents.push(this.insertMenuAudio);
+
+        this.insertMenuHardBreak = new HardBreak({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.insertMenuHardBreak);
+
+        this.insertMenuEmoji = new Emoji({ menuType: "popup", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.insertMenuEmoji);
+
+        this.insertMenuSymbol = new Symbol({ menuType: "popup", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.insertMenuSymbol);
     }
     /**
      * 创建基础菜单
@@ -373,5 +388,12 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         group1.appendChild(this.insertMenuImage);
         group1.appendChild(this.insertMenuVideo);
         group1.appendChild(this.insertMenuAudio);
+
+        const group2 = document.createElement("div");
+        group2.classList.add("uai-classic-virtual-group");
+        this.classicMenuInsertGroup.appendChild(group2);
+        group2.appendChild(this.insertMenuHardBreak);
+        group2.appendChild(this.insertMenuEmoji);
+        group2.appendChild(this.insertMenuSymbol);
     }
 }

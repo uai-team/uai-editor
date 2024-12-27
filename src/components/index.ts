@@ -55,6 +55,9 @@ import { Link } from "./menus/toolbar/insert/Link.ts";
 import { Image } from "./menus/toolbar/insert/Image.ts";
 import { Video } from "./menus/toolbar/insert/Video.ts";
 import { Audio } from "./menus/toolbar/insert/Audio.ts";
+import { HardBreak } from "./menus/toolbar/insert/HardBreak.ts";
+import { Emoji } from "./menus/toolbar/insert/Emoji.ts";
+import { Symbol } from "./menus/toolbar/insert/Symbol.ts";
 
 // 注册组件
 defineCustomElement('uai-editor-header', Header);
@@ -111,3 +114,6 @@ defineCustomElement('uai-editor-insert-menu-link', Link);
 defineCustomElement('uai-editor-insert-menu-image', Image);
 defineCustomElement('uai-editor-insert-menu-video', Video);
 defineCustomElement('uai-editor-insert-menu-audio', Audio);
+defineCustomElement('uai-editor-insert-menu-hard-break', HardBreak);
+defineCustomElement('uai-editor-insert-menu-emoji', Emoji);
+defineCustomElement('uai-editor-insert-menu-symbol', Symbol);
