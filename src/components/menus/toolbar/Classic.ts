@@ -53,6 +53,7 @@ import { Audio } from "./insert/Audio.ts";
 import { HardBreak } from "./insert/HardBreak.ts";
 import { Emoji } from "./insert/Emoji.ts";
 import { Symbol } from "./insert/Symbol.ts";
+import { Math } from "./insert/Math.ts";
 
 /**
  * 传统菜单栏
@@ -117,6 +118,7 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     insertMenuHardBreak!: HardBreak;
     insertMenuEmoji!: Emoji;
     insertMenuSymbol!: Symbol;
+    insertMenuMath!: Math;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -307,6 +309,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
         this.insertMenuSymbol = new Symbol({ menuType: "popup", enable: true, header: "classic", hideText: false });
         this.eventComponents.push(this.insertMenuSymbol);
+
+        this.insertMenuMath = new Math({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.insertMenuMath);
     }
     /**
      * 创建基础菜单
@@ -395,5 +400,6 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         group2.appendChild(this.insertMenuHardBreak);
         group2.appendChild(this.insertMenuEmoji);
         group2.appendChild(this.insertMenuSymbol);
+        group2.appendChild(this.insertMenuMath);
     }
 }

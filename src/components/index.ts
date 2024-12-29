@@ -58,6 +58,7 @@ import { Audio } from "./menus/toolbar/insert/Audio.ts";
 import { HardBreak } from "./menus/toolbar/insert/HardBreak.ts";
 import { Emoji } from "./menus/toolbar/insert/Emoji.ts";
 import { Symbol } from "./menus/toolbar/insert/Symbol.ts";
+import { Math } from "./menus/toolbar/insert/Math.ts";
 
 // 注册组件
 defineCustomElement('uai-editor-header', Header);
@@ -117,3 +118,4 @@ defineCustomElement('uai-editor-insert-menu-audio', Audio);
 defineCustomElement('uai-editor-insert-menu-hard-break', HardBreak);
 defineCustomElement('uai-editor-insert-menu-emoji', Emoji);
 defineCustomElement('uai-editor-insert-menu-symbol', Symbol);
+defineCustomElement('uai-editor-insert-menu-math', Math);

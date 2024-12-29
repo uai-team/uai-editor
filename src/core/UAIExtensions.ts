@@ -17,6 +17,8 @@ import { TextAlign } from "@tiptap/extension-text-align";
 import { TextStyle } from "@tiptap/extension-text-style";
 import { Underline } from "@tiptap/extension-underline";
 
+import { Mathematics } from '@tiptap-pro/extension-mathematics';
+
 import BulletList from "../extensions/BulletList.ts";
 import FontSize from "../extensions/FontSize.ts";
 import Image from "../extensions/Image.ts";
@@ -54,6 +56,12 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
         Indent,
         LineHeight,
         Link,
+        Mathematics.configure({
+            shouldRender: (state, pos, node) => {
+                const $pos = state.doc.resolve(pos)
+                return node.type.name === 'text' && $pos.parent.type.name !== 'codeBlock'
+            }
+        }),
         NodeAlign,
         OrderedList,
         SelectFile.configure({
