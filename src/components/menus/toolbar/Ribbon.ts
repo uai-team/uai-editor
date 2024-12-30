@@ -56,6 +56,9 @@ import { HardBreak } from "./insert/HardBreak.ts";
 import { Emoji } from "./insert/Emoji.ts";
 import { Symbol } from "./insert/Symbol.ts";
 import { Math } from "./insert/Math.ts";
+import { Toc } from "./insert/Toc.ts";
+
+import { ToggleToc } from "./page/ToggleToc.ts";
 
 /**
  * 经典菜单栏
@@ -76,6 +79,10 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     // 插入菜单容器
     ribbonMenuInsertScrollable!: ScrollableDiv;
     ribbonMenuInsertGroup!: HTMLElement;
+
+    // 页面菜单容器
+    ribbonMenuPageScrollable!: ScrollableDiv;
+    ribbonMenuPageGroup!: HTMLElement;
 
     // 基础菜单
     baseMenuUndo!: Undo;
@@ -122,6 +129,10 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     insertMenuEmoji!: Emoji;
     insertMenuSymbol!: Symbol;
     insertMenuMath!: Math;
+    insertMenuToc!: Toc;
+
+    // 页面菜单
+    pageMenuToggleToc!: ToggleToc;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -161,11 +172,15 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
                 tab.classList.add("active");
                 this.ribbonMenuBaseScrollable.style.display = "none";
                 this.ribbonMenuInsertScrollable.style.display = "none";
+                this.ribbonMenuPageScrollable.style.display = "none";
                 if (menu.value === "base") {
                     this.ribbonMenuBaseScrollable.style.display = "flex";
                 }
                 if (menu.value === "insert") {
                     this.ribbonMenuInsertScrollable.style.display = "flex";
+                }
+                if (menu.value === "page") {
+                    this.ribbonMenuPageScrollable.style.display = "flex";
                 }
             })
             ribbonTabs.appendChild(tab);
@@ -186,6 +201,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         // 创建分组菜单
         this.createBaseMenu(event, options);
         this.createInsertMenu(event, options);
+        this.createPageMenu(event, options);
         this.ribbonMenuBaseScrollable.style.display = "flex";
     }
 
@@ -335,6 +351,12 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
         this.insertMenuMath = new Math({ menuType: "button", enable: true, huge: true });
         this.eventComponents.push(this.insertMenuMath);
+
+        this.insertMenuToc = new Toc({ menuType: "button", enable: true, huge: true });
+        this.eventComponents.push(this.insertMenuToc);
+
+        this.pageMenuToggleToc = new ToggleToc({ menuType: "button", enable: true, huge: true, hideText: false });
+        this.eventComponents.push(this.pageMenuToggleToc);
     }
 
     /**
@@ -498,5 +520,29 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         group2.appendChild(this.insertMenuEmoji);
         group2.appendChild(this.insertMenuSymbol);
         group2.appendChild(this.insertMenuMath);
+
+        const group3 = document.createElement("div");
+        group3.classList.add("uai-ribbon-virtual-group");
+        this.ribbonMenuInsertGroup.appendChild(group3);
+        group3.appendChild(this.insertMenuToc);
+    }
+
+    /**
+     * 创建页面菜单
+     * @param event 
+     * @param options 
+     */
+    createPageMenu(_event: EditorEvents["create"], _options: UAIEditorOptions) {
+        this.ribbonMenuPageGroup = document.createElement("div");
+        this.ribbonMenuPageGroup.classList.add("uai-ribbon-container");
+        this.ribbonMenuPageGroup.style.display = "flex";
+        this.ribbonMenuPageScrollable = new ScrollableDiv(this.ribbonMenuPageGroup);
+        this.ribbonMenuPageScrollable.style.display = "none";
+        this.ribbonScrollableContainer.appendChild(this.ribbonMenuPageScrollable);
+
+        const group1 = document.createElement("div");
+        group1.classList.add("uai-ribbon-virtual-group");
+        this.ribbonMenuPageGroup.appendChild(group1);
+        group1.appendChild(this.pageMenuToggleToc);
     }
 }

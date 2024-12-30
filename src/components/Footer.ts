@@ -4,14 +4,22 @@
 import { EditorEvents } from "@tiptap/core";
 import { UAIEditorEventListener, UAIEditorOptions } from "../core/UAIEditor.ts";
 
+import { ToggleToc } from "./menus/toolbar/page/ToggleToc";
+
 /**
  * 编辑器底部状态栏
  */
 export class Footer extends HTMLElement implements UAIEditorEventListener {
     container!: HTMLElement;
 
+    // 文档大纲
+    toggleToc!: ToggleToc;
+
     constructor() {
         super();
+
+        // 创建状态栏菜单
+        this.toggleToc = new ToggleToc({ menuType: "button", enable: true });
     }
 
     /**
@@ -20,6 +28,9 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
      * @param options 
      */
     onCreate(event: EditorEvents["create"], options: UAIEditorOptions) {
+        // 初始化状态栏菜单
+        this.toggleToc.onCreate(event, options);
+
         this.container = document.createElement("div");
         this.container.classList.add("uai-footer");
         this.appendChild(this.container);
@@ -38,6 +49,11 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
         const statusBarRight = document.createElement("div");
         statusBarRight.classList.add("uai-status-bar-right");
         statusBar.appendChild(statusBarRight);
+
+        this.toggleToc.classList.add("uai-status-bar-button");
+
+        // 状态栏中添加功能菜单按钮
+        statusBarLeft.appendChild(this.toggleToc);
     }
 
     /**
@@ -46,10 +62,10 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
      * @param options 
      */
     onTransaction(event: EditorEvents["transaction"], options: UAIEditorOptions) {
-
+        this.toggleToc.onTransaction(event, options);
     }
 
-    onEditableChange(_editable: boolean) {
-
+    onEditableChange(editable: boolean) {
+        this.toggleToc.onEditableChange(editable);
     }
 }

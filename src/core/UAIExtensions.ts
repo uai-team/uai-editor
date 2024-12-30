@@ -18,6 +18,7 @@ import { TextStyle } from "@tiptap/extension-text-style";
 import { Underline } from "@tiptap/extension-underline";
 
 import { Mathematics } from '@tiptap-pro/extension-mathematics';
+import { TableOfContents, getHierarchicalIndexes } from '@tiptap-pro/extension-table-of-contents'
 
 import BulletList from "../extensions/BulletList.ts";
 import FontSize from "../extensions/FontSize.ts";
@@ -29,6 +30,8 @@ import OrderedList from "../extensions/OrderedList.ts";
 import SelectFile from "../extensions/SelectFile.ts";
 import Video from "../extensions/Video.ts";
 import Audio from "../extensions/Audio.ts";
+import { uuid } from "../utils/UUID.ts";
+import Toc from "../extensions/Toc.ts";
 
 /**
  * 定义编辑器的所有自定义扩展组件
@@ -69,6 +72,18 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
         }),
         Subscript,
         Superscript,
+        TableOfContents.configure({
+            getIndex: getHierarchicalIndexes,
+            onUpdate: (content) => {
+                uaiEditor.tableOfContents = content;
+                uaiEditor.tocContainer.renderContents(uaiEditor);
+            },
+            scrollParent: () =>
+                document.querySelector(
+                    ".uai-main",
+                ) as HTMLElement,
+            getId: () => uuid(),
+        }),
         TaskList,
         TaskItem.configure({
             nested: true,
@@ -77,6 +92,7 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
             types: ['heading', 'paragraph'],
         }),
         TextStyle,
+        Toc,
         Underline,
         Video,
     ];

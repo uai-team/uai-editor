@@ -54,6 +54,9 @@ import { HardBreak } from "./insert/HardBreak.ts";
 import { Emoji } from "./insert/Emoji.ts";
 import { Symbol } from "./insert/Symbol.ts";
 import { Math } from "./insert/Math.ts";
+import { Toc } from "./insert/Toc.ts";
+
+import { ToggleToc } from "./page/ToggleToc.ts";
 
 /**
  * 传统菜单栏
@@ -73,6 +76,10 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     // 插入菜单容器
     classicMenuInsertScrollable!: ScrollableDiv;
     classicMenuInsertGroup!: HTMLElement;
+
+    // 页面菜单容器
+    classicMenuPageScrollable!: ScrollableDiv;
+    classicMenuPageGroup!: HTMLElement;
 
     // 基础菜单
     baseMenuUndo!: Undo;
@@ -119,6 +126,10 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     insertMenuEmoji!: Emoji;
     insertMenuSymbol!: Symbol;
     insertMenuMath!: Math;
+    insertMenuToc!: Toc;
+
+    // 页面菜单
+    pageMenuToggleToc!: ToggleToc;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -165,16 +176,21 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
             const menu = selectMuenus.selectedOptions[0].value;
             this.classicMenuBaseScrollable.style.display = "none";
             this.classicMenuInsertScrollable.style.display = "none";
+            this.classicMenuPageScrollable.style.display = "none";
             if (menu === "base") {
                 this.classicMenuBaseScrollable.style.display = "flex";
             }
             if (menu === "insert") {
                 this.classicMenuInsertScrollable.style.display = "flex";
             }
+            if (menu === "page") {
+                this.classicMenuPageScrollable.style.display = "flex";
+            }
         })
         // 创建分组菜单
         this.createBaseMenu(event, options);
         this.createInsertMenu(event, options);
+        this.createPageMenu(event, options);
         this.classicMenuBaseScrollable.style.display = "flex";
     }
 
@@ -312,6 +328,12 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
         this.insertMenuMath = new Math({ menuType: "button", enable: true, header: "classic", hideText: false });
         this.eventComponents.push(this.insertMenuMath);
+
+        this.insertMenuToc = new Toc({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.insertMenuToc);
+
+        this.pageMenuToggleToc = new ToggleToc({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.pageMenuToggleToc);
     }
     /**
      * 创建基础菜单
@@ -401,5 +423,29 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         group2.appendChild(this.insertMenuEmoji);
         group2.appendChild(this.insertMenuSymbol);
         group2.appendChild(this.insertMenuMath);
+
+        const group3 = document.createElement("div");
+        group3.classList.add("uai-classic-virtual-group");
+        this.classicMenuInsertGroup.appendChild(group3);
+        group3.appendChild(this.insertMenuToc);
+    }
+
+    /**
+     * 创建页面菜单
+     * @param event 
+     * @param options 
+     */
+    createPageMenu(event: EditorEvents["create"], options: UAIEditorOptions) {
+        this.classicMenuPageGroup = document.createElement("div");
+        this.classicMenuPageGroup.style.display = "flex";
+        this.classicMenuPageScrollable = new ScrollableDiv(this.classicMenuPageGroup);
+        this.classicMenuPageScrollable.style.display = "none";
+        this.classicMenu.appendChild(this.classicMenuPageScrollable);
+        this.classicMenuPageScrollable.onCreate(event, options);
+
+        const group1 = document.createElement("div");
+        group1.classList.add("uai-classic-virtual-group");
+        this.classicMenuPageGroup.appendChild(group1);
+        group1.appendChild(this.pageMenuToggleToc);
     }
 }

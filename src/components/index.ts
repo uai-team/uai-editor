@@ -5,6 +5,8 @@ import { Header } from "../components/Header.ts";
 import { Editor } from "../components/Editor.ts";
 import { Footer } from "../components/Footer.ts";
 
+import { TocContainer } from "../components/containers/TocContainer.ts";
+
 import { Ribbon } from "./menus/toolbar/Ribbon.ts";
 import { Classic } from "./menus/toolbar/Classic.ts";
 
@@ -59,11 +61,16 @@ import { HardBreak } from "./menus/toolbar/insert/HardBreak.ts";
 import { Emoji } from "./menus/toolbar/insert/Emoji.ts";
 import { Symbol } from "./menus/toolbar/insert/Symbol.ts";
 import { Math } from "./menus/toolbar/insert/Math.ts";
+import { Toc } from "./menus/toolbar/insert/Toc.ts";
+
+import { ToggleToc } from "./menus/toolbar/page/ToggleToc.ts";
 
 // 注册组件
 defineCustomElement('uai-editor-header', Header);
 defineCustomElement('uai-editor-editor', Editor);
 defineCustomElement('uai-editor-footer', Footer);
+
+defineCustomElement('uai-editor-toc-container', TocContainer);
 
 defineCustomElement('uai-editor-ribbon-menu', Ribbon);
 defineCustomElement('uai-editor-classic-menu', Classic);
@@ -119,3 +126,6 @@ defineCustomElement('uai-editor-insert-menu-hard-break', HardBreak);
 defineCustomElement('uai-editor-insert-menu-emoji', Emoji);
 defineCustomElement('uai-editor-insert-menu-symbol', Symbol);
 defineCustomElement('uai-editor-insert-menu-math', Math);
+defineCustomElement('uai-editor-insert-menu-toc', Toc);
+
+defineCustomElement('uai-editor-page-menu-toggle-toc', ToggleToc);

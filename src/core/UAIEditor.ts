@@ -7,8 +7,12 @@ import {
 } from "@tiptap/core";
 
 import { DOMParser } from "@tiptap/pm/model";
+
+import { TableOfContentData } from "@tiptap-pro/extension-table-of-contents";
+
 import "../components"
 import { Header } from "../components/Header.ts";
+import { TocContainer } from "../components/containers/TocContainer.ts";
 import { Editor } from "../components/Editor.ts";
 import { Footer } from "../components/Footer.ts";
 import * as monaco from 'monaco-editor';
@@ -128,9 +132,11 @@ export class UAIEditor {
     toggleContainers: HTMLElement[] = [];
 
     header!: Header;
+    tocContainer!: TocContainer;
     editor!: Editor;
     footer!: Footer;
     source!: HTMLElement;
+    tableOfContents?: TableOfContentData;
     sourceEditor!: monaco.editor.IStandaloneCodeEditor;
 
     constructor(customOptions: UAIEditorOptions) {
@@ -256,6 +262,11 @@ export class UAIEditor {
         this.center.style.height = "10vh";
         this.center.style.flex = "1";
 
+        this.tocContainer = new TocContainer();
+        this.tocContainer.style.display = "none";
+        this.center.appendChild(this.tocContainer);
+        this.toggleContainers.push(this.tocContainer);
+
         this.editor = new Editor();
         this.editor.classList.add("uai-main");
         this.center.appendChild(this.editor);
@@ -317,6 +328,7 @@ export class UAIEditor {
             this.options.onCreated(this);
         }
         this.header.onCreate(event, this.options);
+        this.tocContainer.onCreate(event, this.options);
         this.editor.onCreate(event, this.options);
         this.footer.onCreate(event, this.options);
         this.eventComponents.forEach(component => {
@@ -328,9 +340,10 @@ export class UAIEditor {
         this.header.onTransaction(event, this.options);
         this.editor.onTransaction(event, this.options);
         this.footer.onTransaction(event, this.options);
+        this.tocContainer.onTransaction(event, this.options);
         this.eventComponents.forEach(component => {
             component.onTransaction(event, this.options);
-        })
+        });
     }
 
     switchEditor() {

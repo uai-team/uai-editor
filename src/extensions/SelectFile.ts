@@ -5,7 +5,7 @@ import { Plugin, PluginKey, TextSelection } from '@tiptap/pm/state';
 import { Decoration, DecorationSet } from '@tiptap/pm/view';
 import { InnerEditor } from '../core/UAIEditor.ts';
 import { Base64Uploader } from '../utils/FileUploader.ts';
-import { uuid } from '../utils/uuid.ts';
+import { uuid } from '../utils/UUID.ts';
 import { Icons } from '../components/Icons.ts';
 
 export type DecorationWaitingAction = {
