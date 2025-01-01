@@ -63,6 +63,15 @@ import { Symbol } from "./menus/toolbar/insert/Symbol.ts";
 import { Math } from "./menus/toolbar/insert/Math.ts";
 import { Toc } from "./menus/toolbar/insert/Toc.ts";
 
+import { InsertTable } from "./menus/toolbar/table/InsertTable.ts";
+import { AddColumnAfter } from "./menus/toolbar/table/AddColumnAfter.ts";
+import { AddColumnBefore } from "./menus/toolbar/table/AddColumnBefore.ts";
+import { AddRowAfter } from "./menus/toolbar/table/AddRowAfter.ts";
+import { AddRowBefore } from "./menus/toolbar/table/AddRowBefore.ts";
+import { DeleteColumn } from "./menus/toolbar/table/DeleteColumn.ts";
+import { DeleteRow } from "./menus/toolbar/table/DeleteRow.ts";
+import { DeleteTable } from "./menus/toolbar/table/DeleteTable.ts";
+
 import { ToggleToc } from "./menus/toolbar/page/ToggleToc.ts";
 
 // 注册组件
@@ -127,5 +136,14 @@ defineCustomElement('uai-editor-insert-menu-emoji', Emoji);
 defineCustomElement('uai-editor-insert-menu-symbol', Symbol);
 defineCustomElement('uai-editor-insert-menu-math', Math);
 defineCustomElement('uai-editor-insert-menu-toc', Toc);
+
+defineCustomElement('uai-editor-table-menu-insert-table', InsertTable);
+defineCustomElement('uai-editor-table-menu-add-column-after', AddColumnAfter);
+defineCustomElement('uai-editor-table-menu-add-column-before', AddColumnBefore);
+defineCustomElement('uai-editor-table-menu-delete-column', DeleteColumn);
+defineCustomElement('uai-editor-table-menu-add-row-after', AddRowAfter);
+defineCustomElement('uai-editor-table-menu-add-row-before', AddRowBefore);
+defineCustomElement('uai-editor-table-menu-delete-row', DeleteRow);
+defineCustomElement('uai-editor-table-menu-delete-table', DeleteTable);
 
 defineCustomElement('uai-editor-page-menu-toggle-toc', ToggleToc);

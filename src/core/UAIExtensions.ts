@@ -11,6 +11,10 @@ import { Highlight } from "@tiptap/extension-highlight";
 import { Link } from "@tiptap/extension-link";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
+import { Table } from "@tiptap/extension-table";
+import { TableCell } from "@tiptap/extension-table-cell";
+import { TableHeader } from "@tiptap/extension-table-header";
+import { TableRow } from "@tiptap/extension-table-row";
 import { TaskItem } from "@tiptap/extension-task-item";
 import { TaskList } from "@tiptap/extension-task-list";
 import { TextAlign } from "@tiptap/extension-text-align";
@@ -72,6 +76,14 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
         }),
         Subscript,
         Superscript,
+        Table.configure({
+            resizable: true,
+            lastColumnResizable: true,
+            allowTableNodeSelection: true,
+        }),
+        TableCell,
+        TableHeader,
+        TableRow,
         TableOfContents.configure({
             getIndex: getHierarchicalIndexes,
             onUpdate: (content) => {

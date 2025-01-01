@@ -58,6 +58,15 @@ import { Symbol } from "./insert/Symbol.ts";
 import { Math } from "./insert/Math.ts";
 import { Toc } from "./insert/Toc.ts";
 
+import { InsertTable } from "./table/InsertTable.ts";
+import { AddColumnAfter } from "./table/AddColumnAfter.ts";
+import { AddColumnBefore } from "./table/AddColumnBefore.ts";
+import { DeleteColumn } from "./table/DeleteColumn.ts";
+import { AddRowAfter } from "./table/AddRowAfter.ts";
+import { AddRowBefore } from "./table/AddRowBefore.ts";
+import { DeleteRow } from "./table/DeleteRow.ts";
+import { DeleteTable } from "./table/DeleteTable.ts";
+
 import { ToggleToc } from "./page/ToggleToc.ts";
 
 /**
@@ -79,6 +88,10 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     // 插入菜单容器
     ribbonMenuInsertScrollable!: ScrollableDiv;
     ribbonMenuInsertGroup!: HTMLElement;
+
+    // 表格菜单容器
+    ribbonMenuTableScrollable!: ScrollableDiv;
+    ribbonMenuTableGroup!: HTMLElement;
 
     // 页面菜单容器
     ribbonMenuPageScrollable!: ScrollableDiv;
@@ -131,6 +144,16 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     insertMenuMath!: Math;
     insertMenuToc!: Toc;
 
+    // 表格菜单
+    tableMenuInsertTable!: InsertTable;
+    tableMenuAddColumnAfter!: AddColumnAfter;
+    tableMenuAddColumnBefore!: AddColumnBefore;
+    tableMenuDeleteColumn!: DeleteColumn;
+    tableMenuAddRowAfter!: AddRowAfter;
+    tableMenuAddRowBefore!: AddRowBefore;
+    tableMenuDeleteRow!: DeleteRow;
+    tableMenuDeleteTable!: DeleteTable;
+
     // 页面菜单
     pageMenuToggleToc!: ToggleToc;
 
@@ -172,12 +195,16 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
                 tab.classList.add("active");
                 this.ribbonMenuBaseScrollable.style.display = "none";
                 this.ribbonMenuInsertScrollable.style.display = "none";
+                this.ribbonMenuTableScrollable.style.display = "none";
                 this.ribbonMenuPageScrollable.style.display = "none";
                 if (menu.value === "base") {
                     this.ribbonMenuBaseScrollable.style.display = "flex";
                 }
                 if (menu.value === "insert") {
                     this.ribbonMenuInsertScrollable.style.display = "flex";
+                }
+                if (menu.value === "table") {
+                    this.ribbonMenuTableScrollable.style.display = "flex";
                 }
                 if (menu.value === "page") {
                     this.ribbonMenuPageScrollable.style.display = "flex";
@@ -201,6 +228,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         // 创建分组菜单
         this.createBaseMenu(event, options);
         this.createInsertMenu(event, options);
+        this.createTableMenu(event, options);
         this.createPageMenu(event, options);
         this.ribbonMenuBaseScrollable.style.display = "flex";
     }
@@ -354,6 +382,30 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
         this.insertMenuToc = new Toc({ menuType: "button", enable: true, huge: true });
         this.eventComponents.push(this.insertMenuToc);
+
+        this.tableMenuInsertTable = new InsertTable({ menuType: "popup", enable: true, huge: true, hideText: false });
+        this.eventComponents.push(this.tableMenuInsertTable);
+
+        this.tableMenuAddColumnAfter = new AddColumnAfter({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.tableMenuAddColumnAfter);
+
+        this.tableMenuAddColumnBefore = new AddColumnBefore({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.tableMenuAddColumnBefore);
+
+        this.tableMenuDeleteColumn = new DeleteColumn({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.tableMenuDeleteColumn);
+
+        this.tableMenuAddRowAfter = new AddRowAfter({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.tableMenuAddRowAfter);
+
+        this.tableMenuAddRowBefore = new AddRowBefore({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.tableMenuAddRowBefore);
+
+        this.tableMenuDeleteRow = new DeleteRow({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.tableMenuDeleteRow);
+
+        this.tableMenuDeleteTable = new DeleteTable({ menuType: "button", enable: true, huge: true, hideText: false });
+        this.eventComponents.push(this.tableMenuDeleteTable);
 
         this.pageMenuToggleToc = new ToggleToc({ menuType: "button", enable: true, huge: true, hideText: false });
         this.eventComponents.push(this.pageMenuToggleToc);
@@ -525,6 +577,48 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         group3.classList.add("uai-ribbon-virtual-group");
         this.ribbonMenuInsertGroup.appendChild(group3);
         group3.appendChild(this.insertMenuToc);
+    }
+
+    /**
+     * 创建表格菜单
+     * @param event 
+     * @param options 
+     */
+    createTableMenu(_event: EditorEvents["create"], _options: UAIEditorOptions) {
+        this.ribbonMenuTableGroup = document.createElement("div");
+        this.ribbonMenuTableGroup.classList.add("uai-ribbon-container");
+        this.ribbonMenuTableGroup.style.display = "flex";
+        this.ribbonMenuTableScrollable = new ScrollableDiv(this.ribbonMenuTableGroup);
+        this.ribbonMenuTableScrollable.style.display = "none";
+        this.ribbonScrollableContainer.appendChild(this.ribbonMenuTableScrollable);
+
+        const group1 = document.createElement("div");
+        group1.classList.add("uai-ribbon-virtual-group");
+        this.ribbonMenuTableGroup.appendChild(group1);
+        group1.appendChild(this.tableMenuInsertTable);
+
+        const group2 = document.createElement("div");
+        group2.classList.add("uai-ribbon-virtual-group");
+        this.ribbonMenuTableGroup.appendChild(group2);
+
+        const group2row1 = document.createElement("div");
+        group2row1.classList.add("uai-ribbon-virtual-group-row");
+        group2.appendChild(group2row1);
+        group2row1.appendChild(this.tableMenuAddColumnBefore);
+        group2row1.appendChild(this.tableMenuAddColumnAfter);
+        group2row1.appendChild(this.tableMenuDeleteColumn);
+
+        const group2row2 = document.createElement("div");
+        group2row2.classList.add("uai-ribbon-virtual-group-row");
+        group2.appendChild(group2row2);
+        group2row2.appendChild(this.tableMenuAddRowBefore);
+        group2row2.appendChild(this.tableMenuAddRowAfter);
+        group2row2.appendChild(this.tableMenuDeleteRow);
+
+        const group3 = document.createElement("div");
+        group3.classList.add("uai-ribbon-virtual-group");
+        this.ribbonMenuTableGroup.appendChild(group3);
+        group3.appendChild(this.tableMenuDeleteTable);
     }
 
     /**

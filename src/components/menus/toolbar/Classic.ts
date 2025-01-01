@@ -56,6 +56,15 @@ import { Symbol } from "./insert/Symbol.ts";
 import { Math } from "./insert/Math.ts";
 import { Toc } from "./insert/Toc.ts";
 
+import { InsertTable } from "./table/InsertTable.ts";
+import { AddColumnAfter } from "./table/AddColumnAfter.ts";
+import { AddColumnBefore } from "./table/AddColumnBefore.ts";
+import { DeleteColumn } from "./table/DeleteColumn.ts";
+import { AddRowAfter } from "./table/AddRowAfter.ts";
+import { AddRowBefore } from "./table/AddRowBefore.ts";
+import { DeleteRow } from "./table/DeleteRow.ts";
+import { DeleteTable } from "./table/DeleteTable.ts";
+
 import { ToggleToc } from "./page/ToggleToc.ts";
 
 /**
@@ -76,6 +85,10 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     // 插入菜单容器
     classicMenuInsertScrollable!: ScrollableDiv;
     classicMenuInsertGroup!: HTMLElement;
+
+    // 表格菜单容器
+    classicMenuTableScrollable!: ScrollableDiv;
+    classicMenuTableGroup!: HTMLElement;
 
     // 页面菜单容器
     classicMenuPageScrollable!: ScrollableDiv;
@@ -128,6 +141,16 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     insertMenuMath!: Math;
     insertMenuToc!: Toc;
 
+    // 表格菜单
+    tableMenuInsertTable!: InsertTable;
+    tableMenuAddColumnAfter!: AddColumnAfter;
+    tableMenuAddColumnBefore!: AddColumnBefore;
+    tableMenuDeleteColumn!: DeleteColumn;
+    tableMenuAddRowAfter!: AddRowAfter;
+    tableMenuAddRowBefore!: AddRowBefore;
+    tableMenuDeleteRow!: DeleteRow;
+    tableMenuDeleteTable!: DeleteTable;
+
     // 页面菜单
     pageMenuToggleToc!: ToggleToc;
 
@@ -176,12 +199,16 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
             const menu = selectMuenus.selectedOptions[0].value;
             this.classicMenuBaseScrollable.style.display = "none";
             this.classicMenuInsertScrollable.style.display = "none";
+            this.classicMenuTableScrollable.style.display = "none";
             this.classicMenuPageScrollable.style.display = "none";
             if (menu === "base") {
                 this.classicMenuBaseScrollable.style.display = "flex";
             }
             if (menu === "insert") {
                 this.classicMenuInsertScrollable.style.display = "flex";
+            }
+            if (menu === "table") {
+                this.classicMenuTableScrollable.style.display = "flex";
             }
             if (menu === "page") {
                 this.classicMenuPageScrollable.style.display = "flex";
@@ -190,6 +217,7 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         // 创建分组菜单
         this.createBaseMenu(event, options);
         this.createInsertMenu(event, options);
+        this.createTableMenu(event, options);
         this.createPageMenu(event, options);
         this.classicMenuBaseScrollable.style.display = "flex";
     }
@@ -332,6 +360,30 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         this.insertMenuToc = new Toc({ menuType: "button", enable: true, header: "classic", hideText: false });
         this.eventComponents.push(this.insertMenuToc);
 
+        this.tableMenuInsertTable = new InsertTable({ menuType: "popup", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.tableMenuInsertTable);
+
+        this.tableMenuAddColumnAfter = new AddColumnAfter({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.tableMenuAddColumnAfter);
+
+        this.tableMenuAddColumnBefore = new AddColumnBefore({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.tableMenuAddColumnBefore);
+
+        this.tableMenuDeleteColumn = new DeleteColumn({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.tableMenuDeleteColumn);
+
+        this.tableMenuAddRowAfter = new AddRowAfter({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.tableMenuAddRowAfter);
+
+        this.tableMenuAddRowBefore = new AddRowBefore({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.tableMenuAddRowBefore);
+
+        this.tableMenuDeleteRow = new DeleteRow({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.tableMenuDeleteRow);
+
+        this.tableMenuDeleteTable = new DeleteTable({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.tableMenuDeleteTable);
+
         this.pageMenuToggleToc = new ToggleToc({ menuType: "button", enable: true, header: "classic", hideText: false });
         this.eventComponents.push(this.pageMenuToggleToc);
     }
@@ -428,6 +480,40 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         group3.classList.add("uai-classic-virtual-group");
         this.classicMenuInsertGroup.appendChild(group3);
         group3.appendChild(this.insertMenuToc);
+    }
+
+    /**
+     * 创建表格菜单
+     * @param event 
+     * @param options 
+     */
+    createTableMenu(event: EditorEvents["create"], options: UAIEditorOptions) {
+        this.classicMenuTableGroup = document.createElement("div");
+        this.classicMenuTableGroup.style.display = "flex";
+        this.classicMenuTableScrollable = new ScrollableDiv(this.classicMenuTableGroup);
+        this.classicMenuTableScrollable.style.display = "none";
+        this.classicMenu.appendChild(this.classicMenuTableScrollable);
+        this.classicMenuTableScrollable.onCreate(event, options);
+
+        const group1 = document.createElement("div");
+        group1.classList.add("uai-classic-virtual-group");
+        this.classicMenuTableGroup.appendChild(group1);
+        group1.appendChild(this.tableMenuInsertTable);
+
+        const group2 = document.createElement("div");
+        group2.classList.add("uai-classic-virtual-group");
+        this.classicMenuTableGroup.appendChild(group2);
+        group2.appendChild(this.tableMenuAddColumnBefore);
+        group2.appendChild(this.tableMenuAddColumnAfter);
+        group2.appendChild(this.tableMenuDeleteColumn);
+        group2.appendChild(this.tableMenuAddRowBefore);
+        group2.appendChild(this.tableMenuAddRowAfter);
+        group2.appendChild(this.tableMenuDeleteRow);
+
+        const group3 = document.createElement("div");
+        group3.classList.add("uai-classic-virtual-group");
+        this.classicMenuTableGroup.appendChild(group3);
+        group3.appendChild(this.tableMenuDeleteTable);
     }
 
     /**
