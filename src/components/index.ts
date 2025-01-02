@@ -72,6 +72,8 @@ import { DeleteColumn } from "./menus/toolbar/table/DeleteColumn.ts";
 import { DeleteRow } from "./menus/toolbar/table/DeleteRow.ts";
 import { DeleteTable } from "./menus/toolbar/table/DeleteTable.ts";
 
+import { Diagrams } from "./menus/toolbar/tools/Diagrams.ts";
+
 import { ToggleToc } from "./menus/toolbar/page/ToggleToc.ts";
 
 // 注册组件
@@ -145,5 +147,7 @@ defineCustomElement('uai-editor-table-menu-add-row-after', AddRowAfter);
 defineCustomElement('uai-editor-table-menu-add-row-before', AddRowBefore);
 defineCustomElement('uai-editor-table-menu-delete-row', DeleteRow);
 defineCustomElement('uai-editor-table-menu-delete-table', DeleteTable);
+
+defineCustomElement('uai-editor-tools-menu-diagrams', Diagrams);
 
 defineCustomElement('uai-editor-page-menu-toggle-toc', ToggleToc);

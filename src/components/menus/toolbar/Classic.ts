@@ -65,6 +65,8 @@ import { AddRowBefore } from "./table/AddRowBefore.ts";
 import { DeleteRow } from "./table/DeleteRow.ts";
 import { DeleteTable } from "./table/DeleteTable.ts";
 
+import { Diagrams } from "./tools/Diagrams.ts";
+
 import { ToggleToc } from "./page/ToggleToc.ts";
 
 /**
@@ -89,6 +91,10 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     // 表格菜单容器
     classicMenuTableScrollable!: ScrollableDiv;
     classicMenuTableGroup!: HTMLElement;
+
+    // 工具菜单容器
+    classicMenuToolScrollable!: ScrollableDiv;
+    classicMenuToolGroup!: HTMLElement;
 
     // 页面菜单容器
     classicMenuPageScrollable!: ScrollableDiv;
@@ -151,6 +157,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     tableMenuDeleteRow!: DeleteRow;
     tableMenuDeleteTable!: DeleteTable;
 
+    // 工具菜单
+    toolsMenuDiagrams!: Diagrams;
+
     // 页面菜单
     pageMenuToggleToc!: ToggleToc;
 
@@ -200,6 +209,7 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
             this.classicMenuBaseScrollable.style.display = "none";
             this.classicMenuInsertScrollable.style.display = "none";
             this.classicMenuTableScrollable.style.display = "none";
+            this.classicMenuToolScrollable.style.display = "none";
             this.classicMenuPageScrollable.style.display = "none";
             if (menu === "base") {
                 this.classicMenuBaseScrollable.style.display = "flex";
@@ -210,6 +220,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
             if (menu === "table") {
                 this.classicMenuTableScrollable.style.display = "flex";
             }
+            if (menu === "tools") {
+                this.classicMenuToolScrollable.style.display = "flex";
+            }
             if (menu === "page") {
                 this.classicMenuPageScrollable.style.display = "flex";
             }
@@ -218,6 +231,7 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         this.createBaseMenu(event, options);
         this.createInsertMenu(event, options);
         this.createTableMenu(event, options);
+        this.createToolMenu(event, options);
         this.createPageMenu(event, options);
         this.classicMenuBaseScrollable.style.display = "flex";
     }
@@ -384,6 +398,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         this.tableMenuDeleteTable = new DeleteTable({ menuType: "button", enable: true, header: "classic", hideText: false });
         this.eventComponents.push(this.tableMenuDeleteTable);
 
+        this.toolsMenuDiagrams = new Diagrams({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.toolsMenuDiagrams);
+
         this.pageMenuToggleToc = new ToggleToc({ menuType: "button", enable: true, header: "classic", hideText: false });
         this.eventComponents.push(this.pageMenuToggleToc);
     }
@@ -514,6 +531,25 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         group3.classList.add("uai-classic-virtual-group");
         this.classicMenuTableGroup.appendChild(group3);
         group3.appendChild(this.tableMenuDeleteTable);
+    }
+
+    /**
+     * 创建工具菜单
+     * @param event 
+     * @param options 
+     */
+    createToolMenu(event: EditorEvents["create"], options: UAIEditorOptions) {
+        this.classicMenuToolGroup = document.createElement("div");
+        this.classicMenuToolGroup.style.display = "flex";
+        this.classicMenuToolScrollable = new ScrollableDiv(this.classicMenuToolGroup);
+        this.classicMenuToolScrollable.style.display = "none";
+        this.classicMenu.appendChild(this.classicMenuToolScrollable);
+        this.classicMenuToolScrollable.onCreate(event, options);
+
+        const group1 = document.createElement("div");
+        group1.classList.add("uai-classic-virtual-group");
+        this.classicMenuToolGroup.appendChild(group1);
+        group1.appendChild(this.toolsMenuDiagrams);
     }
 
     /**

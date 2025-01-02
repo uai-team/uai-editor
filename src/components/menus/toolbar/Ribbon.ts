@@ -67,6 +67,8 @@ import { AddRowBefore } from "./table/AddRowBefore.ts";
 import { DeleteRow } from "./table/DeleteRow.ts";
 import { DeleteTable } from "./table/DeleteTable.ts";
 
+import { Diagrams } from "./tools/Diagrams.ts";
+
 import { ToggleToc } from "./page/ToggleToc.ts";
 
 /**
@@ -92,6 +94,10 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     // 表格菜单容器
     ribbonMenuTableScrollable!: ScrollableDiv;
     ribbonMenuTableGroup!: HTMLElement;
+
+    // 工具菜单容器
+    ribbonMenuToolScrollable!: ScrollableDiv;
+    ribbonMenuToolGroup!: HTMLElement;
 
     // 页面菜单容器
     ribbonMenuPageScrollable!: ScrollableDiv;
@@ -154,6 +160,9 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     tableMenuDeleteRow!: DeleteRow;
     tableMenuDeleteTable!: DeleteTable;
 
+    // 工具菜单
+    toolsMenuDiagrams!: Diagrams;
+
     // 页面菜单
     pageMenuToggleToc!: ToggleToc;
 
@@ -196,6 +205,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
                 this.ribbonMenuBaseScrollable.style.display = "none";
                 this.ribbonMenuInsertScrollable.style.display = "none";
                 this.ribbonMenuTableScrollable.style.display = "none";
+                this.ribbonMenuToolScrollable.style.display = "none";
                 this.ribbonMenuPageScrollable.style.display = "none";
                 if (menu.value === "base") {
                     this.ribbonMenuBaseScrollable.style.display = "flex";
@@ -205,6 +215,9 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
                 }
                 if (menu.value === "table") {
                     this.ribbonMenuTableScrollable.style.display = "flex";
+                }
+                if (menu.value === "tools") {
+                    this.ribbonMenuToolScrollable.style.display = "flex";
                 }
                 if (menu.value === "page") {
                     this.ribbonMenuPageScrollable.style.display = "flex";
@@ -229,6 +242,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         this.createBaseMenu(event, options);
         this.createInsertMenu(event, options);
         this.createTableMenu(event, options);
+        this.createToolMenu(event, options);
         this.createPageMenu(event, options);
         this.ribbonMenuBaseScrollable.style.display = "flex";
     }
@@ -406,6 +420,9 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
         this.tableMenuDeleteTable = new DeleteTable({ menuType: "button", enable: true, huge: true, hideText: false });
         this.eventComponents.push(this.tableMenuDeleteTable);
+
+        this.toolsMenuDiagrams = new Diagrams({ menuType: "button", enable: true, huge: true, hideText: false });
+        this.eventComponents.push(this.toolsMenuDiagrams);
 
         this.pageMenuToggleToc = new ToggleToc({ menuType: "button", enable: true, huge: true, hideText: false });
         this.eventComponents.push(this.pageMenuToggleToc);
@@ -619,6 +636,25 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         group3.classList.add("uai-ribbon-virtual-group");
         this.ribbonMenuTableGroup.appendChild(group3);
         group3.appendChild(this.tableMenuDeleteTable);
+    }
+
+    /**
+     * 创建工具菜单
+     * @param event 
+     * @param options 
+     */
+    createToolMenu(_event: EditorEvents["create"], _options: UAIEditorOptions) {
+        this.ribbonMenuToolGroup = document.createElement("div");
+        this.ribbonMenuToolGroup.classList.add("uai-ribbon-container");
+        this.ribbonMenuToolGroup.style.display = "flex";
+        this.ribbonMenuToolScrollable = new ScrollableDiv(this.ribbonMenuToolGroup);
+        this.ribbonMenuToolScrollable.style.display = "none";
+        this.ribbonScrollableContainer.appendChild(this.ribbonMenuToolScrollable);
+
+        const group1 = document.createElement("div");
+        group1.classList.add("uai-ribbon-virtual-group");
+        this.ribbonMenuToolGroup.appendChild(group1);
+        group1.appendChild(this.toolsMenuDiagrams);
     }
 
     /**
