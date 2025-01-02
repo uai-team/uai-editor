@@ -70,6 +70,7 @@ import { DeleteTable } from "./table/DeleteTable.ts";
 import { Diagrams } from "./tools/Diagrams.ts";
 
 import { ToggleToc } from "./page/ToggleToc.ts";
+import { BackgroundColor } from "./page/BackgroundColor.ts";
 
 /**
  * 经典菜单栏
@@ -165,6 +166,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
     // 页面菜单
     pageMenuToggleToc!: ToggleToc;
+    pageMenuBackgroundColor!: BackgroundColor;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -426,6 +428,9 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
         this.pageMenuToggleToc = new ToggleToc({ menuType: "button", enable: true, huge: true, hideText: false });
         this.eventComponents.push(this.pageMenuToggleToc);
+
+        this.pageMenuBackgroundColor = new BackgroundColor({ menuType: "popup", enable: true, huge: true, hideText: false });
+        this.eventComponents.push(this.pageMenuBackgroundColor);
     }
 
     /**
@@ -674,5 +679,10 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         group1.classList.add("uai-ribbon-virtual-group");
         this.ribbonMenuPageGroup.appendChild(group1);
         group1.appendChild(this.pageMenuToggleToc);
+
+        const group2 = document.createElement("div");
+        group2.classList.add("uai-ribbon-virtual-group");
+        this.ribbonMenuPageGroup.appendChild(group2);
+        group2.appendChild(this.pageMenuBackgroundColor);
     }
 }

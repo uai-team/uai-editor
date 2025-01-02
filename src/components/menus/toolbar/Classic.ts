@@ -68,6 +68,7 @@ import { DeleteTable } from "./table/DeleteTable.ts";
 import { Diagrams } from "./tools/Diagrams.ts";
 
 import { ToggleToc } from "./page/ToggleToc.ts";
+import { BackgroundColor } from "./page/BackgroundColor.ts";
 
 /**
  * 传统菜单栏
@@ -162,6 +163,7 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
     // 页面菜单
     pageMenuToggleToc!: ToggleToc;
+    pageMenuBackgroundColor!: BackgroundColor;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -403,6 +405,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
         this.pageMenuToggleToc = new ToggleToc({ menuType: "button", enable: true, header: "classic", hideText: false });
         this.eventComponents.push(this.pageMenuToggleToc);
+
+        this.pageMenuBackgroundColor = new BackgroundColor({ menuType: "popup", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.pageMenuBackgroundColor);
     }
     /**
      * 创建基础菜单
@@ -569,5 +574,10 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         group1.classList.add("uai-classic-virtual-group");
         this.classicMenuPageGroup.appendChild(group1);
         group1.appendChild(this.pageMenuToggleToc);
+
+        const group2 = document.createElement("div");
+        group2.classList.add("uai-classic-virtual-group");
+        this.classicMenuPageGroup.appendChild(group2);
+        group2.appendChild(this.pageMenuBackgroundColor);
     }
 }

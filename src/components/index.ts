@@ -75,6 +75,7 @@ import { DeleteTable } from "./menus/toolbar/table/DeleteTable.ts";
 import { Diagrams } from "./menus/toolbar/tools/Diagrams.ts";
 
 import { ToggleToc } from "./menus/toolbar/page/ToggleToc.ts";
+import { BackgroundColor } from "./menus/toolbar/page/BackgroundColor.ts";
 
 // 注册组件
 defineCustomElement('uai-editor-header', Header);
@@ -151,3 +152,4 @@ defineCustomElement('uai-editor-table-menu-delete-table', DeleteTable);
 defineCustomElement('uai-editor-tools-menu-diagrams', Diagrams);
 
 defineCustomElement('uai-editor-page-menu-toggle-toc', ToggleToc);
+defineCustomElement('uai-editor-page-menu-background-color', BackgroundColor);
