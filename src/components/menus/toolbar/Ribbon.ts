@@ -71,6 +71,7 @@ import { Diagrams } from "./tools/Diagrams.ts";
 
 import { ToggleToc } from "./page/ToggleToc.ts";
 import { BackgroundColor } from "./page/BackgroundColor.ts";
+import { Watermark } from "./page/Watermark.ts";
 
 /**
  * 经典菜单栏
@@ -167,6 +168,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     // 页面菜单
     pageMenuToggleToc!: ToggleToc;
     pageMenuBackgroundColor!: BackgroundColor;
+    pageMenuWatermark!: Watermark;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -431,6 +433,9 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
         this.pageMenuBackgroundColor = new BackgroundColor({ menuType: "popup", enable: true, huge: true, hideText: false });
         this.eventComponents.push(this.pageMenuBackgroundColor);
+
+        this.pageMenuWatermark = new Watermark({ menuType: "popup", enable: true, huge: true, hideText: false });
+        this.eventComponents.push(this.pageMenuWatermark);
     }
 
     /**
@@ -684,5 +689,6 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         group2.classList.add("uai-ribbon-virtual-group");
         this.ribbonMenuPageGroup.appendChild(group2);
         group2.appendChild(this.pageMenuBackgroundColor);
+        group2.appendChild(this.pageMenuWatermark);
     }
 }
