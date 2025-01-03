@@ -71,6 +71,11 @@ import { ToggleToc } from "./page/ToggleToc.ts";
 import { BackgroundColor } from "./page/BackgroundColor.ts";
 import { Watermark } from "./page/Watermark.ts";
 
+import { ExportDocx } from "./export/ExportDocx.ts";
+import { ExportOdt } from "./export/ExportOdt.ts";
+import { ExportPdf } from "./export/ExportPdf.ts";
+import { ExportMarkdown } from "./export/ExportMarkdown.ts";
+
 /**
  * 传统菜单栏
  */
@@ -101,6 +106,10 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     // 页面菜单容器
     classicMenuPageScrollable!: ScrollableDiv;
     classicMenuPageGroup!: HTMLElement;
+
+    // 导出菜单容器
+    classicMenuExportScrollable!: ScrollableDiv;
+    classicMenuExportGroup!: HTMLElement;
 
     // 基础菜单
     baseMenuUndo!: Undo;
@@ -167,6 +176,12 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     pageMenuBackgroundColor!: BackgroundColor;
     pageMenuWatermark!: Watermark;
 
+    // 导出菜单
+    exportMenuExportDocx!: ExportDocx;
+    exportMenuExportOdt!: ExportOdt;
+    exportMenuExportPdf!: ExportPdf;
+    exportMenuExportMarkdown!: ExportMarkdown;
+
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
         this.defaultToolbarMenus = defaultToolbarMenus;
@@ -215,6 +230,7 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
             this.classicMenuTableScrollable.style.display = "none";
             this.classicMenuToolScrollable.style.display = "none";
             this.classicMenuPageScrollable.style.display = "none";
+            this.classicMenuExportScrollable.style.display = "none";
             if (menu === "base") {
                 this.classicMenuBaseScrollable.style.display = "flex";
             }
@@ -230,6 +246,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
             if (menu === "page") {
                 this.classicMenuPageScrollable.style.display = "flex";
             }
+            if (menu === "export") {
+                this.classicMenuExportScrollable.style.display = "flex";
+            }
         })
         // 创建分组菜单
         this.createBaseMenu(event, options);
@@ -237,6 +256,7 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         this.createTableMenu(event, options);
         this.createToolMenu(event, options);
         this.createPageMenu(event, options);
+        this.createExportMenu(event, options);
         this.classicMenuBaseScrollable.style.display = "flex";
     }
 
@@ -413,6 +433,18 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
         this.pageMenuWatermark = new Watermark({ menuType: "popup", enable: true, header: "classic", hideText: false });
         this.eventComponents.push(this.pageMenuWatermark);
+
+        this.exportMenuExportDocx = new ExportDocx({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.exportMenuExportDocx);
+
+        this.exportMenuExportOdt = new ExportOdt({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.exportMenuExportOdt);
+
+        this.exportMenuExportPdf = new ExportPdf({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.exportMenuExportPdf);
+
+        this.exportMenuExportMarkdown = new ExportMarkdown({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.exportMenuExportMarkdown);
     }
     /**
      * 创建基础菜单
@@ -585,5 +617,27 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         this.classicMenuPageGroup.appendChild(group2);
         group2.appendChild(this.pageMenuBackgroundColor);
         group2.appendChild(this.pageMenuWatermark);
+    }
+
+    /**
+     * 创建导出菜单
+     * @param event 
+     * @param options 
+     */
+    createExportMenu(event: EditorEvents["create"], options: UAIEditorOptions) {
+        this.classicMenuExportGroup = document.createElement("div");
+        this.classicMenuExportGroup.style.display = "flex";
+        this.classicMenuExportScrollable = new ScrollableDiv(this.classicMenuExportGroup);
+        this.classicMenuExportScrollable.style.display = "none";
+        this.classicMenu.appendChild(this.classicMenuExportScrollable);
+        this.classicMenuExportScrollable.onCreate(event, options);
+
+        const group1 = document.createElement("div");
+        group1.classList.add("uai-classic-virtual-group");
+        this.classicMenuExportGroup.appendChild(group1);
+        group1.appendChild(this.exportMenuExportDocx);
+        group1.appendChild(this.exportMenuExportOdt);
+        group1.appendChild(this.exportMenuExportPdf);
+        group1.appendChild(this.exportMenuExportMarkdown);
     }
 }

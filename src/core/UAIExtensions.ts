@@ -21,6 +21,7 @@ import { TextAlign } from "@tiptap/extension-text-align";
 import { TextStyle } from "@tiptap/extension-text-style";
 import { Underline } from "@tiptap/extension-underline";
 
+import { Export } from '@tiptap-pro/extension-export';
 import { Mathematics } from '@tiptap-pro/extension-mathematics';
 import { TableOfContents, getHierarchicalIndexes } from '@tiptap-pro/extension-table-of-contents'
 
@@ -52,6 +53,10 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
         Audio,
         BulletList,
         Color,
+        Export.configure({
+            appId: process.env.TIPTAP_APP_ID,
+            token: process.env.TIPTAP_JWT_TOKEN,
+        }),
         FontFamily,
         FontSize.configure({
 

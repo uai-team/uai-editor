@@ -73,6 +73,11 @@ import { ToggleToc } from "./page/ToggleToc.ts";
 import { BackgroundColor } from "./page/BackgroundColor.ts";
 import { Watermark } from "./page/Watermark.ts";
 
+import { ExportDocx } from "./export/ExportDocx.ts";
+import { ExportOdt } from "./export/ExportOdt.ts";
+import { ExportPdf } from "./export/ExportPdf.ts";
+import { ExportMarkdown } from "./export/ExportMarkdown.ts";
+
 /**
  * 经典菜单栏
  */
@@ -104,6 +109,10 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     // 页面菜单容器
     ribbonMenuPageScrollable!: ScrollableDiv;
     ribbonMenuPageGroup!: HTMLElement;
+
+    // 导出菜单容器
+    ribbonMenuExportScrollable!: ScrollableDiv;
+    ribbonMenuExportGroup!: HTMLElement;
 
     // 基础菜单
     baseMenuUndo!: Undo;
@@ -170,6 +179,12 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     pageMenuBackgroundColor!: BackgroundColor;
     pageMenuWatermark!: Watermark;
 
+    // 导出菜单
+    exportMenuExportDocx!: ExportDocx;
+    exportMenuExportOdt!: ExportOdt;
+    exportMenuExportPdf!: ExportPdf;
+    exportMenuExportMarkdown!: ExportMarkdown;
+
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
         this.defaultToolbarMenus = defaultToolbarMenus;
@@ -211,6 +226,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
                 this.ribbonMenuTableScrollable.style.display = "none";
                 this.ribbonMenuToolScrollable.style.display = "none";
                 this.ribbonMenuPageScrollable.style.display = "none";
+                this.ribbonMenuExportScrollable.style.display = "none";
                 if (menu.value === "base") {
                     this.ribbonMenuBaseScrollable.style.display = "flex";
                 }
@@ -225,6 +241,9 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
                 }
                 if (menu.value === "page") {
                     this.ribbonMenuPageScrollable.style.display = "flex";
+                }
+                if (menu.value === "export") {
+                    this.ribbonMenuExportScrollable.style.display = "flex";
                 }
             })
             ribbonTabs.appendChild(tab);
@@ -248,6 +267,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         this.createTableMenu(event, options);
         this.createToolMenu(event, options);
         this.createPageMenu(event, options);
+        this.createExportMenu(event, options);
         this.ribbonMenuBaseScrollable.style.display = "flex";
     }
 
@@ -436,6 +456,18 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
         this.pageMenuWatermark = new Watermark({ menuType: "popup", enable: true, huge: true, hideText: false });
         this.eventComponents.push(this.pageMenuWatermark);
+
+        this.exportMenuExportDocx = new ExportDocx({ menuType: "button", enable: true, huge: true, hideText: false });
+        this.eventComponents.push(this.exportMenuExportDocx);
+
+        this.exportMenuExportOdt = new ExportOdt({ menuType: "button", enable: true, huge: true, hideText: false });
+        this.eventComponents.push(this.exportMenuExportOdt);
+
+        this.exportMenuExportPdf = new ExportPdf({ menuType: "button", enable: true, huge: true, hideText: false });
+        this.eventComponents.push(this.exportMenuExportPdf);
+
+        this.exportMenuExportMarkdown = new ExportMarkdown({ menuType: "button", enable: true, huge: true, hideText: false });
+        this.eventComponents.push(this.exportMenuExportMarkdown);
     }
 
     /**
@@ -690,5 +722,27 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         this.ribbonMenuPageGroup.appendChild(group2);
         group2.appendChild(this.pageMenuBackgroundColor);
         group2.appendChild(this.pageMenuWatermark);
+    }
+
+    /**
+     * 创建导出菜单
+     * @param event 
+     * @param options 
+     */
+    createExportMenu(_event: EditorEvents["create"], _options: UAIEditorOptions) {
+        this.ribbonMenuExportGroup = document.createElement("div");
+        this.ribbonMenuExportGroup.classList.add("uai-ribbon-container");
+        this.ribbonMenuExportGroup.style.display = "flex";
+        this.ribbonMenuExportScrollable = new ScrollableDiv(this.ribbonMenuExportGroup);
+        this.ribbonMenuExportScrollable.style.display = "none";
+        this.ribbonScrollableContainer.appendChild(this.ribbonMenuExportScrollable);
+
+        const group1 = document.createElement("div");
+        group1.classList.add("uai-ribbon-virtual-group");
+        this.ribbonMenuExportGroup.appendChild(group1);
+        group1.appendChild(this.exportMenuExportDocx);
+        group1.appendChild(this.exportMenuExportOdt);
+        group1.appendChild(this.exportMenuExportPdf);
+        group1.appendChild(this.exportMenuExportMarkdown);
     }
 }

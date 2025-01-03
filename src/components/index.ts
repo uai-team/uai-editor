@@ -78,6 +78,11 @@ import { ToggleToc } from "./menus/toolbar/page/ToggleToc.ts";
 import { BackgroundColor } from "./menus/toolbar/page/BackgroundColor.ts";
 import { Watermark } from "./menus/toolbar/page/Watermark.ts";
 
+import { ExportDocx } from "./menus/toolbar/export/ExportDocx.ts";
+import { ExportOdt } from "./menus/toolbar/export/ExportOdt.ts";
+import { ExportPdf } from "./menus/toolbar/export/ExportPdf.ts";
+import { ExportMarkdown } from "./menus/toolbar/export/ExportMarkdown.ts";
+
 // 注册组件
 defineCustomElement('uai-editor-header', Header);
 defineCustomElement('uai-editor-editor', Editor);
@@ -155,3 +160,8 @@ defineCustomElement('uai-editor-tools-menu-diagrams', Diagrams);
 defineCustomElement('uai-editor-page-menu-toggle-toc', ToggleToc);
 defineCustomElement('uai-editor-page-menu-background-color', BackgroundColor);
 defineCustomElement('uai-editor-page-menu-watermark', Watermark);
+
+defineCustomElement('uai-editor-export-menu-docx', ExportDocx);
+defineCustomElement('uai-editor-export-menu-odt', ExportOdt);
+defineCustomElement('uai-editor-export-menu-pdf', ExportPdf);
+defineCustomElement('uai-editor-export-menu-markdown', ExportMarkdown);
