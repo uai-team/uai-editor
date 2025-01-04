@@ -84,6 +84,8 @@ import { ExportPdf } from "./menus/toolbar/export/ExportPdf.ts";
 import { ExportMarkdown } from "./menus/toolbar/export/ExportMarkdown.ts";
 import { ExportImage } from "./menus/toolbar/export/ExportImage.ts";
 
+import { TextSelectionBubbleMenu } from "./menus/bubble/TextSelectionBubbleMenu.ts";
+
 // 注册组件
 defineCustomElement('uai-editor-header', Header);
 defineCustomElement('uai-editor-editor', Editor);
@@ -167,3 +169,5 @@ defineCustomElement('uai-editor-export-menu-odt', ExportOdt);
 defineCustomElement('uai-editor-export-menu-pdf', ExportPdf);
 defineCustomElement('uai-editor-export-menu-markdown', ExportMarkdown);
 defineCustomElement('uai-editor-export-menu-image', ExportImage);
+
+defineCustomElement('uai-editor-bubble-menu-text-selection', TextSelectionBubbleMenu);

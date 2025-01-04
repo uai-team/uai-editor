@@ -1,7 +1,7 @@
 // Copyright (c) 2024-present AI-Labs
 
 // @ ts-nocheck
-import { Extensions } from "@tiptap/core";
+import { Extension, Extensions, getTextBetween } from "@tiptap/core";
 import { UAIEditor, UAIEditorOptions } from "./UAIEditor";
 
 import { StarterKit } from "@tiptap/starter-kit";
@@ -37,6 +37,73 @@ import Video from "../extensions/Video.ts";
 import Audio from "../extensions/Audio.ts";
 import { uuid } from "../utils/UUID.ts";
 import Toc from "../extensions/Toc.ts";
+
+import { BubbleMenuPluginOptions, BubbleMenuPlugin } from "../components/menus/bubble/BubbleMenuPlugin.ts";
+import { TextSelectionBubbleMenu } from "../components/menus/bubble/TextSelectionBubbleMenu.ts";
+
+/**
+ * 创建浮动菜单功能
+ * @param name 
+ * @param options 
+ * @returns 
+ */
+function createBubbleMenu(name: string, options: BubbleMenuPluginOptions) {
+    return Extension.create<BubbleMenuPluginOptions>({
+        name: name,
+        addOptions() {
+            return {
+                ...options
+            }
+        },
+        addProseMirrorPlugins() {
+            if (!this.options.element) {
+                return []
+            }
+
+            return [
+                BubbleMenuPlugin({
+                    pluginKey: this.options.pluginKey,
+                    editor: this.editor,
+                    element: this.options.element,
+                    tippyOptions: this.options.tippyOptions,
+                    shouldShow: this.options.shouldShow,
+                }),
+            ]
+        },
+    })
+}
+
+/**
+ * 创建文本内容的浮动菜单
+ * @param uaiEditor 
+ * @returns 
+ */
+const createTextSelectionBubbleMenu = (uaiEditor: UAIEditor) => {
+    const container = new TextSelectionBubbleMenu(uaiEditor);
+
+    return createBubbleMenu("textSelectionBubbleMenu", {
+        pluginKey: 'textSelectionBubbleMenu',
+        element: container,
+        tippyOptions: {
+            appendTo: uaiEditor.editor.editorContainer,
+            arrow: false,
+            interactive: true,
+            hideOnClick: false,
+            placement: 'top',
+        },
+        shouldShow: ({ editor }) => {
+            if (!editor.isEditable) {
+                return false;
+            }
+            const { state: { selection } } = editor;
+            return !selection.empty && getTextBetween(editor.state.doc, {
+                from: selection.from,
+                to: selection.to
+            }).trim().length > 0
+                && !editor.isActive("image");
+        }
+    })
+}
 
 /**
  * 定义编辑器的所有自定义扩展组件
@@ -112,6 +179,7 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
         Toc,
         Underline,
         Video,
+        createTextSelectionBubbleMenu(uaiEditor),
     ];
 
     return extensions;
