@@ -82,6 +82,7 @@ import { ExportDocx } from "./menus/toolbar/export/ExportDocx.ts";
 import { ExportOdt } from "./menus/toolbar/export/ExportOdt.ts";
 import { ExportPdf } from "./menus/toolbar/export/ExportPdf.ts";
 import { ExportMarkdown } from "./menus/toolbar/export/ExportMarkdown.ts";
+import { ExportImage } from "./menus/toolbar/export/ExportImage.ts";
 
 // 注册组件
 defineCustomElement('uai-editor-header', Header);
@@ -165,3 +166,4 @@ defineCustomElement('uai-editor-export-menu-docx', ExportDocx);
 defineCustomElement('uai-editor-export-menu-odt', ExportOdt);
 defineCustomElement('uai-editor-export-menu-pdf', ExportPdf);
 defineCustomElement('uai-editor-export-menu-markdown', ExportMarkdown);
+defineCustomElement('uai-editor-export-menu-image', ExportImage);

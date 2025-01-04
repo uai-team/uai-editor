@@ -75,6 +75,7 @@ import { ExportDocx } from "./export/ExportDocx.ts";
 import { ExportOdt } from "./export/ExportOdt.ts";
 import { ExportPdf } from "./export/ExportPdf.ts";
 import { ExportMarkdown } from "./export/ExportMarkdown.ts";
+import { ExportImage } from "./export/ExportImage.ts";
 
 /**
  * 传统菜单栏
@@ -181,6 +182,7 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     exportMenuExportOdt!: ExportOdt;
     exportMenuExportPdf!: ExportPdf;
     exportMenuExportMarkdown!: ExportMarkdown;
+    exportMenuExportImage!: ExportImage;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -445,6 +447,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
         this.exportMenuExportMarkdown = new ExportMarkdown({ menuType: "button", enable: true, header: "classic", hideText: false });
         this.eventComponents.push(this.exportMenuExportMarkdown);
+
+        this.exportMenuExportImage = new ExportImage({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.exportMenuExportImage);
     }
     /**
      * 创建基础菜单
@@ -639,5 +644,10 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         group1.appendChild(this.exportMenuExportOdt);
         group1.appendChild(this.exportMenuExportPdf);
         group1.appendChild(this.exportMenuExportMarkdown);
+
+        const group2 = document.createElement("div");
+        group2.classList.add("uai-classic-virtual-group");
+        this.classicMenuExportGroup.appendChild(group2);
+        group2.appendChild(this.exportMenuExportImage);
     }
 }

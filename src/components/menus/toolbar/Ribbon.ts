@@ -77,6 +77,7 @@ import { ExportDocx } from "./export/ExportDocx.ts";
 import { ExportOdt } from "./export/ExportOdt.ts";
 import { ExportPdf } from "./export/ExportPdf.ts";
 import { ExportMarkdown } from "./export/ExportMarkdown.ts";
+import { ExportImage } from "./export/ExportImage.ts";
 
 /**
  * 经典菜单栏
@@ -184,6 +185,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     exportMenuExportOdt!: ExportOdt;
     exportMenuExportPdf!: ExportPdf;
     exportMenuExportMarkdown!: ExportMarkdown;
+    exportMenuExportImage!: ExportImage;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -468,6 +470,9 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
         this.exportMenuExportMarkdown = new ExportMarkdown({ menuType: "button", enable: true, huge: true, hideText: false });
         this.eventComponents.push(this.exportMenuExportMarkdown);
+
+        this.exportMenuExportImage = new ExportImage({ menuType: "button", enable: true, huge: true, hideText: false });
+        this.eventComponents.push(this.exportMenuExportImage);
     }
 
     /**
@@ -744,5 +749,10 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         group1.appendChild(this.exportMenuExportOdt);
         group1.appendChild(this.exportMenuExportPdf);
         group1.appendChild(this.exportMenuExportMarkdown);
+
+        const group2 = document.createElement("div");
+        group2.classList.add("uai-ribbon-virtual-group");
+        this.ribbonMenuExportGroup.appendChild(group2);
+        group2.appendChild(this.exportMenuExportImage);
     }
 }
