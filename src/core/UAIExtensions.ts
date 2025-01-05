@@ -33,6 +33,7 @@ import LineHeight from "../extensions/LineHeight.ts"
 import NodeAlign from "../extensions/NodeAlign.ts";
 import OrderedList from "../extensions/OrderedList.ts";
 import SelectFile from "../extensions/SelectFile.ts";
+import Selection from "../extensions/Selection.ts";
 import Video from "../extensions/Video.ts";
 import Audio from "../extensions/Audio.ts";
 import { uuid } from "../utils/UUID.ts";
@@ -40,6 +41,7 @@ import Toc from "../extensions/Toc.ts";
 
 import { BubbleMenuPluginOptions, BubbleMenuPlugin } from "../components/menus/bubble/BubbleMenuPlugin.ts";
 import { TextSelectionBubbleMenu } from "../components/menus/bubble/TextSelectionBubbleMenu.ts";
+import { ImageBubbleMenu } from "../components/menus/bubble/ImageBubbleMenu.ts";
 
 /**
  * 创建浮动菜单功能
@@ -106,6 +108,33 @@ const createTextSelectionBubbleMenu = (uaiEditor: UAIEditor) => {
 }
 
 /**
+ * 创建图片内容的浮动菜单
+ * @param uaiEditor 
+ * @returns 
+ */
+const createImageBubbleMenu = (uaiEditor: UAIEditor) => {
+    const container = new ImageBubbleMenu(uaiEditor);
+
+    return createBubbleMenu("imageBubbleMenu", {
+        pluginKey: 'imageBubbleMenu',
+        element: container,
+        tippyOptions: {
+            appendTo: uaiEditor.editor.editorContainer,
+            arrow: false,
+            interactive: true,
+            hideOnClick: false,
+            placement: 'top',
+        },
+        shouldShow: ({ editor }) => {
+            if (!editor.isEditable) {
+                return false;
+            }
+            return editor.isActive("image")
+        }
+    })
+}
+
+/**
  * 定义编辑器的所有自定义扩展组件
  * @param uaiEditor 
  * @param _options 
@@ -146,6 +175,7 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
         SelectFile.configure({
             allowedMimeTypes: []
         }),
+        Selection,
         Subscript,
         Superscript,
         Table.configure({
@@ -180,6 +210,7 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
         Underline,
         Video,
         createTextSelectionBubbleMenu(uaiEditor),
+        createImageBubbleMenu(uaiEditor),
     ];
 
     return extensions;

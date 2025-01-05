@@ -33,6 +33,8 @@ import { Superscript } from "./menus/common/Superscript.ts";
 import { FontColor } from "./menus/common/FontColor.ts";
 import { Highlight } from "./menus/common/Highlight.ts";
 
+import { NodeDelete } from "./menus/common/NodeDelete.ts";
+
 import { Undo } from "./menus/toolbar/base/Undo.ts";
 import { Redo } from "./menus/toolbar/base/Redo.ts";
 import { FormatPainter } from "./menus/toolbar/base/FormatPainter.ts";
@@ -86,6 +88,10 @@ import { ExportImage } from "./menus/toolbar/export/ExportImage.ts";
 
 import { TextSelectionBubbleMenu } from "./menus/bubble/TextSelectionBubbleMenu.ts";
 
+import { ImageBubbleMenu } from "./menus/bubble/ImageBubbleMenu.ts";
+import { ImageFlipX } from "./menus/bubble/image/ImageFlipX.ts";
+import { ImageFlipY } from "./menus/bubble/image/ImageFlipY.ts";
+
 // 注册组件
 defineCustomElement('uai-editor-header', Header);
 defineCustomElement('uai-editor-editor', Editor);
@@ -118,6 +124,8 @@ defineCustomElement('uai-editor-common-menu-superscript', Superscript);
 
 defineCustomElement('uai-editor-common-menu-font-color', FontColor);
 defineCustomElement('uai-editor-common-menu-highlight', Highlight);
+
+defineCustomElement('uai-editor-common-menu-node-delete', NodeDelete);
 
 defineCustomElement('uai-editor-base-menu-undo', Undo);
 defineCustomElement('uai-editor-base-menu-redo', Redo);
@@ -171,3 +179,7 @@ defineCustomElement('uai-editor-export-menu-markdown', ExportMarkdown);
 defineCustomElement('uai-editor-export-menu-image', ExportImage);
 
 defineCustomElement('uai-editor-bubble-menu-text-selection', TextSelectionBubbleMenu);
+
+defineCustomElement('uai-editor-bubble-menu-image', ImageBubbleMenu);
+defineCustomElement('uai-editor-bubble-menu-image-flip-x', ImageFlipX);
+defineCustomElement('uai-editor-bubble-menu-image-flip-y', ImageFlipY);
