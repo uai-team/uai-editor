@@ -5,6 +5,7 @@ import { EditorEvents } from "@tiptap/core";
 import { UAIEditorEventListener, UAIEditorOptions } from "../core/UAIEditor.ts";
 
 import { ToggleToc } from "./menus/toolbar/page/ToggleToc";
+import { CharacterCount } from "./menus/statusbar/CharacterCount.ts";
 
 /**
  * 编辑器底部状态栏
@@ -15,11 +16,15 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
     // 文档大纲
     toggleToc!: ToggleToc;
 
+    // 字数统计
+    characterCount!: CharacterCount;
+
     constructor() {
         super();
 
         // 创建状态栏菜单
         this.toggleToc = new ToggleToc({ menuType: "button", enable: true });
+        this.characterCount = new CharacterCount();
     }
 
     /**
@@ -30,6 +35,7 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
     onCreate(event: EditorEvents["create"], options: UAIEditorOptions) {
         // 初始化状态栏菜单
         this.toggleToc.onCreate(event, options);
+        this.characterCount.onCreate(event, options);
 
         this.container = document.createElement("div");
         this.container.classList.add("uai-footer");
@@ -54,6 +60,18 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
 
         // 状态栏中添加功能菜单按钮
         statusBarLeft.appendChild(this.toggleToc);
+        statusBarLeft.appendChild(this.createSplit());
+        statusBarLeft.appendChild(this.characterCount);
+    }
+
+    /**
+     * 创建菜单分隔线
+     * @returns 
+     */
+    createSplit() {
+        const split = document.createElement("div");
+        split.classList.add("uai-status-bar-split");
+        return split;
     }
 
     /**
@@ -63,9 +81,11 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
      */
     onTransaction(event: EditorEvents["transaction"], options: UAIEditorOptions) {
         this.toggleToc.onTransaction(event, options);
+        this.characterCount.onTransaction(event, options);
     }
 
     onEditableChange(editable: boolean) {
         this.toggleToc.onEditableChange(editable);
+        this.characterCount.onEditableChange(editable);
     }
 }

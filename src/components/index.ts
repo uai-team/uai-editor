@@ -96,6 +96,8 @@ import { VideoBubbleMenu } from "./menus/bubble/VideoBubbleMenu.ts";
 
 import { AudioBubbleMenu } from "./menus/bubble/AudioBubbleMenu.ts";
 
+import { CharacterCount } from "./menus/statusbar/CharacterCount.ts";
+
 // 注册组件
 defineCustomElement('uai-editor-header', Header);
 defineCustomElement('uai-editor-editor', Editor);
@@ -181,6 +183,8 @@ defineCustomElement('uai-editor-export-menu-odt', ExportOdt);
 defineCustomElement('uai-editor-export-menu-pdf', ExportPdf);
 defineCustomElement('uai-editor-export-menu-markdown', ExportMarkdown);
 defineCustomElement('uai-editor-export-menu-image', ExportImage);
+
+defineCustomElement('uai-editor-statusbar-menu-character-count', CharacterCount);
 
 defineCustomElement('uai-editor-bubble-menu-text-selection', TextSelectionBubbleMenu);
 

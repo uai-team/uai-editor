@@ -5,6 +5,7 @@ import { Extension, Extensions, getTextBetween } from "@tiptap/core";
 import { UAIEditor, UAIEditorOptions } from "./UAIEditor";
 
 import { StarterKit } from "@tiptap/starter-kit";
+import { CharacterCount } from "@tiptap/extension-character-count";
 import { Color } from "@tiptap/extension-color";
 import { FontFamily } from "@tiptap/extension-font-family";
 import { Highlight } from "@tiptap/extension-highlight";
@@ -204,6 +205,7 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
         }),
         Audio,
         BulletList,
+        CharacterCount,
         Color,
         Export.configure({
             appId: process.env.TIPTAP_APP_ID,
