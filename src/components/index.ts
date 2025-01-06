@@ -94,6 +94,8 @@ import { ImageFlipY } from "./menus/bubble/image/ImageFlipY.ts";
 
 import { VideoBubbleMenu } from "./menus/bubble/VideoBubbleMenu.ts";
 
+import { AudioBubbleMenu } from "./menus/bubble/AudioBubbleMenu.ts";
+
 // 注册组件
 defineCustomElement('uai-editor-header', Header);
 defineCustomElement('uai-editor-editor', Editor);
@@ -187,3 +189,5 @@ defineCustomElement('uai-editor-bubble-menu-image-flip-x', ImageFlipX);
 defineCustomElement('uai-editor-bubble-menu-image-flip-y', ImageFlipY);
 
 defineCustomElement('uai-editor-bubble-menu-video', VideoBubbleMenu);
+
+defineCustomElement('uai-editor-bubble-menu-audio', AudioBubbleMenu);

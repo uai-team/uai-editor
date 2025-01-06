@@ -43,6 +43,7 @@ import { BubbleMenuPluginOptions, BubbleMenuPlugin } from "../components/menus/b
 import { TextSelectionBubbleMenu } from "../components/menus/bubble/TextSelectionBubbleMenu.ts";
 import { ImageBubbleMenu } from "../components/menus/bubble/ImageBubbleMenu.ts";
 import { VideoBubbleMenu } from "../components/menus/bubble/VideoBubbleMenu.ts";
+import { AudioBubbleMenu } from "../components/menus/bubble/AudioBubbleMenu.ts";
 
 /**
  * 创建浮动菜单功能
@@ -163,6 +164,33 @@ const createVideoBubbleMenu = (uaiEditor: UAIEditor) => {
 }
 
 /**
+ * 创建语音内容的浮动菜单
+ * @param uaiEditor 
+ * @returns 
+ */
+const createAudioBubbleMenu = (uaiEditor: UAIEditor) => {
+    const container = new AudioBubbleMenu(uaiEditor);
+
+    return createBubbleMenu("audioBubbleMenu", {
+        pluginKey: 'audioBubbleMenu',
+        element: container,
+        tippyOptions: {
+            appendTo: uaiEditor.editor.editorContainer,
+            arrow: false,
+            interactive: true,
+            hideOnClick: false,
+            placement: 'top',
+        },
+        shouldShow: ({ editor }) => {
+            if (!editor.isEditable) {
+                return false;
+            }
+            return editor.isActive("audio")
+        }
+    })
+}
+
+/**
  * 定义编辑器的所有自定义扩展组件
  * @param uaiEditor 
  * @param _options 
@@ -240,6 +268,7 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
         createTextSelectionBubbleMenu(uaiEditor),
         createImageBubbleMenu(uaiEditor),
         createVideoBubbleMenu(uaiEditor),
+        createAudioBubbleMenu(uaiEditor),
     ];
 
     return extensions;
