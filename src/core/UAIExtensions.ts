@@ -26,6 +26,7 @@ import { Export } from '@tiptap-pro/extension-export';
 import { Mathematics } from '@tiptap-pro/extension-mathematics';
 import { TableOfContents, getHierarchicalIndexes } from '@tiptap-pro/extension-table-of-contents'
 
+import Audio from "../extensions/Audio.ts";
 import BulletList from "../extensions/BulletList.ts";
 import FontSize from "../extensions/FontSize.ts";
 import Image from "../extensions/Image.ts";
@@ -35,10 +36,11 @@ import NodeAlign from "../extensions/NodeAlign.ts";
 import OrderedList from "../extensions/OrderedList.ts";
 import SelectFile from "../extensions/SelectFile.ts";
 import Selection from "../extensions/Selection.ts";
-import Video from "../extensions/Video.ts";
-import Audio from "../extensions/Audio.ts";
-import { uuid } from "../utils/UUID.ts";
+import Shortcuts from "../extensions/Shortcuts.ts";
 import Toc from "../extensions/Toc.ts";
+import Video from "../extensions/Video.ts";
+
+import { uuid } from "../utils/UUID.ts";
 
 import { BubbleMenuPluginOptions, BubbleMenuPlugin } from "../components/menus/bubble/BubbleMenuPlugin.ts";
 import { TextSelectionBubbleMenu } from "../components/menus/bubble/TextSelectionBubbleMenu.ts";
@@ -234,6 +236,7 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
             allowedMimeTypes: []
         }),
         Selection,
+        Shortcuts,
         Subscript,
         Superscript,
         Table.configure({
