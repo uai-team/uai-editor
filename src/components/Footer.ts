@@ -8,6 +8,8 @@ import { ToggleToc } from "./menus/toolbar/page/ToggleToc";
 import { CharacterCount } from "./menus/statusbar/CharacterCount.ts";
 
 import { Fullscreen } from "./menus/statusbar/Fullscreen.ts";
+import { Feedback } from "./menus/statusbar/Feedback.ts";
+import { PoweredBy } from "./menus/statusbar/PoweredBy.ts";
 
 /**
  * 编辑器底部状态栏
@@ -23,6 +25,10 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
 
     // 全屏功能
     fullscreen!: Fullscreen;
+    // 问题与建议
+    feedback!: Feedback;
+    // 版权及技术支持
+    poweredBy!: PoweredBy;
 
     constructor() {
         super();
@@ -32,6 +38,8 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
         this.characterCount = new CharacterCount();
 
         this.fullscreen = new Fullscreen({ menuType: "button", enable: true });
+        this.feedback = new Feedback({ menuType: "button", enable: true });
+        this.poweredBy = new PoweredBy({ menuType: "button", enable: true });
     }
 
     /**
@@ -43,7 +51,10 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
         // 初始化状态栏菜单
         this.toggleToc.onCreate(event, options);
         this.characterCount.onCreate(event, options);
+
         this.fullscreen.onCreate(event, options);
+        this.feedback.onCreate(event, options);
+        this.poweredBy.onCreate(event, options);
 
         this.container = document.createElement("div");
         this.container.classList.add("uai-footer");
@@ -74,6 +85,9 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
         statusBarLeft.appendChild(this.characterCount);
 
         statusBarRight.appendChild(this.fullscreen);
+        statusBarRight.appendChild(this.createSplit());
+        statusBarRight.appendChild(this.poweredBy);
+        statusBarRight.appendChild(this.feedback);
     }
 
     /**
@@ -96,6 +110,8 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
         this.characterCount.onTransaction(event, options);
 
         this.fullscreen.onTransaction(event, options);
+        this.feedback.onTransaction(event, options);
+        this.poweredBy.onTransaction(event, options);
     }
 
     onEditableChange(editable: boolean) {
@@ -103,5 +119,7 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
         this.characterCount.onEditableChange(editable);
 
         this.fullscreen.onEditableChange(editable);
+        this.feedback.onEditableChange(editable);
+        this.poweredBy.onEditableChange(editable);
     }
 }
