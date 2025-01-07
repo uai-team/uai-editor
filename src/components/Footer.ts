@@ -7,6 +7,8 @@ import { UAIEditorEventListener, UAIEditorOptions } from "../core/UAIEditor.ts";
 import { ToggleToc } from "./menus/toolbar/page/ToggleToc";
 import { CharacterCount } from "./menus/statusbar/CharacterCount.ts";
 
+import { Fullscreen } from "./menus/statusbar/Fullscreen.ts";
+
 /**
  * 编辑器底部状态栏
  */
@@ -19,12 +21,17 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
     // 字数统计
     characterCount!: CharacterCount;
 
+    // 全屏功能
+    fullscreen!: Fullscreen;
+
     constructor() {
         super();
 
         // 创建状态栏菜单
         this.toggleToc = new ToggleToc({ menuType: "button", enable: true });
         this.characterCount = new CharacterCount();
+
+        this.fullscreen = new Fullscreen({ menuType: "button", enable: true });
     }
 
     /**
@@ -36,6 +43,7 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
         // 初始化状态栏菜单
         this.toggleToc.onCreate(event, options);
         this.characterCount.onCreate(event, options);
+        this.fullscreen.onCreate(event, options);
 
         this.container = document.createElement("div");
         this.container.classList.add("uai-footer");
@@ -58,10 +66,14 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
 
         this.toggleToc.classList.add("uai-status-bar-button");
 
+        this.fullscreen.classList.add("uai-status-bar-button");
+
         // 状态栏中添加功能菜单按钮
         statusBarLeft.appendChild(this.toggleToc);
         statusBarLeft.appendChild(this.createSplit());
         statusBarLeft.appendChild(this.characterCount);
+
+        statusBarRight.appendChild(this.fullscreen);
     }
 
     /**
@@ -82,10 +94,14 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
     onTransaction(event: EditorEvents["transaction"], options: UAIEditorOptions) {
         this.toggleToc.onTransaction(event, options);
         this.characterCount.onTransaction(event, options);
+
+        this.fullscreen.onTransaction(event, options);
     }
 
     onEditableChange(editable: boolean) {
         this.toggleToc.onEditableChange(editable);
         this.characterCount.onEditableChange(editable);
+
+        this.fullscreen.onEditableChange(editable);
     }
 }
