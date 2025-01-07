@@ -24,6 +24,7 @@ import i18next from "i18next";
 import { zh } from "../i18n/zh.ts";
 import { Resource } from "i18next";
 import { allExtensions } from "./UAIExtensions.ts";
+import { markdownToHtml } from "../utils/MarkdownUtil.ts";
 import { Uploader } from "../utils/FileUploader.ts";
 
 self.MonacoEnvironment = {
@@ -307,7 +308,7 @@ export class UAIEditor {
 
         this.innerEditor = new InnerEditor(this, {
             element: this.editor.editorContainer,
-            content,
+            content: markdownToHtml(content ?? ""),
             extensions: allExtensions(this, this.options),
             onCreate: (props) => this.onCreate(props),
             onTransaction: (props) => this.onTransaction(props),
