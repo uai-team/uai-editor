@@ -5,6 +5,7 @@ import { EditorEvents } from "@tiptap/core";
 import { UAIEditorEventListener, UAIEditorOptions } from "../core/UAIEditor.ts";
 
 import { ToggleToc } from "./menus/toolbar/page/ToggleToc";
+import { ToggleChat } from "./menus/toolbar/ai/ToggleChat.ts";
 import { CharacterCount } from "./menus/statusbar/CharacterCount.ts";
 
 import { Fullscreen } from "./menus/statusbar/Fullscreen.ts";
@@ -19,6 +20,8 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
 
     // 文档大纲
     toggleToc!: ToggleToc;
+    // 模型对话
+    toggleChat!: ToggleChat;
 
     // 字数统计
     characterCount!: CharacterCount;
@@ -35,6 +38,7 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
 
         // 创建状态栏菜单
         this.toggleToc = new ToggleToc({ menuType: "button", enable: true });
+        this.toggleChat = new ToggleChat({ menuType: "button", enable: true });
         this.characterCount = new CharacterCount();
 
         this.fullscreen = new Fullscreen({ menuType: "button", enable: true });
@@ -50,6 +54,7 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
     onCreate(event: EditorEvents["create"], options: UAIEditorOptions) {
         // 初始化状态栏菜单
         this.toggleToc.onCreate(event, options);
+        this.toggleChat.onCreate(event, options);
         this.characterCount.onCreate(event, options);
 
         this.fullscreen.onCreate(event, options);
@@ -76,11 +81,14 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
         statusBar.appendChild(statusBarRight);
 
         this.toggleToc.classList.add("uai-status-bar-button");
+        this.toggleChat.classList.add("uai-status-bar-button");
 
         this.fullscreen.classList.add("uai-status-bar-button");
 
         // 状态栏中添加功能菜单按钮
         statusBarLeft.appendChild(this.toggleToc);
+        statusBarLeft.appendChild(this.createSplit());
+        statusBarLeft.appendChild(this.toggleChat);
         statusBarLeft.appendChild(this.createSplit());
         statusBarLeft.appendChild(this.characterCount);
 
@@ -107,6 +115,7 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
      */
     onTransaction(event: EditorEvents["transaction"], options: UAIEditorOptions) {
         this.toggleToc.onTransaction(event, options);
+        this.toggleChat.onTransaction(event, options);
         this.characterCount.onTransaction(event, options);
 
         this.fullscreen.onTransaction(event, options);
@@ -116,6 +125,7 @@ export class Footer extends HTMLElement implements UAIEditorEventListener {
 
     onEditableChange(editable: boolean) {
         this.toggleToc.onEditableChange(editable);
+        this.toggleChat.onEditableChange(editable);
         this.characterCount.onEditableChange(editable);
 
         this.fullscreen.onEditableChange(editable);

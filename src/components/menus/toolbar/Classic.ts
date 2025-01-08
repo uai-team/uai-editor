@@ -77,6 +77,8 @@ import { ExportPdf } from "./export/ExportPdf.ts";
 import { ExportMarkdown } from "./export/ExportMarkdown.ts";
 import { ExportImage } from "./export/ExportImage.ts";
 
+import { ToggleChat } from "./ai/ToggleChat.ts";
+
 /**
  * 传统菜单栏
  */
@@ -111,6 +113,10 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     // 导出菜单容器
     classicMenuExportScrollable!: ScrollableDiv;
     classicMenuExportGroup!: HTMLElement;
+
+    // 人工智能菜单容器
+    classicMenuAIScrollable!: ScrollableDiv;
+    classicMenuAIGroup!: HTMLElement;
 
     // 基础菜单
     baseMenuUndo!: Undo;
@@ -184,6 +190,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
     exportMenuExportMarkdown!: ExportMarkdown;
     exportMenuExportImage!: ExportImage;
 
+    // 人工智能菜单
+    aiMenuToggleChat!: ToggleChat;
+
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
         this.defaultToolbarMenus = defaultToolbarMenus;
@@ -233,6 +242,7 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
             this.classicMenuToolScrollable.style.display = "none";
             this.classicMenuPageScrollable.style.display = "none";
             this.classicMenuExportScrollable.style.display = "none";
+            this.classicMenuAIScrollable.style.display = "none";
             if (menu === "base") {
                 this.classicMenuBaseScrollable.style.display = "flex";
             }
@@ -251,6 +261,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
             if (menu === "export") {
                 this.classicMenuExportScrollable.style.display = "flex";
             }
+            if (menu === "ai") {
+                this.classicMenuAIScrollable.style.display = "flex";
+            }
         })
         // 创建分组菜单
         this.createBaseMenu(event, options);
@@ -259,6 +272,7 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         this.createToolMenu(event, options);
         this.createPageMenu(event, options);
         this.createExportMenu(event, options);
+        this.createAIMenu(event, options);
         this.classicMenuBaseScrollable.style.display = "flex";
     }
 
@@ -450,6 +464,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
         this.exportMenuExportImage = new ExportImage({ menuType: "button", enable: true, header: "classic", hideText: false });
         this.eventComponents.push(this.exportMenuExportImage);
+
+        this.aiMenuToggleChat = new ToggleChat({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.aiMenuToggleChat);
     }
     /**
      * 创建基础菜单
@@ -649,5 +666,24 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         group2.classList.add("uai-classic-virtual-group");
         this.classicMenuExportGroup.appendChild(group2);
         group2.appendChild(this.exportMenuExportImage);
+    }
+
+    /**
+     * 创建人工智能菜单
+     * @param event 
+     * @param options 
+     */
+    createAIMenu(event: EditorEvents["create"], options: UAIEditorOptions) {
+        this.classicMenuAIGroup = document.createElement("div");
+        this.classicMenuAIGroup.style.display = "flex";
+        this.classicMenuAIScrollable = new ScrollableDiv(this.classicMenuAIGroup);
+        this.classicMenuAIScrollable.style.display = "none";
+        this.classicMenu.appendChild(this.classicMenuAIScrollable);
+        this.classicMenuAIScrollable.onCreate(event, options);
+
+        const group1 = document.createElement("div");
+        group1.classList.add("uai-classic-virtual-group");
+        this.classicMenuAIGroup.appendChild(group1);
+        group1.appendChild(this.aiMenuToggleChat);
     }
 }

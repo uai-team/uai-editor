@@ -12,6 +12,7 @@ import { TableOfContentData } from "@tiptap-pro/extension-table-of-contents";
 
 import "../components"
 import { Header } from "../components/Header.ts";
+import { ChatContainer } from "../components/containers/ChatContainer.ts";
 import { TocContainer } from "../components/containers/TocContainer.ts";
 import { Editor } from "../components/Editor.ts";
 import { Footer } from "../components/Footer.ts";
@@ -24,6 +25,7 @@ import i18next from "i18next";
 import { zh } from "../i18n/zh.ts";
 import { Resource } from "i18next";
 import { allExtensions } from "./UAIExtensions.ts";
+import { AIChatConfig } from "../ai/config/AIConfig.ts";
 import { markdownToHtml } from "../utils/MarkdownUtil.ts";
 import { Uploader } from "../utils/FileUploader.ts";
 
@@ -105,6 +107,11 @@ export type UAIEditorOptions = {
         uploadFormName?: string,
         uploader?: Uploader,
     },
+    ai?: {
+        chat?: {
+            models?: Record<string, AIChatConfig>,
+        }
+    }
 }
 
 /**
@@ -117,6 +124,15 @@ export class InnerEditor extends TipTap {
     constructor(uaiEditor: UAIEditor, options: Partial<EditorOptions> = {}) {
         super(options);
         this.uaiEditor = uaiEditor;
+    }
+
+    parseHtml(html: string) {
+        function bodyElement(value: string): HTMLElement {
+            return new window.DOMParser().parseFromString(`<body>${value}</body>`, 'text/html').body;
+        }
+
+        const parser = DOMParser.fromSchema(this.schema);
+        return parser.parse(bodyElement(html), {}).content;
     }
 }
 
@@ -133,6 +149,7 @@ export class UAIEditor {
     toggleContainers: HTMLElement[] = [];
 
     header!: Header;
+    chatContainer!: ChatContainer;
     tocContainer!: TocContainer;
     editor!: Editor;
     footer!: Footer;
@@ -231,6 +248,11 @@ export class UAIEditor {
                     { label: '旗帜', value: '🏁 🎌 🏴󠁧󠁢󠁥󠁮󠁧󠁿', },
                 ],
             },
+            ai: {
+                chat: {
+                    models: customOptions.ai?.chat?.models,
+                },
+            }
         };
         const i18nConfig = this.options.i18n || {};
         const resources = {
@@ -267,6 +289,11 @@ export class UAIEditor {
         this.tocContainer.style.display = "none";
         this.center.appendChild(this.tocContainer);
         this.toggleContainers.push(this.tocContainer);
+
+        this.chatContainer = new ChatContainer();
+        this.chatContainer.style.display = "none";
+        this.center.appendChild(this.chatContainer);
+        this.toggleContainers.push(this.chatContainer);
 
         this.editor = new Editor();
         this.editor.classList.add("uai-main");
@@ -330,6 +357,7 @@ export class UAIEditor {
         }
         this.header.onCreate(event, this.options);
         this.tocContainer.onCreate(event, this.options);
+        this.chatContainer.onCreate(event, this.options);
         this.editor.onCreate(event, this.options);
         this.footer.onCreate(event, this.options);
         this.eventComponents.forEach(component => {
@@ -339,9 +367,10 @@ export class UAIEditor {
 
     protected onTransaction(event: EditorEvents['transaction']) {
         this.header.onTransaction(event, this.options);
+        this.tocContainer.onTransaction(event, this.options);
+        this.chatContainer.onTransaction(event, this.options);
         this.editor.onTransaction(event, this.options);
         this.footer.onTransaction(event, this.options);
-        this.tocContainer.onTransaction(event, this.options);
         this.eventComponents.forEach(component => {
             component.onTransaction(event, this.options);
         });

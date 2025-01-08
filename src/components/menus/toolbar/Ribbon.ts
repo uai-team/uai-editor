@@ -79,6 +79,8 @@ import { ExportPdf } from "./export/ExportPdf.ts";
 import { ExportMarkdown } from "./export/ExportMarkdown.ts";
 import { ExportImage } from "./export/ExportImage.ts";
 
+import { ToggleChat } from "./ai/ToggleChat.ts";
+
 /**
  * 经典菜单栏
  */
@@ -114,6 +116,10 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     // 导出菜单容器
     ribbonMenuExportScrollable!: ScrollableDiv;
     ribbonMenuExportGroup!: HTMLElement;
+
+    // 人工智能菜单容器
+    ribbonMenuAIScrollable!: ScrollableDiv;
+    ribbonMenuAIGroup!: HTMLElement;
 
     // 基础菜单
     baseMenuUndo!: Undo;
@@ -187,6 +193,9 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     exportMenuExportMarkdown!: ExportMarkdown;
     exportMenuExportImage!: ExportImage;
 
+    // 人工智能菜单
+    aiMenuToggleChat!: ToggleChat;
+
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
         this.defaultToolbarMenus = defaultToolbarMenus;
@@ -229,6 +238,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
                 this.ribbonMenuToolScrollable.style.display = "none";
                 this.ribbonMenuPageScrollable.style.display = "none";
                 this.ribbonMenuExportScrollable.style.display = "none";
+                this.ribbonMenuAIScrollable.style.display = "none";
                 if (menu.value === "base") {
                     this.ribbonMenuBaseScrollable.style.display = "flex";
                 }
@@ -246,6 +256,9 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
                 }
                 if (menu.value === "export") {
                     this.ribbonMenuExportScrollable.style.display = "flex";
+                }
+                if (menu.value === "ai") {
+                    this.ribbonMenuAIScrollable.style.display = "flex";
                 }
             })
             ribbonTabs.appendChild(tab);
@@ -270,6 +283,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         this.createToolMenu(event, options);
         this.createPageMenu(event, options);
         this.createExportMenu(event, options);
+        this.createAIMenu(event, options);
         this.ribbonMenuBaseScrollable.style.display = "flex";
     }
 
@@ -473,6 +487,9 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
         this.exportMenuExportImage = new ExportImage({ menuType: "button", enable: true, huge: true, hideText: false });
         this.eventComponents.push(this.exportMenuExportImage);
+
+        this.aiMenuToggleChat = new ToggleChat({ menuType: "button", enable: true, huge: true, hideText: false });
+        this.eventComponents.push(this.aiMenuToggleChat);
     }
 
     /**
@@ -754,5 +771,24 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         group2.classList.add("uai-ribbon-virtual-group");
         this.ribbonMenuExportGroup.appendChild(group2);
         group2.appendChild(this.exportMenuExportImage);
+    }
+
+    /**
+     * 创建人工智能菜单
+     * @param event 
+     * @param options 
+     */
+    createAIMenu(_event: EditorEvents["create"], _options: UAIEditorOptions) {
+        this.ribbonMenuAIGroup = document.createElement("div");
+        this.ribbonMenuAIGroup.classList.add("uai-ribbon-container");
+        this.ribbonMenuAIGroup.style.display = "flex";
+        this.ribbonMenuAIScrollable = new ScrollableDiv(this.ribbonMenuAIGroup);
+        this.ribbonMenuAIScrollable.style.display = "none";
+        this.ribbonScrollableContainer.appendChild(this.ribbonMenuAIScrollable);
+
+        const group1 = document.createElement("div");
+        group1.classList.add("uai-ribbon-virtual-group");
+        this.ribbonMenuAIGroup.appendChild(group1);
+        group1.appendChild(this.aiMenuToggleChat);
     }
 }
