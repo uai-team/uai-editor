@@ -6,6 +6,7 @@ import { Editor } from "../components/Editor.ts";
 import { Footer } from "../components/Footer.ts";
 
 import { ChatContainer } from "../components/containers/ChatContainer.ts";
+import { ImageContainer } from "../components/containers/ImageContainer.ts";
 import { TocContainer } from "../components/containers/TocContainer.ts";
 
 import { Ribbon } from "./menus/toolbar/Ribbon.ts";
@@ -88,6 +89,7 @@ import { ExportMarkdown } from "./menus/toolbar/export/ExportMarkdown.ts";
 import { ExportImage } from "./menus/toolbar/export/ExportImage.ts";
 
 import { ToggleChat } from "./menus/toolbar/ai/ToggleChat.ts";
+import { ToggleImage } from "./menus/toolbar/ai/ToggleImage.ts";
 
 import { TextSelectionBubbleMenu } from "./menus/bubble/TextSelectionBubbleMenu.ts";
 
@@ -105,7 +107,7 @@ import { Fullscreen } from "./menus/statusbar/Fullscreen.ts";
 import { Feedback } from "./menus/statusbar/Feedback.ts";
 import { PoweredBy } from "./menus/statusbar/PoweredBy.ts";
 
-import { AIRequestAction, AIChatResponseAction } from "./ai/AIAction.ts";
+import { AIRequestAction, AIChatResponseAction, AIImageResponseAction } from "./ai/AIAction.ts";
 
 // 注册组件
 defineCustomElement('uai-editor-header', Header);
@@ -113,6 +115,7 @@ defineCustomElement('uai-editor-editor', Editor);
 defineCustomElement('uai-editor-footer', Footer);
 
 defineCustomElement('uai-editor-chat-container', ChatContainer);
+defineCustomElement('uai-editor-image-container', ImageContainer);
 defineCustomElement('uai-editor-toc-container', TocContainer);
 
 defineCustomElement('uai-editor-ribbon-menu', Ribbon);
@@ -195,6 +198,7 @@ defineCustomElement('uai-editor-export-menu-markdown', ExportMarkdown);
 defineCustomElement('uai-editor-export-menu-image', ExportImage);
 
 defineCustomElement('uai-editor-ai-menu-toggle-chat', ToggleChat);
+defineCustomElement('uai-editor-ai-menu-toggle-image', ToggleImage);
 
 defineCustomElement('uai-editor-statusbar-menu-character-count', CharacterCount);
 
@@ -214,3 +218,4 @@ defineCustomElement('uai-editor-bubble-menu-audio', AudioBubbleMenu);
 
 defineCustomElement('uai-editor-ai-action-request-action', AIRequestAction);
 defineCustomElement('uai-editor-ai-action-chat-response-action', AIChatResponseAction);
+defineCustomElement('uai-editor-ai-action-image-response-action', AIImageResponseAction);

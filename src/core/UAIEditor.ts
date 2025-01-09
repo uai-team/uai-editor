@@ -13,6 +13,7 @@ import { TableOfContentData } from "@tiptap-pro/extension-table-of-contents";
 import "../components"
 import { Header } from "../components/Header.ts";
 import { ChatContainer } from "../components/containers/ChatContainer.ts";
+import { ImageContainer } from "../components/containers/ImageContainer.ts";
 import { TocContainer } from "../components/containers/TocContainer.ts";
 import { Editor } from "../components/Editor.ts";
 import { Footer } from "../components/Footer.ts";
@@ -25,7 +26,7 @@ import i18next from "i18next";
 import { zh } from "../i18n/zh.ts";
 import { Resource } from "i18next";
 import { allExtensions } from "./UAIExtensions.ts";
-import { AIChatConfig } from "../ai/config/AIConfig.ts";
+import { AIChatConfig, Text2ImageConfig } from "../ai/config/AIConfig.ts";
 import { markdownToHtml } from "../utils/MarkdownUtil.ts";
 import { Uploader } from "../utils/FileUploader.ts";
 
@@ -110,6 +111,11 @@ export type UAIEditorOptions = {
     ai?: {
         chat?: {
             models?: Record<string, AIChatConfig>,
+        },
+        image?: {
+            models?: {
+                text2image?: Record<string, Text2ImageConfig>,
+            },
         }
     }
 }
@@ -150,6 +156,7 @@ export class UAIEditor {
 
     header!: Header;
     chatContainer!: ChatContainer;
+    imageContainer!: ImageContainer;
     tocContainer!: TocContainer;
     editor!: Editor;
     footer!: Footer;
@@ -252,6 +259,11 @@ export class UAIEditor {
                 chat: {
                     models: customOptions.ai?.chat?.models,
                 },
+                image: {
+                    models: {
+                        text2image: customOptions.ai?.image?.models?.text2image,
+                    },
+                }
             }
         };
         const i18nConfig = this.options.i18n || {};
@@ -294,6 +306,11 @@ export class UAIEditor {
         this.chatContainer.style.display = "none";
         this.center.appendChild(this.chatContainer);
         this.toggleContainers.push(this.chatContainer);
+
+        this.imageContainer = new ImageContainer();
+        this.imageContainer.style.display = "none";
+        this.center.appendChild(this.imageContainer);
+        this.toggleContainers.push(this.imageContainer);
 
         this.editor = new Editor();
         this.editor.classList.add("uai-main");
@@ -358,6 +375,7 @@ export class UAIEditor {
         this.header.onCreate(event, this.options);
         this.tocContainer.onCreate(event, this.options);
         this.chatContainer.onCreate(event, this.options);
+        this.imageContainer.onCreate(event, this.options);
         this.editor.onCreate(event, this.options);
         this.footer.onCreate(event, this.options);
         this.eventComponents.forEach(component => {
@@ -369,6 +387,7 @@ export class UAIEditor {
         this.header.onTransaction(event, this.options);
         this.tocContainer.onTransaction(event, this.options);
         this.chatContainer.onTransaction(event, this.options);
+        this.imageContainer.onTransaction(event, this.options);
         this.editor.onTransaction(event, this.options);
         this.footer.onTransaction(event, this.options);
         this.eventComponents.forEach(component => {

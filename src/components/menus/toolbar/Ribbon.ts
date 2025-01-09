@@ -80,6 +80,7 @@ import { ExportMarkdown } from "./export/ExportMarkdown.ts";
 import { ExportImage } from "./export/ExportImage.ts";
 
 import { ToggleChat } from "./ai/ToggleChat.ts";
+import { ToggleImage } from "./ai/ToggleImage.ts";
 
 /**
  * 经典菜单栏
@@ -195,6 +196,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
     // 人工智能菜单
     aiMenuToggleChat!: ToggleChat;
+    aiMenuToggleImage!: ToggleImage;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -490,6 +492,9 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
 
         this.aiMenuToggleChat = new ToggleChat({ menuType: "button", enable: true, huge: true, hideText: false });
         this.eventComponents.push(this.aiMenuToggleChat);
+
+        this.aiMenuToggleImage = new ToggleImage({ menuType: "button", enable: true, huge: true, hideText: false });
+        this.eventComponents.push(this.aiMenuToggleImage);
     }
 
     /**
@@ -790,5 +795,6 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         group1.classList.add("uai-ribbon-virtual-group");
         this.ribbonMenuAIGroup.appendChild(group1);
         group1.appendChild(this.aiMenuToggleChat);
+        group1.appendChild(this.aiMenuToggleImage);
     }
 }

@@ -25,6 +25,19 @@ export interface AIChatConfig {
 }
 
 /**
+ * 文生图的基本配置信息
+ */
+export interface Text2ImageConfig {
+    modelType: "openai" | "custom";
+
+    baseUrl?: string; // openai && gitee
+    apiKey?: string; // openai && gitee && spark
+    model?: string;  // openai
+
+    size?: "512x512" | "1024x1024";
+}
+
+/**
  * 快捷命令基本配置信息
  */
 export interface AICommand {

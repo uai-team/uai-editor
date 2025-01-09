@@ -220,3 +220,56 @@ export class AIChatResponseAction extends AbstractAIAction {
         this.sourceInputElement = sourceInputElement
     }
 }
+
+/**
+ * 定义画图界面中响应数据的功能菜单
+ */
+export class AIImageResponseAction extends AbstractAIAction {
+    sourceDivElement!: HTMLElement
+    sourceInputElement!: HTMLElement
+
+    // 默认的菜单项
+    defaultAIActions: AICommand[] = [
+        {
+            // 追加图片内容到编辑器的当前光标位置
+            icon: Icons.InsertAction,
+            name: `追加`,
+            action: () => {
+                const {
+                    state: { selection, tr },
+                    view: { dispatch }
+                } = this.editor
+                const content = (this.editor as InnerEditor).parseHtml(markdownToHtml(this.sourceDivElement.innerHTML));
+                dispatch(tr.replace(selection.to, selection.to, new Slice(content, 0, 0)).scrollIntoView())
+            }
+        },
+        {
+            // 替换编辑器中选中的内容
+            icon: Icons.ReplaceAction,
+            name: `替换`,
+            action: () => {
+                const {
+                    state: { tr },
+                    view: { dispatch }
+                } = this.editor!
+                const content = (this.editor as InnerEditor).parseHtml(markdownToHtml(this.sourceDivElement.innerHTML));
+                dispatch(tr.replaceSelection(new Slice(content, 0, 0)).scrollIntoView())
+            }
+        }
+    ]
+
+    constructor() {
+        super()
+        this.aiActions = this.defaultAIActions.map((menu) => {
+            return {
+                ...menu,
+                name: `${t(menu.name)}`
+            }
+        })
+    }
+
+    bindSourceElement(sourceDivElement: HTMLElement, sourceInputElement: HTMLElement) {
+        this.sourceDivElement = sourceDivElement
+        this.sourceInputElement = sourceInputElement
+    }
+}

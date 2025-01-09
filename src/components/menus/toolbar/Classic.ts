@@ -78,6 +78,7 @@ import { ExportMarkdown } from "./export/ExportMarkdown.ts";
 import { ExportImage } from "./export/ExportImage.ts";
 
 import { ToggleChat } from "./ai/ToggleChat.ts";
+import { ToggleImage } from "./ai/ToggleImage.ts";
 
 /**
  * 传统菜单栏
@@ -192,6 +193,7 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
     // 人工智能菜单
     aiMenuToggleChat!: ToggleChat;
+    aiMenuToggleImage!: ToggleImage;
 
     constructor(defaultToolbarMenus: Record<string, any>[]) {
         super();
@@ -467,6 +469,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
         this.aiMenuToggleChat = new ToggleChat({ menuType: "button", enable: true, header: "classic", hideText: false });
         this.eventComponents.push(this.aiMenuToggleChat);
+
+        this.aiMenuToggleImage = new ToggleImage({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.aiMenuToggleImage);
     }
     /**
      * 创建基础菜单
@@ -685,5 +690,6 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         group1.classList.add("uai-classic-virtual-group");
         this.classicMenuAIGroup.appendChild(group1);
         group1.appendChild(this.aiMenuToggleChat);
+        group1.appendChild(this.aiMenuToggleImage);
     }
 }
