@@ -26,9 +26,11 @@ import i18next from "i18next";
 import { zh } from "../i18n/zh.ts";
 import { Resource } from "i18next";
 import { allExtensions } from "./UAIExtensions.ts";
+import { AICommand } from "../ai/config/AIConfig.ts";
 import { AIChatConfig, Text2ImageConfig } from "../ai/config/AIConfig.ts";
 import { markdownToHtml } from "../utils/MarkdownUtil.ts";
 import { Uploader } from "../utils/FileUploader.ts";
+import { Icons } from "../components/Icons.ts";
 
 self.MonacoEnvironment = {
     getWorker(_workerId, _label) {
@@ -111,14 +113,62 @@ export type UAIEditorOptions = {
     ai?: {
         chat?: {
             models?: Record<string, AIChatConfig>,
+            commands?: AICommand[],
         },
         image?: {
             models?: {
                 text2image?: Record<string, Text2ImageConfig>,
             },
+            commands?: AICommand[]
         }
     }
 }
+
+/**
+ * 定义默认的对话快捷命令
+ */
+const defaultChatCommands = [
+    {
+        icon: Icons.AiAsk,
+        name: "AI 问答",
+        model: "default",
+    },
+    {
+        icon: Icons.AiContinue,
+        name: "AI 续写",
+        prompt: "请帮我继续扩展一下这段话的内容。",
+        model: "default",
+    },
+    {
+        icon: Icons.AiRewrite,
+        name: "AI 重写",
+        prompt: "请帮我重写写一下这段话的内容。",
+        model: "default",
+    },
+    {
+        icon: Icons.AiReview,
+        name: "AI 校阅",
+        prompt: "请帮我改正这段话中的错别字和语法错误。",
+        model: "default",
+    },
+    {
+        icon: Icons.AiTranslate,
+        name: "AI 翻译",
+        prompt: "请帮我做这段话的中英文互译。注意，你只需要返回翻译的结果，不需要对此进行任何解释，不需要除了翻译结果以外的其他任何内容。",
+        model: "default",
+    },
+]
+
+/**
+ * 定义默认的文生图命令
+ */
+const defaultImageCommands = [
+    {
+        icon: Icons.AiImage,
+        name: "AI 生图",
+        model: "default",
+    },
+]
 
 /**
  * 定义内部编辑器类
@@ -258,11 +308,13 @@ export class UAIEditor {
             ai: {
                 chat: {
                     models: customOptions.ai?.chat?.models,
+                    commands: customOptions.ai?.chat?.commands ?? defaultChatCommands
                 },
                 image: {
                     models: {
                         text2image: customOptions.ai?.image?.models?.text2image,
                     },
+                    commands: customOptions.ai?.image?.commands ?? defaultImageCommands
                 }
             }
         };

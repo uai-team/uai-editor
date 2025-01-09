@@ -34,6 +34,7 @@ import Indent from "../extensions/Indent.ts";
 import LineHeight from "../extensions/LineHeight.ts"
 import NodeAlign from "../extensions/NodeAlign.ts";
 import OrderedList from "../extensions/OrderedList.ts";
+import QuickCommand from "../extensions/QuickCommand.ts";
 import SelectFile from "../extensions/SelectFile.ts";
 import Selection from "../extensions/Selection.ts";
 import Shortcuts from "../extensions/Shortcuts.ts";
@@ -232,6 +233,7 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
         }),
         NodeAlign,
         OrderedList,
+        QuickCommand,
         SelectFile.configure({
             allowedMimeTypes: []
         }),
