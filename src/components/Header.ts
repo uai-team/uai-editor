@@ -1,17 +1,20 @@
 // Copyright (c) 2024-present AI-Labs
 
 // @ ts-nocheck
+import { EditorEvents } from "@tiptap/core";
+
 import { t } from "i18next";
+import tippy, { Instance, Props } from "tippy.js";
+
+import { InnerEditor, UAIEditorEventListener, UAIEditorOptions } from "../core/UAIEditor.ts";
+import { Ribbon } from "./menus/toolbar/Ribbon.ts";
+import { Classic } from "./menus/toolbar/Classic.ts";
+
 import expandDownIcon from "../assets/icons/expand-down.svg";
 import toolbarRibbon from "../assets/icons/toolbar-ribbon.svg";
 import toolbarClassic from "../assets/icons/toolbar-classic.svg";
 import toolbarSource from "../assets/icons/toolbar-source.svg";
 import codeblock from "../assets/icons/codeblock.svg";
-import { Ribbon } from "./menus/toolbar/Ribbon";
-import { Classic } from "./menus/toolbar/Classic";
-import { InnerEditor, UAIEditorEventListener, UAIEditorOptions } from "../core/UAIEditor.ts";
-import { EditorEvents } from "@tiptap/core";
-import tippy, { Instance, Props } from "tippy.js";
 
 /**
  * 文档顶部菜单栏

@@ -1,0 +1,115 @@
+{
+  "name": "uai-editor",
+  "author": "wux-labs",
+  "version": "1.0.0",
+  "type": "module",
+  "keywords": [
+    "editor",
+    "ai",
+    "uai editor"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./dist/style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "dev": "vite --host --open --force",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@tiptap-pro/extension-export": "^2.16.1",
+    "@tiptap-pro/extension-mathematics": "^2.16.2",
+    "@tiptap-pro/extension-table-of-contents": "^2.17.0",
+    "@types/markdown-it": "^14.1.2",
+    "@types/markdown-it-container": "^2.0.10",
+    "@types/node": "^20.9.0",
+    "@types/turndown": "^5.0.5",
+    "less": "^4.2.0",
+    "typescript": "^5.0.2",
+    "vite": "^5.4.6",
+    "vite-plugin-dts": "^3.6.3"
+  },
+  "dependencies": {
+    "@tiptap/core": "^2.10.3",
+    "@tiptap/extension-bubble-menu": "^2.10.3",
+    "@tiptap/extension-bullet-list": "^2.10.3",
+    "@tiptap/extension-character-count": "^2.10.3",
+    "@tiptap/extension-code-block-lowlight": "^2.10.3",
+    "@tiptap/extension-color": "^2.10.3",
+    "@tiptap/extension-font-family": "^2.10.3",
+    "@tiptap/extension-gapcursor": "^2.10.3",
+    "@tiptap/extension-heading": "^2.10.3",
+    "@tiptap/extension-highlight": "^2.10.3",
+    "@tiptap/extension-image": "^2.10.3",
+    "@tiptap/extension-link": "^2.10.3",
+    "@tiptap/extension-list-item": "^2.10.3",
+    "@tiptap/extension-mention": "^2.10.3",
+    "@tiptap/extension-placeholder": "^2.10.3",
+    "@tiptap/extension-subscript": "^2.10.3",
+    "@tiptap/extension-superscript": "^2.10.3",
+    "@tiptap/extension-table": "^2.10.3",
+    "@tiptap/extension-table-cell": "^2.10.3",
+    "@tiptap/extension-table-header": "^2.10.3",
+    "@tiptap/extension-table-row": "^2.10.3",
+    "@tiptap/extension-task-item": "^2.10.3",
+    "@tiptap/extension-task-list": "^2.10.3",
+    "@tiptap/extension-text-align": "^2.10.3",
+    "@tiptap/extension-text-style": "^2.10.3",
+    "@tiptap/extension-underline": "^2.10.3",
+    "@tiptap/pm": "^2.10.3",
+    "@tiptap/starter-kit": "^2.10.3",
+    "@tiptap/suggestion": "^2.10.3",
+    "@types/bootstrap": "^5.2.10",
+    "@types/evaluatex": "^2.2.8",
+    "@types/file-saver": "^2.0.7",
+    "@types/katex": "^0.16.7",
+    "@vscode/markdown-it-katex": "^1.1.0",
+    "bootstrap": "^5.3.3",
+    "crypto-js": "^4.2.0",
+    "dom-to-image-more": "^3.5.0",
+    "evaluatex": "^2.2.0",
+    "fast-glob": "^3.3.2",
+    "fetch-event-stream": "^0.1.5",
+    "file-saver": "^2.0.5",
+    "github-markdown-css": "^5.7.0",
+    "i18next": "^23.16.2",
+    "katex": "^0.16.11",
+    "lowlight": "^3.1.0",
+    "markdown-it": "^14.1.0",
+    "markdown-it-container": "^4.0.0",
+    "monaco-editor": "^0.52.2",
+    "openai": "^4.77.0",
+    "tippy.js": "^6.3.7",
+    "turndown": "^7.2.0",
+    "vite-plugin-svg-icons": "^2.0.1"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/AI-Labs/uai-editor"
+  },
+  "bugs": {
+    "url": "https://gitee.com/AI-Labs/uai-editor/issues"
+  },
+  "homepage": "https://gitee.com/AI-Labs/uai-editor#readme",
+  "license": "MIT"
+}

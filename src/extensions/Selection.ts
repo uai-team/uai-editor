@@ -1,5 +1,6 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 import { type Editor, Extension, findParentNode } from '@tiptap/core'
 import { type NodeSelection, Plugin, PluginKey } from '@tiptap/pm/state'
 import { Decoration, DecorationSet } from '@tiptap/pm/view'

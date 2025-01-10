@@ -1,11 +1,10 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 import markdownItKatex from '@vscode/markdown-it-katex';
 import MarkdownIt from 'markdown-it';
 import container from 'markdown-it-container';
-
 import TurndownService from 'turndown';
-
 import hljs from 'highlight.js';
 
 const md = MarkdownIt({

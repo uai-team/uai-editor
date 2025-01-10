@@ -1,12 +1,15 @@
 // Copyright (c) 2024-present AI-Labs
 
 // @ ts-nocheck
-import { MenuButton, MenuButtonOptions } from "../../MenuButton.ts";
-import icon from "../../../../assets/icons/page-background.svg";
-import { t } from "i18next";
-import { UAIEditorEventListener, UAIEditorOptions } from "../../../../core/UAIEditor.ts";
 import { EditorEvents } from "@tiptap/core";
+
 import tippy, { Instance, Props } from "tippy.js";
+import { t } from "i18next";
+
+import { UAIEditorEventListener, UAIEditorOptions } from "../../../../core/UAIEditor.ts";
+import { MenuButton, MenuButtonOptions } from "../../MenuButton.ts";
+
+import icon from "../../../../assets/icons/page-background.svg";
 
 /**
  * 页面菜单：设置背景色

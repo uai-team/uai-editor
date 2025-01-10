@@ -1,10 +1,12 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 import {
     Editor, isNodeSelection, posToDOMRect,
 } from '@tiptap/core'
 import { EditorState, Plugin, PluginKey } from '@tiptap/pm/state'
 import { EditorView } from '@tiptap/pm/view'
+
 import tippy, { Instance, Props } from 'tippy.js'
 
 export type BubbleMenuPluginOptions = {

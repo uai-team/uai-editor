@@ -1,13 +1,16 @@
 // Copyright (c) 2024-present AI-Labs
 
 // @ ts-nocheck
-import { MenuButton, MenuButtonOptions } from "../../MenuButton.ts";
-import icon from "../../../../assets/icons/image.svg";
-import { t } from "i18next";
-import { UAIEditorEventListener, UAIEditorOptions } from "../../../../core/UAIEditor.ts";
 import { EditorEvents } from "@tiptap/core";
+
 import domtoimage from 'dom-to-image-more';
 import { saveAs } from 'file-saver';
+import { t } from "i18next";
+
+import { MenuButton, MenuButtonOptions } from "../../MenuButton.ts";
+import { UAIEditorEventListener, UAIEditorOptions } from "../../../../core/UAIEditor.ts";
+
+import icon from "../../../../assets/icons/image.svg";
 
 /**
  * 导出菜单：导出图片

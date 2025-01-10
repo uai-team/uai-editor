@@ -1,8 +1,10 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 import { NodeViewRendererProps } from '@tiptap/core'
 import Image from '@tiptap/extension-image'
-import { resize } from '../utils/resize.ts'
+
+import { resize } from '../utils/Resize.ts'
 
 declare module '@tiptap/core' {
     interface Commands<ReturnType> {

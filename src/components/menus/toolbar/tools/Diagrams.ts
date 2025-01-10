@@ -1,14 +1,17 @@
 // Copyright (c) 2024-present AI-Labs
 
 // @ ts-nocheck
-import { MenuButton, MenuButtonOptions } from "../../MenuButton.ts";
-import icon from "../../../../assets/icons/diagrams.svg";
-import { t } from "i18next";
-import { UAIEditorEventListener, UAIEditorOptions, InnerEditor } from "../../../../core/UAIEditor.ts";
 import { EditorEvents } from "@tiptap/core";
+
+import { t } from "i18next";
+
+import { UAIEditorEventListener, UAIEditorOptions } from "../../../../core/UAIEditor.ts";
+import { MenuButton, MenuButtonOptions } from "../../MenuButton.ts";
 import { FullScreenModal } from "../../../modals/FullScreenModal.ts";
 import DiagramEditor from "../../../../utils/DiagramEditor.ts";
 import { uuid } from "../../../../utils/UUID.ts";
+
+import icon from "../../../../assets/icons/diagrams.svg";
 
 /**
  * 工具菜单：插入流程图

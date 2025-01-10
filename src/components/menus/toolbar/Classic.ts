@@ -2,9 +2,9 @@
 
 // @ ts-nocheck
 import { EditorEvents } from "@tiptap/core";
+
 import { UAIEditorEventListener, UAIEditorOptions } from "../../../core/UAIEditor.ts";
 
-import menuIcon from "../../../assets/icons/menu.svg";
 import { ScrollableDiv } from "./ScrollableDiv.ts";
 
 import { FontSizeIncrease } from "../common/FontSizeIncrease.ts";
@@ -79,6 +79,8 @@ import { ExportImage } from "./export/ExportImage.ts";
 
 import { ToggleChat } from "./ai/ToggleChat.ts";
 import { ToggleImage } from "./ai/ToggleImage.ts";
+
+import menuIcon from "../../../assets/icons/menu.svg";
 
 /**
  * 传统菜单栏

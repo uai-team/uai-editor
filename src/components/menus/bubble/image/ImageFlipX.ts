@@ -1,12 +1,13 @@
 // Copyright (c) 2024-present AI-Labs
 
 // @ ts-nocheck
-import { MenuButton, MenuButtonOptions } from "../../MenuButton.ts";
-import icon from "../../../../assets/icons/image-flip-x.svg";
-import { t } from "i18next";
-import { UAIEditorEventListener, UAIEditorOptions } from "../../../../core/UAIEditor.ts";
 import { EditorEvents } from "@tiptap/core";
+
+import { UAIEditorEventListener, UAIEditorOptions } from "../../../../core/UAIEditor.ts";
+import { MenuButton, MenuButtonOptions } from "../../MenuButton.ts";
 import { getSelectionNode } from "../../../../extensions/Selection.ts";
+
+import icon from "../../../../assets/icons/image-flip-x.svg";
 
 /**
  * 定义垂直翻转功能

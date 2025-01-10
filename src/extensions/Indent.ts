@@ -1,6 +1,8 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 import { Command, Extension } from '@tiptap/core';
+
 import { AllSelection, TextSelection, Transaction } from 'prosemirror-state';
 
 export interface IndentOptions {

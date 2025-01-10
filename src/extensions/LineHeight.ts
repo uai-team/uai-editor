@@ -1,5 +1,6 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 import { Extension } from '@tiptap/core'
 
 export interface LineHeightOptions {

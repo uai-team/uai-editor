@@ -1,11 +1,14 @@
 // Copyright (c) 2024-present AI-Labs
 
 // @ ts-nocheck
-import { MenuButton, MenuButtonOptions } from "../MenuButton.ts";
-import icon from "../../../assets/icons/message.svg";
-import { t } from "i18next";
-import { UAIEditorEventListener, UAIEditorOptions } from "../../../core/UAIEditor.ts";
 import { EditorEvents } from "@tiptap/core";
+
+import { t } from "i18next";
+
+import { UAIEditorEventListener, UAIEditorOptions } from "../../../core/UAIEditor.ts";
+import { MenuButton, MenuButtonOptions } from "../MenuButton.ts";
+
+import icon from "../../../assets/icons/message.svg";
 
 /**
  * 状态栏菜单：问题与建议

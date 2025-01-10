@@ -3,15 +3,17 @@
 // @ ts-nocheck
 import { Editor, EditorEvents } from "@tiptap/core";
 import { Slice } from "@tiptap/pm/model";
-import iconTask from "../../assets/icons/task-list.svg";
 
-import { Icons } from "../Icons";
-import { AICommand } from "../../ai/config/AIConfig";
+import tippy, { Instance, Props } from "tippy.js";
+import { t } from "i18next";
+
 import { InnerEditor, UAIEditorEventListener, UAIEditorOptions } from "../../core/UAIEditor";
 import { markdownToHtml } from "../../utils/MarkdownUtil";
-import { t } from "i18next";
 import { MenuButton, MenuButtonOptions } from "../menus/MenuButton";
-import tippy, { Instance, Props } from "tippy.js";
+import { AICommand } from "../../ai/config/AIConfig";
+import { Icons } from "../Icons";
+
+import iconTask from "../../assets/icons/task-list.svg";
 
 /**
  * 抽象AI Action类

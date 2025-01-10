@@ -1,5 +1,6 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 /**
  * 创建头像
  * @param icon 

@@ -1,5 +1,6 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 import { Modal } from "bootstrap";
 
 import 'bootstrap/dist/css/bootstrap.css';

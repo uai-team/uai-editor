@@ -1,5 +1,6 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 /**
  * 模型对话的基本配置信息
  */

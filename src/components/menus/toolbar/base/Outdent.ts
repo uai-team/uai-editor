@@ -1,11 +1,14 @@
 // Copyright (c) 2024-present AI-Labs
 
 // @ ts-nocheck
-import { MenuButton, MenuButtonOptions } from "../../MenuButton.ts";
-import icon from "../../../../assets/icons/outdent.svg";
-import { t } from "i18next";
-import { UAIEditorEventListener, UAIEditorOptions } from "../../../../core/UAIEditor.ts";
 import { EditorEvents } from "@tiptap/core";
+
+import { t } from "i18next";
+
+import { UAIEditorEventListener, UAIEditorOptions } from "../../../../core/UAIEditor.ts";
+import { MenuButton, MenuButtonOptions } from "../../MenuButton.ts";
+
+import icon from "../../../../assets/icons/outdent.svg";
 
 /**
  * 基础菜单：向左缩进

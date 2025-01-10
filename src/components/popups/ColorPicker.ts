@@ -2,8 +2,10 @@
 
 // @ ts-nocheck
 import { EditorEvents } from "@tiptap/core";
-import { UAIEditorEventListener, UAIEditorOptions } from "../../core/UAIEditor.ts";
+
 import { t } from "i18next";
+
+import { UAIEditorEventListener, UAIEditorOptions } from "../../core/UAIEditor.ts";
 
 /**
  * 所有可选颜色

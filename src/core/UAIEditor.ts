@@ -1,14 +1,18 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 import {
     Editor as TipTap,
     EditorEvents,
     EditorOptions,
 } from "@tiptap/core";
-
 import { DOMParser } from "@tiptap/pm/model";
-
 import { TableOfContentData } from "@tiptap-pro/extension-table-of-contents";
+
+import * as monaco from 'monaco-editor';
+import HtmlWorker from 'monaco-editor/esm/vs/language/html/html.worker.js?worker';
+import i18next from "i18next";
+import { Resource } from "i18next";
 
 import "../components"
 import { Header } from "../components/Header.ts";
@@ -17,14 +21,10 @@ import { ImageContainer } from "../components/containers/ImageContainer.ts";
 import { TocContainer } from "../components/containers/TocContainer.ts";
 import { Editor } from "../components/Editor.ts";
 import { Footer } from "../components/Footer.ts";
-import * as monaco from 'monaco-editor';
-import HtmlWorker from 'monaco-editor/esm/vs/language/html/html.worker.js?worker';
 
 import "../styles";
 
-import i18next from "i18next";
 import { zh } from "../i18n/zh.ts";
-import { Resource } from "i18next";
 import { allExtensions } from "./UAIExtensions.ts";
 import { AICommand } from "../ai/config/AIConfig.ts";
 import { AIChatConfig, Text2ImageConfig } from "../ai/config/AIConfig.ts";

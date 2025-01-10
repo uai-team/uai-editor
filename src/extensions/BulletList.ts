@@ -1,5 +1,6 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 import BulletList from '@tiptap/extension-bullet-list'
 
 // https://www.npmjs.com/package/tiptap-extension-bullet-list

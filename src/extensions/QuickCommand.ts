@@ -2,12 +2,13 @@
 
 // @ ts-nocheck
 import { Extension } from '@tiptap/core';
-
 import Suggestion, { SuggestionOptions, SuggestionProps } from '@tiptap/suggestion';
+
 import tippy, { Instance } from 'tippy.js';
+import OpenAI from "openai";
+
 import { InnerEditor } from '../core/UAIEditor.ts';
 import { AICommand } from '../ai/config/AIConfig.ts';
-import OpenAI from "openai";
 import { markdownToHtml } from '../utils/MarkdownUtil.ts';
 import { uuid } from '../utils/UUID.ts';
 

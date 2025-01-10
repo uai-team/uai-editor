@@ -2,8 +2,10 @@
 
 // @ ts-nocheck
 import { EditorEvents } from "@tiptap/core";
-import { UAIEditorEventListener, UAIEditorOptions } from "../../core/UAIEditor.ts";
+
 import tippy, { Instance, Props } from "tippy.js";
+
+import { UAIEditorEventListener, UAIEditorOptions } from "../../core/UAIEditor.ts";
 import { Icons } from "../Icons.ts";
 
 /**

@@ -1,18 +1,20 @@
 // Copyright (c) 2024-present AI-Labs
 
 // @ ts-nocheck
-import closeIcon from "../../assets/icons/close.svg";
-import titleIcon from "../../assets/icons/chat-bot.svg";
-import sendIcon from "../../assets/icons/send-message.svg";
-import { t } from "i18next";
-import { UAIEditorEventListener, UAIEditorOptions } from "../../core/UAIEditor.ts";
 import { EditorEvents } from "@tiptap/core";
+import OpenAI from "openai";
+import { t } from "i18next";
+
+import { UAIEditorEventListener, UAIEditorOptions } from "../../core/UAIEditor.ts";
 import { createAvatar } from "../../utils/CreateAvatar.ts";
 import { Icons } from "../Icons.ts";
-import OpenAI from "openai";
 import { AIChatConfig } from "../../ai/config/AIConfig.ts";
 import { markdownToHtml } from "../../utils/MarkdownUtil.ts";
 import { AIRequestAction, AIChatResponseAction } from "../ai/AIAction.ts";
+
+import closeIcon from "../../assets/icons/close.svg";
+import titleIcon from "../../assets/icons/chat-bot.svg";
+import sendIcon from "../../assets/icons/send-message.svg";
 
 /**
  * 定义聊天对话界面的容器

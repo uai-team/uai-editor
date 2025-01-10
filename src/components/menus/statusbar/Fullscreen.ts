@@ -1,12 +1,15 @@
 // Copyright (c) 2024-present AI-Labs
 
 // @ ts-nocheck
+import { EditorEvents } from "@tiptap/core";
+
+import { t } from "i18next";
+
+import { InnerEditor, UAIEditorEventListener, UAIEditorOptions } from "../../../core/UAIEditor.ts";
 import { MenuButton, MenuButtonOptions } from "../MenuButton.ts";
+
 import fullIcon from "../../../assets/icons/full-screen.svg";
 import exitIcon from "../../../assets/icons/full-screen-exit.svg";
-import { t } from "i18next";
-import { InnerEditor, UAIEditorEventListener, UAIEditorOptions } from "../../../core/UAIEditor.ts";
-import { EditorEvents } from "@tiptap/core";
 
 /**
  * 状态栏菜单：全屏

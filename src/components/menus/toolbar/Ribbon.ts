@@ -2,9 +2,10 @@
 
 // @ ts-nocheck
 import { EditorEvents } from "@tiptap/core";
-import { UAIEditorEventListener, UAIEditorOptions } from "../../../core/UAIEditor.ts";
 
 import { t } from "i18next";
+
+import { UAIEditorEventListener, UAIEditorOptions } from "../../../core/UAIEditor.ts";
 import { ScrollableDiv } from "./ScrollableDiv.ts";
 import { Icons } from "../../Icons.ts";
 

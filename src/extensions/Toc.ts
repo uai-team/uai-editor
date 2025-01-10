@@ -1,9 +1,12 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 import { mergeAttributes, Node, NodeViewRendererProps } from '@tiptap/core'
-import { InnerEditor } from '../core/UAIEditor'
 import { TextSelection } from '@tiptap/pm/state'
+
 import { t } from 'i18next'
+
+import { InnerEditor } from '../core/UAIEditor.ts'
 
 declare module '@tiptap/core' {
     interface Commands<ReturnType> {

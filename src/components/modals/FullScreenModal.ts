@@ -1,9 +1,11 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 import { Modal } from "bootstrap";
-import closeIcon from "../../assets/icons/close.svg";
 
 import 'bootstrap/dist/css/bootstrap.css';
+
+import closeIcon from "../../assets/icons/close.svg";
 
 /**
  * 全屏的模态弹出框

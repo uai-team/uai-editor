@@ -1,12 +1,15 @@
 // Copyright (c) 2024-present AI-Labs
 
 // @ ts-nocheck
-import closeIcon from "../../assets/icons/close.svg";
-import titleIcon from "../../assets/icons/toc.svg";
-import { t } from "i18next";
-import { UAIEditor, UAIEditorEventListener, UAIEditorOptions } from "../../core/UAIEditor.ts";
 import { EditorEvents } from "@tiptap/core";
 import { TextSelection } from "@tiptap/pm/state";
+
+import { t } from "i18next";
+
+import { UAIEditor, UAIEditorEventListener, UAIEditorOptions } from "../../core/UAIEditor.ts";
+
+import closeIcon from "../../assets/icons/close.svg";
+import titleIcon from "../../assets/icons/toc.svg";
 
 /**
  * 定义文档大纲容器

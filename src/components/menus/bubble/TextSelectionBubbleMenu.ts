@@ -2,7 +2,9 @@
 
 // @ ts-nocheck
 import { EditorEvents } from "@tiptap/core";
+
 import { UAIEditor, UAIEditorEventListener, UAIEditorOptions } from "../../../core/UAIEditor";
+
 import { Bold } from "../common/Bold";
 import { FontSizeDecrease } from "../common/FontSizeDecrease";
 import { FontSizeIncrease } from "../common/FontSizeIncrease";

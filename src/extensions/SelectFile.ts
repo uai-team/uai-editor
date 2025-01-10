@@ -1,8 +1,10 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 import { Node, mergeAttributes } from '@tiptap/core';
 import { Plugin, PluginKey, TextSelection } from '@tiptap/pm/state';
 import { Decoration, DecorationSet } from '@tiptap/pm/view';
+
 import { InnerEditor } from '../core/UAIEditor.ts';
 import { Base64Uploader } from '../utils/FileUploader.ts';
 import { uuid } from '../utils/UUID.ts';

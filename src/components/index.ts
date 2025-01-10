@@ -1,6 +1,8 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 import { defineCustomElement } from "../utils/DefineCustomElement.ts";
+
 import { Header } from "../components/Header.ts";
 import { Editor } from "../components/Editor.ts";
 import { Footer } from "../components/Footer.ts";

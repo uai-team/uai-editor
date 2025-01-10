@@ -1,13 +1,16 @@
 // Copyright (c) 2024-present AI-Labs
 
 // @ ts-nocheck
-import { MenuButton, MenuButtonOptions } from "../../MenuButton.ts";
-import icon from "../../../../assets/icons/watermark.svg";
-import { t } from "i18next";
-import { UAIEditorEventListener, UAIEditorOptions } from "../../../../core/UAIEditor.ts";
 import { EditorEvents } from "@tiptap/core";
+
 import tippy, { Instance, Props } from "tippy.js";
+import { t } from "i18next";
 import domtoimage from 'dom-to-image-more';
+
+import { UAIEditorEventListener, UAIEditorOptions } from "../../../../core/UAIEditor.ts";
+import { MenuButton, MenuButtonOptions } from "../../MenuButton.ts";
+
+import icon from "../../../../assets/icons/watermark.svg";
 
 /**
  * 页面菜单：设置水印

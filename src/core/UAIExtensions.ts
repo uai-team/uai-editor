@@ -2,7 +2,6 @@
 
 // @ ts-nocheck
 import { Extension, Extensions, getTextBetween } from "@tiptap/core";
-import { UAIEditor, UAIEditorOptions } from "./UAIEditor";
 
 import { StarterKit } from "@tiptap/starter-kit";
 import { CharacterCount } from "@tiptap/extension-character-count";
@@ -26,6 +25,7 @@ import { Export } from '@tiptap-pro/extension-export';
 import { Mathematics } from '@tiptap-pro/extension-mathematics';
 import { TableOfContents, getHierarchicalIndexes } from '@tiptap-pro/extension-table-of-contents'
 
+import { UAIEditor, UAIEditorOptions } from "./UAIEditor";
 import Audio from "../extensions/Audio.ts";
 import BulletList from "../extensions/BulletList.ts";
 import FontSize from "../extensions/FontSize.ts";

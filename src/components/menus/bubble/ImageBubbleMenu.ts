@@ -2,6 +2,7 @@
 
 // @ ts-nocheck
 import { EditorEvents } from "@tiptap/core";
+
 import { UAIEditorEventListener, UAIEditor, UAIEditorOptions } from "../../../core/UAIEditor";
 
 import { AlignLeft } from "../common/AlignLeft.ts";

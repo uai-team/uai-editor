@@ -1,5 +1,6 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 import OrderedList from '@tiptap/extension-ordered-list'
 
 // https://www.npmjs.com/package/tiptap-extension-ordered-list

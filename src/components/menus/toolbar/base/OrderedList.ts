@@ -1,6 +1,12 @@
 // Copyright (c) 2024-present AI-Labs
 
 // @ ts-nocheck
+import { EditorEvents } from "@tiptap/core";
+
+import tippy, { Instance, Props } from "tippy.js";
+import { t } from "i18next";
+
+import { UAIEditorEventListener, UAIEditorOptions } from "../../../../core/UAIEditor.ts";
 import { MenuButton, MenuButtonOptions } from "../../MenuButton.ts";
 
 import icon0 from "../../../../assets/icons/ordered-list.svg";
@@ -12,11 +18,6 @@ import icon5 from "../../../../assets/icons/ordered-list-lower-latin.svg";
 import icon6 from "../../../../assets/icons/ordered-list-upper-latin.svg";
 import icon7 from "../../../../assets/icons/ordered-list-trad-chinese-informal.svg";
 import icon8 from "../../../../assets/icons/ordered-list-simp-chinese-formal.svg";
-
-import { t } from "i18next";
-import { UAIEditorEventListener, UAIEditorOptions } from "../../../../core/UAIEditor.ts";
-import { EditorEvents } from "@tiptap/core";
-import tippy, { Instance, Props } from "tippy.js";
 
 /**
  * 基础菜单：有序列表

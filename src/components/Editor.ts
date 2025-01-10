@@ -2,6 +2,7 @@
 
 // @ ts-nocheck
 import { EditorEvents } from "@tiptap/core";
+
 import { UAIEditorEventListener, UAIEditorOptions } from "../core/UAIEditor.ts";
 
 /**

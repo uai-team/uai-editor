@@ -1,9 +1,11 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 import { Extension } from '@tiptap/core';
-import { Fullscreen } from '../components/menus/statusbar/Fullscreen';
-import { InnerEditor } from '../core/UAIEditor';
-import { Print } from '../components/menus/toolbar/base/Print';
+
+import { InnerEditor } from '../core/UAIEditor.ts';
+import { Fullscreen } from '../components/menus/statusbar/Fullscreen.ts';
+import { Print } from '../components/menus/toolbar/base/Print.ts';
 
 /**
  * 自定义快捷键

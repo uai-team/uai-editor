@@ -1,5 +1,6 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 // https://www.diagrams.com/doc/faq/embed-mode
 class DiagramEditor {
     frame: HTMLIFrameElement | undefined

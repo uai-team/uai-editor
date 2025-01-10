@@ -1,7 +1,9 @@
 // Copyright (c) 2024-present AI-Labs
 
+// @ ts-nocheck
 import { mergeAttributes, Node } from '@tiptap/core'
-import { resize } from '../utils/resize'
+
+import { resize } from '../utils/Resize.ts'
 
 declare module '@tiptap/core' {
     interface Commands<ReturnType> {
