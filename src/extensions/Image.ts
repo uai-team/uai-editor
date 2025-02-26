@@ -98,7 +98,7 @@ export default Image.extend({
             container.classList.add(`uai-node-view`);
             container.style.justifyContent = nodeAlign;
 
-            const wrapperStyle = width.indexOf("%") > 0 ? `style="width: ${width};"` : "";
+            const wrapperStyle = `${width}`.indexOf("%") > 0 ? `style="width: ${width};"` : "";
 
             var transform = "none";
 

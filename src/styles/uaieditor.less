@@ -204,14 +204,15 @@
             }
 
             // &:not(:last-child) {
-              &::before {
-                content: '';
-                display: block;
-                height: 18px;
-                width: 1px;
-                background-color: var(--uai-border-color-light);
-                margin: 0 10px;
-              }
+            &::before {
+              content: '';
+              display: block;
+              height: 18px;
+              width: 1px;
+              background-color: var(--uai-border-color-light);
+              margin: 0 10px;
+            }
+
             // }
 
             &:first-child::before {
@@ -2371,4 +2372,97 @@
   height: 0;
   position: absolute;
   border: none;
+}
+
+.uai-node-view {
+  .uai-node-file {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px;
+    outline: solid 1px var(--uai-content-node-border);
+    overflow: hidden;
+    background-color: var(--uai-color-white);
+    border-radius: var(--uai-content-node-radius);
+
+    .uai-file-icon {
+      width: 32px;
+      height: 32px;
+      margin-right: 8px;
+      flex: 1;
+
+      .icon-file {
+        width: 32px;
+        display: block;
+      }
+    }
+
+    .uai-file-info {
+      width: 240px;
+
+      .uai-file-name {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.2;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        word-break: break-all;
+        white-space: nowrap;
+        width: 100%;
+        padding-right: 10px;
+        box-sizing: border-box;
+      }
+
+      .uai-file-meta {
+        font-size: 12px;
+        color: var(--uai-text-color-light);
+        line-height: 1;
+        margin-top: 6px;
+      }
+    }
+
+    .uai-file-action {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      color: var(--uai-text-color-light);
+      gap: 5px;
+
+      .uai-action-item {
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 32px;
+        width: 32px;
+        background-color: var(--uai-color-white);
+        box-sizing: border-box;
+        cursor: pointer;
+        border-radius: 50%;
+        color: var(--uai-text-color-light);
+
+        &:hover {
+          border: solid 1px var(--uai-primary-color);
+          color: var(--uai-primary-color);
+        }
+
+        .loading {
+          animation: turn 1s linear infinite;
+        }
+      }
+    }
+  }
+}
+
+.uai-file-preview-modal {
+  padding: 0 !important;
+
+  &-body {
+    iframe {
+      display: block;
+      width: 100%;
+      height: calc(100vh - 100px);
+      border: solid 1px var(--uai-border-color-light);
+      box-sizing: border-box;
+    }
+  }
 }

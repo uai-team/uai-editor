@@ -8,24 +8,26 @@ import { t } from "i18next";
 import { UAIEditorEventListener, UAIEditorOptions } from "../../../../core/UAIEditor.ts";
 import { MenuButton, MenuButtonOptions } from "../../MenuButton.ts";
 
-import icon from "../../../../assets/icons/video.svg";
+import icon from "../../../../assets/icons/file.svg";
 
 /**
- * 插入菜单：插入视频
+ * 插入菜单：插入文件
  */
-export class Video extends HTMLElement implements UAIEditorEventListener {
+export class File extends HTMLElement implements UAIEditorEventListener {
     // 按钮选项
     menuButtonOptions: MenuButtonOptions = {
         menuType: "button",
         enable: true,
         icon: icon,
         hideText: false,
-        text: t('insert.video'),
-        tooltip: t('insert.video'),
+        text: t('insert.file'),
+        tooltip: t('insert.file'),
     }
 
     // 功能按钮
     menuButton: MenuButton;
+    // 文件选择
+    fileInput: HTMLInputElement;
 
     constructor(options: MenuButtonOptions) {
         super();
@@ -35,6 +37,12 @@ export class Video extends HTMLElement implements UAIEditorEventListener {
 
         // 创建功能按钮
         this.menuButton = new MenuButton(this.menuButtonOptions);
+
+        // 初始化文件选择
+        this.fileInput = document.createElement("input");
+        this.fileInput.type = "file";
+        this.fileInput.multiple = true;
+        this.fileInput.accept = "*/*";
     }
 
     /**
@@ -46,10 +54,10 @@ export class Video extends HTMLElement implements UAIEditorEventListener {
         this.menuButton.onCreate(event, options);
         this.appendChild(this.menuButton);
 
-        // 定义按钮点击事件，插入视频
+        // 定义按钮点击事件，插入文件
         this.addEventListener("click", () => {
             if (this.menuButtonOptions.enable) {
-                event.editor.chain().focus().selectFiles('video', true).run();
+                event.editor.chain().focus().selectFiles('file', false).run();
             }
         })
     }

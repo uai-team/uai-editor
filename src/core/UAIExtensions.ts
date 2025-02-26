@@ -29,6 +29,7 @@ import { UAIEditor, UAIEditorOptions } from "./UAIEditor";
 import Audio from "../extensions/Audio.ts";
 import BulletList from "../extensions/BulletList.ts";
 import FontSize from "../extensions/FontSize.ts";
+import File from "../extensions/File.ts";
 import Image from "../extensions/Image.ts";
 import Indent from "../extensions/Indent.ts";
 import LineHeight from "../extensions/LineHeight.ts"
@@ -48,6 +49,7 @@ import { TextSelectionBubbleMenu } from "../components/menus/bubble/TextSelectio
 import { ImageBubbleMenu } from "../components/menus/bubble/ImageBubbleMenu.ts";
 import { VideoBubbleMenu } from "../components/menus/bubble/VideoBubbleMenu.ts";
 import { AudioBubbleMenu } from "../components/menus/bubble/AudioBubbleMenu.ts";
+import { FileBubbleMenu } from "../components/menus/bubble/FileBubbleMenu.ts";
 
 /**
  * 创建浮动菜单功能
@@ -195,6 +197,33 @@ const createAudioBubbleMenu = (uaiEditor: UAIEditor) => {
 }
 
 /**
+ * 创建文件内容的浮动菜单
+ * @param uaiEditor 
+ * @returns 
+ */
+const createFileBubbleMenu = (uaiEditor: UAIEditor) => {
+    const container = new FileBubbleMenu(uaiEditor);
+
+    return createBubbleMenu("fileBubbleMenu", {
+        pluginKey: 'fileBubbleMenu',
+        element: container,
+        tippyOptions: {
+            appendTo: uaiEditor.editor.editorContainer,
+            arrow: false,
+            interactive: true,
+            hideOnClick: false,
+            placement: 'top',
+        },
+        shouldShow: ({ editor }) => {
+            if (!editor.isEditable) {
+                return false;
+            }
+            return editor.isActive("file")
+        }
+    })
+}
+
+/**
  * 定义编辑器的所有自定义扩展组件
  * @param uaiEditor 
  * @param _options 
@@ -214,6 +243,7 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
             appId: process.env.TIPTAP_APP_ID,
             token: process.env.TIPTAP_JWT_TOKEN,
         }),
+        File,
         FontFamily,
         FontSize.configure({
 
@@ -276,6 +306,7 @@ export const allExtensions = (uaiEditor: UAIEditor, _options: UAIEditorOptions):
         createImageBubbleMenu(uaiEditor),
         createVideoBubbleMenu(uaiEditor),
         createAudioBubbleMenu(uaiEditor),
+        createFileBubbleMenu(uaiEditor),
     ];
 
     return extensions;

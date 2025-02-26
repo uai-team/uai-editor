@@ -53,6 +53,7 @@ import { Link } from "./insert/Link.ts";
 import { Image } from "./insert/Image.ts";
 import { Video } from "./insert/Video.ts";
 import { Audio } from "./insert/Audio.ts";
+import { File } from "./insert/File.ts";
 import { HardBreak } from "./insert/HardBreak.ts";
 import { Emoji } from "./insert/Emoji.ts";
 import { Symbol } from "./insert/Symbol.ts";
@@ -164,6 +165,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     insertMenuImage!: Image;
     insertMenuVideo!: Video;
     insertMenuAudio!: Audio;
+    insertMenuFile!: File;
     insertMenuHardBreak!: HardBreak;
     insertMenuEmoji!: Emoji;
     insertMenuSymbol!: Symbol;
@@ -425,6 +427,9 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         this.insertMenuAudio = new Audio({ menuType: "button", enable: true, huge: true });
         this.eventComponents.push(this.insertMenuAudio);
 
+        this.insertMenuFile = new File({ menuType: "button", enable: true, huge: true });
+        this.eventComponents.push(this.insertMenuFile);
+
         this.insertMenuHardBreak = new HardBreak({ menuType: "button", enable: true, huge: true });
         this.eventComponents.push(this.insertMenuHardBreak);
 
@@ -651,6 +656,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         group1.appendChild(this.insertMenuImage);
         group1.appendChild(this.insertMenuVideo);
         group1.appendChild(this.insertMenuAudio);
+        group1.appendChild(this.insertMenuFile);
 
         const group2 = document.createElement("div");
         group2.classList.add("uai-ribbon-virtual-group");

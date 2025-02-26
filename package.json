@@ -95,6 +95,7 @@
     "markdown-it-container": "^4.0.0",
     "monaco-editor": "^0.52.2",
     "openai": "^4.77.0",
+    "pretty-bytes": "^6.1.1",
     "tippy.js": "^6.3.7",
     "turndown": "^7.2.0",
     "vite-plugin-svg-icons": "^2.0.1"

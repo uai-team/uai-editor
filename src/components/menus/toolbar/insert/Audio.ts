@@ -49,7 +49,7 @@ export class Audio extends HTMLElement implements UAIEditorEventListener {
         // 定义按钮点击事件，插入音频
         this.addEventListener("click", () => {
             if (this.menuButtonOptions.enable) {
-                event.editor.chain().focus().selectFiles('audio', true).run()
+                event.editor.chain().focus().selectFiles('audio', true).run();
             }
         })
     }

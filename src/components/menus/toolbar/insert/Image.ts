@@ -54,20 +54,10 @@ export class Image extends HTMLElement implements UAIEditorEventListener {
         this.menuButton.onCreate(event, options);
         this.appendChild(this.menuButton);
 
-        // this.fileInput.addEventListener("change", () => {
-        //     const files = this.fileInput.files;
-        //     if (files && files.length > 0) {
-        //         for (let file of files) {
-        //             event.editor.commands.uploadImage(file);
-        //         }
-        //     }
-        //     (this.fileInput as any).value = "";
-        // });
-
         // 定义按钮点击事件，插入图片
         this.addEventListener("click", () => {
             if (this.menuButtonOptions.enable) {
-                event.editor.chain().focus().selectFiles('image', true).run()
+                event.editor.chain().focus().selectFiles('image', true).run();
                 // this.fileInput.click();
             }
         })
