@@ -55,7 +55,7 @@ Node.js 可以通过不同的方式安装，所有主要平台的官方软件包
 其次，我们需要安装 UAI Editor 软件，软件已经打包发布到 [https://www.npmjs.com/](https://www.npmjs.com/) 平台，可以直接通过以下命令安装：
 
 ```bash
-npm i uai-editor
+npm i @uai-team/uai-editor
 ```
 
 ## 软件集成
@@ -87,8 +87,8 @@ npm i uai-editor
 * main.ts
 
 ```js
-import { UAIEditor } from "uai-editor";
-import "uai-editor/dist/style.css";
+import { UAIEditor } from '@uai-team/uai-editor';
+import '@uai-team/uai-editor/dist/style.css';
 
 new UAIEditor({
     element: "#uai-editor",
@@ -104,8 +104,8 @@ new UAIEditor({
 </template>
 
 <script lang="ts">
-import { UAIEditor } from "uai-editor";
-import "uai-editor/dist/style.css";
+import { UAIEditor } from '@uai-team/uai-editor';
+import '@uai-team/uai-editor/dist/style.css';
 
 export default {
   mounted(){
@@ -122,8 +122,8 @@ export default {
 
 ```js
 import {useEffect, useRef} from 'react';
-import { UAIEditor } from "uai-editor";
-import "uai-editor/dist/style.css";
+import { UAIEditor } from '@uai-team/uai-editor';
+import '@uai-team/uai-editor/dist/style.css';
 
 function App() {
     const divRef = useRef(null);
@@ -176,4 +176,5 @@ UAI Editor 采用 [MIT 许可证](LICENSE)，您可以自由地使用、修改�
 如果您觉得 UAI Editor 有用，请考虑通过以下方式支持我们：
 
 * ⭐ 给 UAI Editor 仓库 点个 Star，表示对项目的支持。
-* 🔗 如果您在项目中使用了 UAI Editor，请添加一个链接到 [https://gitee.com/AI-Labs/uai-editor](https://gitee.com/AI-Labs/uai-editor)。
+* 🔗 如果您在项目中使用了 UAI Editor，请添加一个链接到 [https://gitee.com/uai-team/uai-editor](https://gitee.com/uai-team/uai-editor) 或者 [https://github.com/uai-team/uai-editor](https://github.com/uai-team/uai-editor)。
+* ⛓️ UAI Editor 很多功能还存在不足，如果您感兴趣，欢迎优化 PR。
