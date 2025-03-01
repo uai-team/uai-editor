@@ -106,11 +106,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/AI-Labs/uai-editor"
+    "url": "https://github.com/uai-team/uai-editor"
   },
   "bugs": {
-    "url": "https://gitee.com/AI-Labs/uai-editor/issues"
+    "url": "https://github.com/uai-team/uai-editor/issues"
   },
-  "homepage": "https://gitee.com/AI-Labs/uai-editor#readme",
+  "homepage": "https://github.com/uai-team/uai-editor#readme",
   "license": "MIT"
 }

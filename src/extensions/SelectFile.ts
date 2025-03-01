@@ -167,20 +167,24 @@ export default Node.create<SelectFileOptions>({
                                     });
                                 });
                         } else {
-                            previewType = "file";
                             // 插入节点
-                            view.dispatch(tr.setMeta(actionKey, { type: "remove", id }));
-                            this.editor.commands.insertContentAt(tr.selection.from, {
-                                type: autoType ? (previewType ?? 'file') : 'file',
-                                attrs: {
-                                    [previewType === 'file' ? 'url' : 'src']: URL.createObjectURL(file),
-                                    name,
-                                    type: fileType,
-                                    size,
-                                    file,
-                                    previewType: Object.keys(mimeTypes).includes(fileType.split("/")[0]) ? fileType.split("/")[0] : fileType,
-                                },
-                            })
+                            previewType = "file";
+                            uploader = editorOptions.file?.uploader ?? Base64Uploader;
+                            uploader(file, editorOptions.file?.uploadUrl, editorOptions.file?.uploadHeaders, editorOptions.file?.uploadFormName || "file")
+                                .then(json => {
+                                    view.dispatch(tr.setMeta(actionKey, { type: "remove", id }));
+                                    this.editor.commands.insertContentAt(tr.selection.from, {
+                                        type: autoType ? (previewType ?? 'file') : 'file',
+                                        attrs: {
+                                            [previewType === 'file' ? 'url' : 'src']: json.data.src,
+                                            name,
+                                            type: fileType,
+                                            size,
+                                            file,
+                                            previewType: Object.keys(mimeTypes).includes(fileType.split("/")[0]) ? fileType.split("/")[0] : fileType,
+                                        },
+                                    });
+                                });
                         }
                         return true;
                     },

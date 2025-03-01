@@ -7,7 +7,7 @@ import { t } from 'i18next';
 import prettyBytes from 'pretty-bytes';
 
 import { FullScreenModal } from '../components/modals/FullScreenModal.ts';
-import { getFileIcon } from '../utils/File.ts';
+import { base64ToBlob, getFileIcon } from '../utils/File.ts';
 
 import downloadIcon from "../assets/icons/download.svg";
 import previewIcon from "../assets/icons/view.svg";
@@ -138,7 +138,7 @@ export default Node.create({
                     const body = document.createElement('div');
                     body.classList.add("uai-file-preview-modal-body");
                     const iframe = document.createElement('iframe');
-                    iframe.src = attrs.url;
+                    iframe.src = URL.createObjectURL(base64ToBlob(attrs.url, attrs.previewType));
                     body.appendChild(iframe);
                     modal.modalBody.appendChild(body);
                     modal.show();

@@ -110,6 +110,12 @@ export type UAIEditorOptions = {
         uploadFormName?: string,
         uploader?: Uploader,
     },
+    file?: {
+        uploadUrl?: string,
+        uploadHeaders?: (() => Record<string, any>) | Record<string, any>,
+        uploadFormName?: string,
+        uploader?: Uploader,
+    },
     ai?: {
         chat?: {
             models?: Record<string, AIChatConfig>,

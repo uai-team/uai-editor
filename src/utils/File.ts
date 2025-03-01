@@ -52,3 +52,16 @@ export const getFileIcon = (filename: string) => {
     }
     return iconName
 }
+
+export const base64ToBlob = (fileBase64: string, fileType: string) => {
+    if (fileBase64.startsWith("data")) {
+        fileBase64 = fileBase64.split(",")[1];
+    }
+    let raw = atob(fileBase64);
+    let rawLength = raw.length;
+    let uint8Array = new Uint8Array(rawLength);
+    while (rawLength--) {
+        uint8Array[rawLength] = raw.charCodeAt(rawLength);
+    }
+    return new Blob([uint8Array], { type: fileType });
+}
