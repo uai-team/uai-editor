@@ -89,6 +89,7 @@ import menuIcon from "../../../assets/icons/menu.svg";
 export class Classic extends HTMLElement implements UAIEditorEventListener {
     defaultToolbarMenus!: Record<string, any>[];
     eventComponents: UAIEditorEventListener[] = [];
+    scrollableDivs: ScrollableDiv[] = [];
 
     // 传统菜单栏容器
     classicMenu!: HTMLElement;
@@ -216,17 +217,12 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
             component.onCreate(event, options);
         })
         // 创建菜单容器
-        this.classicScrollableContainer = document.createElement("div");
-        this.classicScrollableContainer.classList.add("uai-classic-scrollable-container");
-        this.appendChild(this.classicScrollableContainer);
-
         this.classicMenu = document.createElement("div");
         this.classicMenu.classList.add("uai-classic-menu");
-        this.classicScrollableContainer.appendChild(this.classicMenu);
+        this.appendChild(this.classicMenu);
 
         const selectDiv = document.createElement("div");
-        selectDiv.classList.add("uai-classic-virtual-group");
-        selectDiv.classList.add("uai-editor-menu-select-3");
+        selectDiv.classList.add("uai-classic-menu-switch");
         selectDiv.innerHTML = `<img src="${menuIcon}" width="16" />`;
         this.classicMenu.appendChild(selectDiv);
 
@@ -242,35 +238,39 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         // 添加事件，处理菜单分组切换、界面元素切换
         selectMuenus.addEventListener("change", () => {
             const menu = selectMuenus.selectedOptions[0].value;
-            this.classicMenuBaseScrollable.style.display = "none";
-            this.classicMenuInsertScrollable.style.display = "none";
-            this.classicMenuTableScrollable.style.display = "none";
-            this.classicMenuToolScrollable.style.display = "none";
-            this.classicMenuPageScrollable.style.display = "none";
-            this.classicMenuExportScrollable.style.display = "none";
-            this.classicMenuAIScrollable.style.display = "none";
+            this.scrollableDivs.forEach(scrollable => {
+                try {
+                    this.classicScrollableContainer.removeChild(scrollable);
+                } catch (e) {
+                }
+            });
             if (menu === "base") {
-                this.classicMenuBaseScrollable.style.display = "flex";
+                this.classicScrollableContainer.appendChild(this.classicMenuBaseScrollable);
             }
             if (menu === "insert") {
-                this.classicMenuInsertScrollable.style.display = "flex";
+                this.classicScrollableContainer.appendChild(this.classicMenuInsertScrollable);
             }
             if (menu === "table") {
-                this.classicMenuTableScrollable.style.display = "flex";
+                this.classicScrollableContainer.appendChild(this.classicMenuTableScrollable);
             }
             if (menu === "tools") {
-                this.classicMenuToolScrollable.style.display = "flex";
+                this.classicScrollableContainer.appendChild(this.classicMenuToolScrollable);
             }
             if (menu === "page") {
-                this.classicMenuPageScrollable.style.display = "flex";
+                this.classicScrollableContainer.appendChild(this.classicMenuPageScrollable);
             }
             if (menu === "export") {
-                this.classicMenuExportScrollable.style.display = "flex";
+                this.classicScrollableContainer.appendChild(this.classicMenuExportScrollable);
             }
             if (menu === "ai") {
-                this.classicMenuAIScrollable.style.display = "flex";
+                this.classicScrollableContainer.appendChild(this.classicMenuAIScrollable);
             }
         })
+        
+        this.classicScrollableContainer = document.createElement("div");
+        this.classicScrollableContainer.classList.add("uai-classic-scrollable-container");
+        this.classicMenu.appendChild(this.classicScrollableContainer);
+
         // 创建分组菜单
         this.createBaseMenu(event, options);
         this.createInsertMenu(event, options);
@@ -279,7 +279,7 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         this.createPageMenu(event, options);
         this.createExportMenu(event, options);
         this.createAIMenu(event, options);
-        this.classicMenuBaseScrollable.style.display = "flex";
+        selectMuenus.dispatchEvent(new Event("change"));
     }
 
     /**
@@ -489,9 +489,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         this.classicMenuBaseGroup = document.createElement("div");
         this.classicMenuBaseGroup.style.display = "flex";
         this.classicMenuBaseScrollable = new ScrollableDiv(this.classicMenuBaseGroup);
-        this.classicMenuBaseScrollable.style.display = "none";
-        this.classicMenu.appendChild(this.classicMenuBaseScrollable);
+        this.classicMenuBaseScrollable.style.display = "flex";
         this.classicMenuBaseScrollable.onCreate(event, options);
+        this.scrollableDivs.push(this.classicMenuBaseScrollable);
 
         const group1 = document.createElement("div");
         group1.classList.add("uai-classic-virtual-group");
@@ -549,9 +549,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         this.classicMenuInsertGroup = document.createElement("div");
         this.classicMenuInsertGroup.style.display = "flex";
         this.classicMenuInsertScrollable = new ScrollableDiv(this.classicMenuInsertGroup);
-        this.classicMenuInsertScrollable.style.display = "none";
-        this.classicMenu.appendChild(this.classicMenuInsertScrollable);
+        this.classicMenuInsertScrollable.style.display = "flex";
         this.classicMenuInsertScrollable.onCreate(event, options);
+        this.scrollableDivs.push(this.classicMenuInsertScrollable);
 
         const group1 = document.createElement("div");
         group1.classList.add("uai-classic-virtual-group");
@@ -585,9 +585,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         this.classicMenuTableGroup = document.createElement("div");
         this.classicMenuTableGroup.style.display = "flex";
         this.classicMenuTableScrollable = new ScrollableDiv(this.classicMenuTableGroup);
-        this.classicMenuTableScrollable.style.display = "none";
-        this.classicMenu.appendChild(this.classicMenuTableScrollable);
+        this.classicMenuTableScrollable.style.display = "flex";
         this.classicMenuTableScrollable.onCreate(event, options);
+        this.scrollableDivs.push(this.classicMenuTableScrollable);
 
         const group1 = document.createElement("div");
         group1.classList.add("uai-classic-virtual-group");
@@ -619,9 +619,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         this.classicMenuToolGroup = document.createElement("div");
         this.classicMenuToolGroup.style.display = "flex";
         this.classicMenuToolScrollable = new ScrollableDiv(this.classicMenuToolGroup);
-        this.classicMenuToolScrollable.style.display = "none";
-        this.classicMenu.appendChild(this.classicMenuToolScrollable);
+        this.classicMenuToolScrollable.style.display = "flex";
         this.classicMenuToolScrollable.onCreate(event, options);
+        this.scrollableDivs.push(this.classicMenuToolScrollable);
 
         const group1 = document.createElement("div");
         group1.classList.add("uai-classic-virtual-group");
@@ -638,9 +638,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         this.classicMenuPageGroup = document.createElement("div");
         this.classicMenuPageGroup.style.display = "flex";
         this.classicMenuPageScrollable = new ScrollableDiv(this.classicMenuPageGroup);
-        this.classicMenuPageScrollable.style.display = "none";
-        this.classicMenu.appendChild(this.classicMenuPageScrollable);
+        this.classicMenuPageScrollable.style.display = "flex";
         this.classicMenuPageScrollable.onCreate(event, options);
+        this.scrollableDivs.push(this.classicMenuPageScrollable);
 
         const group1 = document.createElement("div");
         group1.classList.add("uai-classic-virtual-group");
@@ -663,9 +663,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         this.classicMenuExportGroup = document.createElement("div");
         this.classicMenuExportGroup.style.display = "flex";
         this.classicMenuExportScrollable = new ScrollableDiv(this.classicMenuExportGroup);
-        this.classicMenuExportScrollable.style.display = "none";
-        this.classicMenu.appendChild(this.classicMenuExportScrollable);
+        this.classicMenuExportScrollable.style.display = "flex";
         this.classicMenuExportScrollable.onCreate(event, options);
+        this.scrollableDivs.push(this.classicMenuExportScrollable);
 
         const group1 = document.createElement("div");
         group1.classList.add("uai-classic-virtual-group");
@@ -690,9 +690,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         this.classicMenuAIGroup = document.createElement("div");
         this.classicMenuAIGroup.style.display = "flex";
         this.classicMenuAIScrollable = new ScrollableDiv(this.classicMenuAIGroup);
-        this.classicMenuAIScrollable.style.display = "none";
-        this.classicMenu.appendChild(this.classicMenuAIScrollable);
+        this.classicMenuAIScrollable.style.display = "flex";
         this.classicMenuAIScrollable.onCreate(event, options);
+        this.scrollableDivs.push(this.classicMenuAIScrollable);
 
         const group1 = document.createElement("div");
         group1.classList.add("uai-classic-virtual-group");

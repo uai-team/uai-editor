@@ -91,6 +91,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     defaultToolbarMenus!: Record<string, any>[];
     eventComponents: UAIEditorEventListener[] = [];
     headingOptions: Record<string, any>[] = [];
+    scrollableDivs: ScrollableDiv[] = [];
 
     // 经典菜单栏容器
     ribbonMenu!: HTMLElement;
@@ -237,38 +238,36 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
                     ribbonTabs.children[i].classList.remove("active");
                 }
                 tab.classList.add("active");
-                this.ribbonMenuBaseScrollable.style.display = "none";
-                this.ribbonMenuInsertScrollable.style.display = "none";
-                this.ribbonMenuTableScrollable.style.display = "none";
-                this.ribbonMenuToolScrollable.style.display = "none";
-                this.ribbonMenuPageScrollable.style.display = "none";
-                this.ribbonMenuExportScrollable.style.display = "none";
-                this.ribbonMenuAIScrollable.style.display = "none";
+                this.scrollableDivs.forEach(scrollable => {
+                    try {
+                        this.ribbonScrollableContainer.removeChild(scrollable);
+                    } catch (e) {
+                    }
+                });
                 if (menu.value === "base") {
-                    this.ribbonMenuBaseScrollable.style.display = "flex";
+                    this.ribbonScrollableContainer.appendChild(this.ribbonMenuBaseScrollable);
                 }
                 if (menu.value === "insert") {
-                    this.ribbonMenuInsertScrollable.style.display = "flex";
+                    this.ribbonScrollableContainer.appendChild(this.ribbonMenuInsertScrollable);
                 }
                 if (menu.value === "table") {
-                    this.ribbonMenuTableScrollable.style.display = "flex";
+                    this.ribbonScrollableContainer.appendChild(this.ribbonMenuTableScrollable);
                 }
                 if (menu.value === "tools") {
-                    this.ribbonMenuToolScrollable.style.display = "flex";
+                    this.ribbonScrollableContainer.appendChild(this.ribbonMenuToolScrollable);
                 }
                 if (menu.value === "page") {
-                    this.ribbonMenuPageScrollable.style.display = "flex";
+                    this.ribbonScrollableContainer.appendChild(this.ribbonMenuPageScrollable);
                 }
                 if (menu.value === "export") {
-                    this.ribbonMenuExportScrollable.style.display = "flex";
+                    this.ribbonScrollableContainer.appendChild(this.ribbonMenuExportScrollable);
                 }
                 if (menu.value === "ai") {
-                    this.ribbonMenuAIScrollable.style.display = "flex";
+                    this.ribbonScrollableContainer.appendChild(this.ribbonMenuAIScrollable);
                 }
             })
             ribbonTabs.appendChild(tab);
         });
-        ribbonTabs.children[0].classList.add("active")
 
         this.ribbonScrollableContainer = document.createElement("div");
         this.ribbonScrollableContainer.classList.add("uai-ribbon-scrollable-container");
@@ -289,7 +288,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         this.createPageMenu(event, options);
         this.createExportMenu(event, options);
         this.createAIMenu(event, options);
-        this.ribbonMenuBaseScrollable.style.display = "flex";
+        ribbonTabs.children[0].dispatchEvent(new MouseEvent("click"));
     }
 
     /**
@@ -508,13 +507,14 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
      * @param event 
      * @param options 
      */
-    createBaseMenu(event: EditorEvents["create"], _options: UAIEditorOptions) {
+    createBaseMenu(event: EditorEvents["create"], options: UAIEditorOptions) {
         this.ribbonMenuBaseGroup = document.createElement("div");
         this.ribbonMenuBaseGroup.classList.add("uai-ribbon-container");
         this.ribbonMenuBaseGroup.style.display = "flex";
         this.ribbonMenuBaseScrollable = new ScrollableDiv(this.ribbonMenuBaseGroup);
-        this.ribbonMenuBaseScrollable.style.display = "none";
-        this.ribbonScrollableContainer.appendChild(this.ribbonMenuBaseScrollable);
+        this.ribbonMenuBaseScrollable.style.display = "flex";
+        this.ribbonMenuBaseScrollable.onCreate(event, options);
+        this.scrollableDivs.push(this.ribbonMenuBaseScrollable);
 
         const group1 = document.createElement("div");
         group1.classList.add("uai-ribbon-virtual-group");
@@ -641,13 +641,14 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
      * @param event 
      * @param options 
      */
-    createInsertMenu(_event: EditorEvents["create"], _options: UAIEditorOptions) {
+    createInsertMenu(event: EditorEvents["create"], options: UAIEditorOptions) {
         this.ribbonMenuInsertGroup = document.createElement("div");
         this.ribbonMenuInsertGroup.classList.add("uai-ribbon-container");
         this.ribbonMenuInsertGroup.style.display = "flex";
         this.ribbonMenuInsertScrollable = new ScrollableDiv(this.ribbonMenuInsertGroup);
-        this.ribbonMenuInsertScrollable.style.display = "none";
-        this.ribbonScrollableContainer.appendChild(this.ribbonMenuInsertScrollable);
+        this.ribbonMenuInsertScrollable.style.display = "flex";
+        this.ribbonMenuInsertScrollable.onCreate(event, options);
+        this.scrollableDivs.push(this.ribbonMenuInsertScrollable);
 
         const group1 = document.createElement("div");
         group1.classList.add("uai-ribbon-virtual-group");
@@ -677,13 +678,14 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
      * @param event 
      * @param options 
      */
-    createTableMenu(_event: EditorEvents["create"], _options: UAIEditorOptions) {
+    createTableMenu(event: EditorEvents["create"], options: UAIEditorOptions) {
         this.ribbonMenuTableGroup = document.createElement("div");
         this.ribbonMenuTableGroup.classList.add("uai-ribbon-container");
         this.ribbonMenuTableGroup.style.display = "flex";
         this.ribbonMenuTableScrollable = new ScrollableDiv(this.ribbonMenuTableGroup);
-        this.ribbonMenuTableScrollable.style.display = "none";
-        this.ribbonScrollableContainer.appendChild(this.ribbonMenuTableScrollable);
+        this.ribbonMenuTableScrollable.style.display = "flex";
+        this.ribbonMenuTableScrollable.onCreate(event, options);
+        this.scrollableDivs.push(this.ribbonMenuTableScrollable);
 
         const group1 = document.createElement("div");
         group1.classList.add("uai-ribbon-virtual-group");
@@ -719,13 +721,14 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
      * @param event 
      * @param options 
      */
-    createToolMenu(_event: EditorEvents["create"], _options: UAIEditorOptions) {
+    createToolMenu(event: EditorEvents["create"], options: UAIEditorOptions) {
         this.ribbonMenuToolGroup = document.createElement("div");
         this.ribbonMenuToolGroup.classList.add("uai-ribbon-container");
         this.ribbonMenuToolGroup.style.display = "flex";
         this.ribbonMenuToolScrollable = new ScrollableDiv(this.ribbonMenuToolGroup);
-        this.ribbonMenuToolScrollable.style.display = "none";
-        this.ribbonScrollableContainer.appendChild(this.ribbonMenuToolScrollable);
+        this.ribbonMenuToolScrollable.style.display = "flex";
+        this.ribbonMenuToolScrollable.onCreate(event, options);
+        this.scrollableDivs.push(this.ribbonMenuToolScrollable);
 
         const group1 = document.createElement("div");
         group1.classList.add("uai-ribbon-virtual-group");
@@ -738,13 +741,14 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
      * @param event 
      * @param options 
      */
-    createPageMenu(_event: EditorEvents["create"], _options: UAIEditorOptions) {
+    createPageMenu(event: EditorEvents["create"], options: UAIEditorOptions) {
         this.ribbonMenuPageGroup = document.createElement("div");
         this.ribbonMenuPageGroup.classList.add("uai-ribbon-container");
         this.ribbonMenuPageGroup.style.display = "flex";
         this.ribbonMenuPageScrollable = new ScrollableDiv(this.ribbonMenuPageGroup);
-        this.ribbonMenuPageScrollable.style.display = "none";
-        this.ribbonScrollableContainer.appendChild(this.ribbonMenuPageScrollable);
+        this.ribbonMenuPageScrollable.style.display = "flex";
+        this.ribbonMenuPageScrollable.onCreate(event, options);
+        this.scrollableDivs.push(this.ribbonMenuPageScrollable);
 
         const group1 = document.createElement("div");
         group1.classList.add("uai-ribbon-virtual-group");
@@ -763,13 +767,14 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
      * @param event 
      * @param options 
      */
-    createExportMenu(_event: EditorEvents["create"], _options: UAIEditorOptions) {
+    createExportMenu(event: EditorEvents["create"], options: UAIEditorOptions) {
         this.ribbonMenuExportGroup = document.createElement("div");
         this.ribbonMenuExportGroup.classList.add("uai-ribbon-container");
         this.ribbonMenuExportGroup.style.display = "flex";
         this.ribbonMenuExportScrollable = new ScrollableDiv(this.ribbonMenuExportGroup);
-        this.ribbonMenuExportScrollable.style.display = "none";
-        this.ribbonScrollableContainer.appendChild(this.ribbonMenuExportScrollable);
+        this.ribbonMenuExportScrollable.style.display = "flex";
+        this.ribbonMenuExportScrollable.onCreate(event, options);
+        this.scrollableDivs.push(this.ribbonMenuExportScrollable);
 
         const group1 = document.createElement("div");
         group1.classList.add("uai-ribbon-virtual-group");
@@ -790,13 +795,14 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
      * @param event 
      * @param options 
      */
-    createAIMenu(_event: EditorEvents["create"], _options: UAIEditorOptions) {
+    createAIMenu(event: EditorEvents["create"], options: UAIEditorOptions) {
         this.ribbonMenuAIGroup = document.createElement("div");
         this.ribbonMenuAIGroup.classList.add("uai-ribbon-container");
         this.ribbonMenuAIGroup.style.display = "flex";
         this.ribbonMenuAIScrollable = new ScrollableDiv(this.ribbonMenuAIGroup);
-        this.ribbonMenuAIScrollable.style.display = "none";
-        this.ribbonScrollableContainer.appendChild(this.ribbonMenuAIScrollable);
+        this.ribbonMenuAIScrollable.style.display = "flex";
+        this.ribbonMenuAIScrollable.onCreate(event, options);
+        this.scrollableDivs.push(this.ribbonMenuAIScrollable);
 
         const group1 = document.createElement("div");
         group1.classList.add("uai-ribbon-virtual-group");

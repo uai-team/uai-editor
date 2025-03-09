@@ -80,7 +80,6 @@
     "@types/file-saver": "^2.0.7",
     "@types/katex": "^0.16.7",
     "@vscode/markdown-it-katex": "^1.1.0",
-    "bootstrap": "^5.3.3",
     "crypto-js": "^4.2.0",
     "dom-to-image-more": "^3.5.0",
     "evaluatex": "^2.2.0",

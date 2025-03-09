@@ -19,17 +19,19 @@ export class ScrollableDiv extends HTMLElement implements UAIEditorEventListener
     constructor(content: HTMLElement) {
         super();
         this.content = content;
+        this.classList.add("uai-scrollable-control");
 
         this.scrollLeftBtn = document.createElement("div");
         this.scrollLeftBtn.classList.add("uai-scrollable-control-button");
+        this.scrollLeftBtn.classList.add("uai-scrollable-control-button-left");
         this.scrollLeftBtn.innerHTML = "<strong><</strong>";
         this.scrollLeftBtn.style.display = "none";
         this.container = document.createElement("div");
+        this.container.classList.add("uai-scrollable-control-content");
         this.container.appendChild(this.content);
-        // this.container.style.overflow = "hidden";
-        // this.container.style.position = "relative";
         this.scrollRightBtn = document.createElement("div");
         this.scrollRightBtn.classList.add("uai-scrollable-control-button");
+        this.scrollRightBtn.classList.add("uai-scrollable-control-button-right");
         this.scrollRightBtn.innerHTML = "<strong>></strong>";
         this.scrollRightBtn.style.display = "none";
 
@@ -37,19 +39,18 @@ export class ScrollableDiv extends HTMLElement implements UAIEditorEventListener
             if (this.transform < 0) {
                 this.transform += Math.min(this.scrollAmount, 0 - this.transform);
             }
-            this.content.style.transform = `translateX(${this.transform}px)`;
+            this.renderTranslate();
             this.scrollButtonControl();
         });
         this.scrollRightBtn.addEventListener('click', () => {
-            const scrollWidth = this.content.scrollWidth + this.transform - this.scrollRightBtn.clientWidth - this.container.clientWidth;
+            const scrollWidth = this.content.scrollWidth + this.transform - this.container.clientWidth;
             if (scrollWidth > 0) {
                 this.transform -= Math.min(this.scrollAmount, scrollWidth);
             }
-            this.content.style.transform = `translateX(${this.transform}px)`;
+            this.renderTranslate();
             this.scrollButtonControl();
         });
 
-        this.classList.add("uai-classic-scrollable-menu")
         this.appendChild(this.scrollLeftBtn)
         this.appendChild(this.container)
         this.appendChild(this.scrollRightBtn)
@@ -58,13 +59,13 @@ export class ScrollableDiv extends HTMLElement implements UAIEditorEventListener
     onCreate(event: EditorEvents["create"], options: UAIEditorOptions) {
         const resizeObserver = new ResizeObserver(entries => {
             for (let entry of entries) {
-                if (entry.target === this.parentElement) {
+                if (entry.target === this.content) {
                     this.scrollButtonControl();
                 }
             }
         });
 
-        resizeObserver.observe(this.parentElement!);
+        resizeObserver.observe(this.content!);
     }
 
     onTransaction(event: EditorEvents["transaction"], options: UAIEditorOptions) {
@@ -75,16 +76,25 @@ export class ScrollableDiv extends HTMLElement implements UAIEditorEventListener
     }
 
     scrollButtonControl() {
-        if (this.transform < 0) {
-            this.scrollLeftBtn.style.display = "flex";
-        } else {
-            this.scrollLeftBtn.style.display = "none";
+        if (this.transform < 0 && this.container.clientWidth > this.content.scrollWidth + this.transform) {
+            this.transform = this.container.clientWidth - this.content.scrollWidth;
+            this.content.style.transform = `translateX(${this.transform}px)`;
         }
-        if (this.parentElement!.scrollWidth + this.transform - this.scrollRightBtn.clientWidth < this.container.clientWidth) {
-            this.scrollRightBtn.style.display = "flex";
-        } else {
-            this.scrollRightBtn.style.display = "none";
+        const shouldShowLeftButton = this.transform < 0;
+        const shouldShowRightButton = this.container.scrollWidth > this.content.clientWidth;
+        this.scrollLeftBtn.style.display = shouldShowLeftButton ? "flex" : "none";
+        this.scrollRightBtn.style.display = shouldShowRightButton ? "flex" : "none";
+        if (!shouldShowLeftButton && !shouldShowRightButton) {
+            this.transform = 0;
+            this.renderTranslate();
         }
-        // 触发宽度变化事件
+    }
+
+    renderTranslate() {
+        this.content.style.transform = `translateX(${this.transform}px)`;
+        // 更新所有tippy实例位置
+        this.querySelectorAll('[data-tippy-root]').forEach((tip: any) => {
+            tip._tippy?.popperInstance?.update();
+        });
     }
 }

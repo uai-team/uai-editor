@@ -22,7 +22,9 @@ import codeblock from "../assets/icons/codeblock.svg";
 export class Header extends HTMLElement implements UAIEditorEventListener {
     toolbar!: HTMLElement;
     container!: HTMLElement;
+    menus!: HTMLElement;
     actions!: HTMLElement;
+    allMenus: HTMLElement[] = [];
 
     defaultToolbarMenus!: Record<string, any>[];
 
@@ -56,7 +58,7 @@ export class Header extends HTMLElement implements UAIEditorEventListener {
         this.classicMenu = new Classic(this.defaultToolbarMenus);
         // 创建源码编辑器
         this.sourceMenu = document.createElement("div");
-        this.sourceMenu.classList.add("uai-classic-scrollable-container");
+        this.sourceMenu.classList.add("uai-source-menu");
         this.sourceMenu.innerHTML = `<img src="${codeblock}" width="20" />&nbsp;${t('toolbar.source')}`;
     }
 
@@ -80,9 +82,14 @@ export class Header extends HTMLElement implements UAIEditorEventListener {
         // 初始化经典工具栏
         this.classicMenu.onCreate(event, options);
 
-        this.container.appendChild(this.ribbonMenu);
-        this.container.appendChild(this.classicMenu);
-        this.container.appendChild(this.sourceMenu);
+        this.allMenus.push(this.ribbonMenu);
+        this.allMenus.push(this.classicMenu);
+        this.allMenus.push(this.sourceMenu);
+
+        // 添加工具栏切换菜单
+        this.menus = document.createElement("div");
+        this.menus.classList.add("uai-toolbar-menus");
+        this.container.appendChild(this.menus);
 
         // 添加工具栏切换菜单
         this.actions = document.createElement("div");
@@ -138,14 +145,22 @@ export class Header extends HTMLElement implements UAIEditorEventListener {
         this.classicMenu.onEditableChange(editable);
     }
 
+    removeAllMenus(): void {
+        this.allMenus.forEach(menu => {
+            try {
+                this.menus.removeChild(menu);
+            } catch (e) {
+            }
+        });
+    }
+
     /**
      * 切换专业工具栏
      * @param event 
      */
     switchRibbonMenu(event: EditorEvents["create"]) {
-        this.ribbonMenu.style.display = "flex";
-        this.classicMenu.style.display = "none";
-        this.sourceMenu.style.display = "none";
+        this.removeAllMenus();
+        this.menus.appendChild(this.ribbonMenu);
         this.menuMode = "ribbon";
         (event.editor as InnerEditor).uaiEditor.switchEditor();
     }
@@ -155,9 +170,8 @@ export class Header extends HTMLElement implements UAIEditorEventListener {
      * @param event 
      */
     switchClassicMenu(event: EditorEvents["create"]) {
-        this.ribbonMenu.style.display = "none";
-        this.classicMenu.style.display = "flex";
-        this.sourceMenu.style.display = "none";
+        this.removeAllMenus();
+        this.menus.appendChild(this.classicMenu);
         this.menuMode = "classic";
         (event.editor as InnerEditor).uaiEditor.switchEditor();
     }
@@ -167,9 +181,8 @@ export class Header extends HTMLElement implements UAIEditorEventListener {
      * @param event 
      */
     switchSourceMenu(event: EditorEvents["create"]) {
-        this.ribbonMenu.style.display = "none";
-        this.classicMenu.style.display = "none";
-        this.sourceMenu.style.display = "flex";
+        this.removeAllMenus();
+        this.menus.appendChild(this.sourceMenu);
         this.menuMode = "source";
         (event.editor as InnerEditor).uaiEditor.switchSource();
     }

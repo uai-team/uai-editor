@@ -1,73 +1,88 @@
 // Copyright (c) 2024-present AI-Labs
 
 // @ ts-nocheck
-import { Modal } from "bootstrap";
+import './Modal.css';
 
-import 'bootstrap/dist/css/bootstrap.css';
-
-import closeIcon from "../../assets/icons/close.svg";
-
-/**
- * 全屏的模态弹出框
- */
-export class FullScreenModal extends Modal {
-
+export class FullScreenModal {
     modalHeader!: HTMLElement;
     modalBody!: HTMLElement;
-    modalFooter!: HTMLElement;
+
+    private overlay: HTMLElement;
+    private container: HTMLElement;
+    private closeBtn: HTMLButtonElement;
+
     messageListener?: (evt: MessageEvent) => void
 
-    constructor(title: string, options?: Partial<Modal.Options>) {
-        const modal = document.createElement("div");
-        // 设置模态弹出框
-        modal.classList.add("modal");
-        modal.setAttribute("role", "dialog");
-        modal.setAttribute("tabindex", "-1");
-        modal.setAttribute("aria-labelledby", "exampleModalCenterTitle");
+    constructor(title: string) {
+        // 创建遮罩层
+        this.overlay = document.createElement('div');
+        this.overlay.classList.add('modal-overlay');
 
-        // 模态弹出框全屏样式
-        const modalDialog = document.createElement("div");
-        modalDialog.classList.add("modal-dialog");
-        modalDialog.classList.add("modal-fullscreen");
-        modalDialog.classList.add("modal-dialog-centered");
-        modalDialog.setAttribute("role", "document");
+        // 创建模态框容器
+        this.container = document.createElement('div');
+        this.container.classList.add('modal-container');
+        this.container.classList.add('modal-container-fullscreen');
 
-        // 模态弹出框内容
-        const modalContent = document.createElement("div");
-        modalContent.classList.add("modal-content");
-        modalDialog.appendChild(modalContent);
-
-        modal.appendChild(modalDialog);
-        super(modal, options);
-
-        // 标题区
-        this.modalHeader = document.createElement("div");
-        this.modalHeader.classList.add("modal-header");
-
-        // 标题
-        const titleDiv = document.createElement("div");
-        titleDiv.innerHTML = `<h5 class="modal-title" style="width:calc(100vw - 55px)">${title}</h5>`
-        this.modalHeader.appendChild(titleDiv);
+        // 头部区域
+        this.modalHeader = document.createElement('div');
+        this.modalHeader.classList.add('modal-header');
+        this.modalHeader.innerHTML = `<h3>${title}</h3>`;
 
         // 关闭按钮
-        const closeDiv = document.createElement("div");
-        closeDiv.innerHTML = `<img src="${closeIcon}" width="24"/>`;
-        closeDiv.addEventListener("click", () => {
-            this.hide();
-            if (this.messageListener) {
-                window.removeEventListener('message', this.messageListener);
-            }
-        });
-        this.modalHeader.appendChild(closeDiv);
+        this.closeBtn = document.createElement('button');
+        this.closeBtn.classList.add('modal-close');
+        this.closeBtn.innerHTML = '×';
+        this.closeBtn.onclick = () => this.hide();
 
-        modalContent.appendChild(this.modalHeader);
+        // 内容区域
+        this.modalBody = document.createElement('div');
+        this.modalBody.classList.add('modal-body');
 
-        // 主体区
-        this.modalBody = document.createElement("div");
-        this.modalBody.classList.add("modal-body");
-        modalContent.appendChild(this.modalBody);
-
+        // 组装结构
+        this.modalHeader.appendChild(this.closeBtn);
+        this.container.append(this.modalHeader, this.modalBody);
+        this.overlay.appendChild(this.container);
     }
+
+    setContent(content: string | HTMLElement) {
+        this.modalBody.innerHTML = '';
+        if (typeof content === 'string') {
+            this.modalBody.innerHTML = content;
+        } else {
+            this.modalBody.appendChild(content);
+        }
+    }
+
+    show() {
+        document.body.appendChild(this.overlay);
+        this.overlay.getBoundingClientRect(); // 强制重绘
+        this.overlay.style.opacity = '1';
+        this.container.style.transform = 'translateY(0)';
+
+        // 点击遮罩层关闭
+        this.overlay.onclick = (e) => {
+            if (e.target === this.overlay) this.hide();
+        };
+
+        // ESC键关闭
+        document.addEventListener('keydown', this.handleEscape);
+    }
+
+    hide() {
+        this.overlay.style.opacity = '0';
+        this.container.style.transform = 'translateY(-3rem)';
+        setTimeout(() => {
+            this.overlay.remove();
+        }, 300);
+        document.removeEventListener('keydown', this.handleEscape);
+        if (this.messageListener) {
+            window.removeEventListener('message', this.messageListener);
+        }
+    }
+
+    private handleEscape = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') this.hide();
+    };
 
     /**
      * 添加回调监听

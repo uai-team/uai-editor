@@ -346,8 +346,6 @@ export class UAIEditor {
         rootEl.appendChild(this.container);
 
         this.header = new Header();
-        this.header.classList.add("uai-toolbar");
-        this.header.classList.add("toolbar-ribbon");
         this.container.appendChild(this.header);
 
         this.center = document.createElement("div");
