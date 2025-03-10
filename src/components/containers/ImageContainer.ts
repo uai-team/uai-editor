@@ -51,7 +51,7 @@ export class ImageContainer extends HTMLElement implements UAIEditorEventListene
         // 初始化标题
         this.imageTitle = document.createElement("div");
         this.imageTitle.classList.add("uai-pannel-title");
-        this.imageTitle.innerHTML = `<img src="${titleIcon}" width="18" />&nbsp; ${t('ai.image.title')}`;
+        this.imageTitle.innerHTML = `<img src="${titleIcon}" height="24" width="24"/>&nbsp; ${t('ai.image.title')}`;
         this.container.appendChild(this.imageTitle);
 
         // 初始化关闭容器按钮

@@ -50,7 +50,7 @@ export class ChatContainer extends HTMLElement implements UAIEditorEventListener
         // 初始化标题
         this.chatTitle = document.createElement("div");
         this.chatTitle.classList.add("uai-pannel-title");
-        this.chatTitle.innerHTML = `<img src="${titleIcon}" width="18" />&nbsp; ${t('ai.chat.title')}`
+        this.chatTitle.innerHTML = `<img src="${titleIcon}" height="24" width="24"/>&nbsp; ${t('ai.chat.title')}`
         this.container.appendChild(this.chatTitle);
 
         // 初始化关闭按钮

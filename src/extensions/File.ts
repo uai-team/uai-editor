@@ -138,7 +138,7 @@ export default Node.create({
                     const body = document.createElement('div');
                     body.classList.add("uai-file-preview-modal-body");
                     const iframe = document.createElement('iframe');
-                    iframe.src = URL.createObjectURL(base64ToBlob(attrs.url, attrs.previewType));
+                    iframe.src = attrs.url.startsWith("data") ? URL.createObjectURL(base64ToBlob(attrs.url, attrs.previewType)) : attrs.url;
                     body.appendChild(iframe);
                     modal.modalBody.appendChild(body);
                     modal.show();

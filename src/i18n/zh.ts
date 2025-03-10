@@ -271,6 +271,10 @@ export const zh = {
       "edit": "编辑流程图",
       "loading": "加载中..."
     },
+    "arxiv": {
+      "text": "论文",
+      "title": "论文搜索",
+    },
     "mermaid": {
       "text": "Mermaid",
       "edit": "编辑 Mermaid",

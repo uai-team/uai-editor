@@ -7,6 +7,7 @@ import { Header } from "../components/Header.ts";
 import { Editor } from "../components/Editor.ts";
 import { Footer } from "../components/Footer.ts";
 
+import { ArxivContainer } from "./containers/ArxivContainer.ts";
 import { ChatContainer } from "../components/containers/ChatContainer.ts";
 import { ImageContainer } from "../components/containers/ImageContainer.ts";
 import { TocContainer } from "../components/containers/TocContainer.ts";
@@ -80,6 +81,7 @@ import { DeleteRow } from "./menus/toolbar/table/DeleteRow.ts";
 import { DeleteTable } from "./menus/toolbar/table/DeleteTable.ts";
 
 import { Diagrams } from "./menus/toolbar/tools/Diagrams.ts";
+import { ToggleArxiv } from "./menus/toolbar/tools/ToggleArxiv.ts";
 
 import { ToggleToc } from "./menus/toolbar/page/ToggleToc.ts";
 import { BackgroundColor } from "./menus/toolbar/page/BackgroundColor.ts";
@@ -119,6 +121,7 @@ defineCustomElement('uai-editor-header', Header);
 defineCustomElement('uai-editor-editor', Editor);
 defineCustomElement('uai-editor-footer', Footer);
 
+defineCustomElement('uai-editor-arxiv-container', ArxivContainer);
 defineCustomElement('uai-editor-chat-container', ChatContainer);
 defineCustomElement('uai-editor-image-container', ImageContainer);
 defineCustomElement('uai-editor-toc-container', TocContainer);
@@ -192,6 +195,7 @@ defineCustomElement('uai-editor-table-menu-delete-row', DeleteRow);
 defineCustomElement('uai-editor-table-menu-delete-table', DeleteTable);
 
 defineCustomElement('uai-editor-tools-menu-diagrams', Diagrams);
+defineCustomElement('uai-editor-tools-menu-toggle-arxiv', ToggleArxiv);
 
 defineCustomElement('uai-editor-page-menu-toggle-toc', ToggleToc);
 defineCustomElement('uai-editor-page-menu-background-color', BackgroundColor);

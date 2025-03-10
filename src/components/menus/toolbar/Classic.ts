@@ -67,6 +67,7 @@ import { DeleteRow } from "./table/DeleteRow.ts";
 import { DeleteTable } from "./table/DeleteTable.ts";
 
 import { Diagrams } from "./tools/Diagrams.ts";
+import { ToggleArxiv } from "./tools/ToggleArxiv.ts";
 
 import { ToggleToc } from "./page/ToggleToc.ts";
 import { BackgroundColor } from "./page/BackgroundColor.ts";
@@ -183,6 +184,7 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
 
     // 工具菜单
     toolsMenuDiagrams!: Diagrams;
+    toolsMenuToggleArxiv!: ToggleArxiv;
 
     // 页面菜单
     pageMenuToggleToc!: ToggleToc;
@@ -266,7 +268,7 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
                 this.classicScrollableContainer.appendChild(this.classicMenuAIScrollable);
             }
         })
-        
+
         this.classicScrollableContainer = document.createElement("div");
         this.classicScrollableContainer.classList.add("uai-classic-scrollable-container");
         this.classicMenu.appendChild(this.classicScrollableContainer);
@@ -450,6 +452,9 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         this.toolsMenuDiagrams = new Diagrams({ menuType: "button", enable: true, header: "classic", hideText: false });
         this.eventComponents.push(this.toolsMenuDiagrams);
 
+        this.toolsMenuToggleArxiv = new ToggleArxiv({ menuType: "button", enable: true, header: "classic", hideText: false });
+        this.eventComponents.push(this.toolsMenuToggleArxiv);
+
         this.pageMenuToggleToc = new ToggleToc({ menuType: "button", enable: true, header: "classic", hideText: false });
         this.eventComponents.push(this.pageMenuToggleToc);
 
@@ -627,6 +632,11 @@ export class Classic extends HTMLElement implements UAIEditorEventListener {
         group1.classList.add("uai-classic-virtual-group");
         this.classicMenuToolGroup.appendChild(group1);
         group1.appendChild(this.toolsMenuDiagrams);
+
+        const group2 = document.createElement("div");
+        group2.classList.add("uai-classic-virtual-group");
+        this.classicMenuToolGroup.appendChild(group2);
+        group2.appendChild(this.toolsMenuToggleArxiv);
     }
 
     /**

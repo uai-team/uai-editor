@@ -16,6 +16,7 @@ import { Resource } from "i18next";
 
 import "../components"
 import { Header } from "../components/Header.ts";
+import { ArxivContainer } from "../components/containers/ArxivContainer.ts";
 import { ChatContainer } from "../components/containers/ChatContainer.ts";
 import { ImageContainer } from "../components/containers/ImageContainer.ts";
 import { TocContainer } from "../components/containers/TocContainer.ts";
@@ -213,6 +214,7 @@ export class UAIEditor {
     header!: Header;
     chatContainer!: ChatContainer;
     imageContainer!: ImageContainer;
+    arxivContainer!: ArxivContainer;
     tocContainer!: TocContainer;
     editor!: Editor;
     footer!: Footer;
@@ -358,6 +360,11 @@ export class UAIEditor {
         this.center.appendChild(this.tocContainer);
         this.toggleContainers.push(this.tocContainer);
 
+        this.arxivContainer = new ArxivContainer();
+        this.arxivContainer.style.display = "none";
+        this.center.appendChild(this.arxivContainer);
+        this.toggleContainers.push(this.arxivContainer);
+
         this.chatContainer = new ChatContainer();
         this.chatContainer.style.display = "none";
         this.center.appendChild(this.chatContainer);
@@ -430,6 +437,7 @@ export class UAIEditor {
         }
         this.header.onCreate(event, this.options);
         this.tocContainer.onCreate(event, this.options);
+        this.arxivContainer.onCreate(event, this.options);
         this.chatContainer.onCreate(event, this.options);
         this.imageContainer.onCreate(event, this.options);
         this.editor.onCreate(event, this.options);
@@ -442,6 +450,7 @@ export class UAIEditor {
     protected onTransaction(event: EditorEvents['transaction']) {
         this.header.onTransaction(event, this.options);
         this.tocContainer.onTransaction(event, this.options);
+        this.arxivContainer.onTransaction(event, this.options);
         this.chatContainer.onTransaction(event, this.options);
         this.imageContainer.onTransaction(event, this.options);
         this.editor.onTransaction(event, this.options);

@@ -34,7 +34,7 @@ export class TocContainer extends HTMLElement implements UAIEditorEventListener 
         // 初始化标题
         this.tocTitle = document.createElement("div");
         this.tocTitle.classList.add("uai-pannel-title");
-        this.tocTitle.innerHTML = `<img src="${titleIcon}" width="18" />&nbsp; ${t('toc.title')}`;
+        this.tocTitle.innerHTML = `<img src="${titleIcon}" height="24" width="24"/>&nbsp; ${t('toc.title')}`;
         this.container.appendChild(this.tocTitle);
 
         // 初始化关闭容器按钮
