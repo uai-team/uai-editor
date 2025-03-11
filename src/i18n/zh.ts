@@ -166,6 +166,21 @@ export const zh = {
       "placeholder": "请输入网页地址，以 http:// 或 https:// 开头"
     }
   },
+  "file": {
+    "unknownName": "未知名称",
+    "unknownSize": "未知大小",
+    "preview": "预览",
+    "downlod": "下载",
+    "delete": "删除",
+    "deleteConfirm": "确定要删除此文件吗？",
+    "deleteSuccess": "删除成功",
+    "deleteFail": "删除失败",
+    "upload": "上传",
+    "uploadSuccess": "上传成功",
+    "uploadFail": "上传失败",
+    "uploading": "上传中...",
+    "uploadingTip": "正在上传，请稍候...",
+  },
   "table": {
     "addColumnAfter": "插入列(右)",
     "addColumnBefore": "插入列(左)",
