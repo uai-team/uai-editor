@@ -51,15 +51,29 @@ export class ExportImage extends HTMLElement implements UAIEditorEventListener {
         // 定义按钮点击事件，导出文件
         this.addEventListener("click", async () => {
             if (this.menuButtonOptions.enable) {
-                const content = document.querySelector(".uai-zoomable-content") as HTMLElement;
+                const container = document.createElement("div");
+                const content = document.createElement("div");
+                document.body.appendChild(container);
+                container.appendChild(content);
+
+                const value = document.querySelector(".uai-zoomable-content") as HTMLElement;
+                container.style.width = `${value.clientWidth}px`;
+                container.style.height = `${value.clientHeight}px`;
+                container.style.padding = '30px 50px';
+                container.style.backgroundColor = '#fff';
+
+                content.style.width = `${value.clientWidth - 100}px`;
+                content.innerHTML = value.innerHTML;
+
                 const { toBlob } = domtoimage;
-                const blob = await toBlob(content, {
+                const blob = await toBlob(container, {
                     style: {
                         transform: 'scale(1)', // 如果需要的话，可以通过transform来缩放元素
                         transformOrigin: 'top left', // 设置变换的原点
                     }
                 });
-                saveAs(blob, `export-${Date.now()}.jpg`,);
+                saveAs(blob, `export-${Date.now()}.png`,);
+                document.body.removeChild(container);
             }
         })
     }
