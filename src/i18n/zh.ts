@@ -28,7 +28,7 @@ export const zh = {
     "bgColor": "字体背景颜色",
     "bold": "粗体",
     "clearFormat": "清除文本格式",
-    "codeblock": "代码",
+    "code": "代码",
     "color": "字体颜色",
     "fontFamily": {
       "text": "选择字体",

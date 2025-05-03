@@ -14,7 +14,7 @@ import expandDownIcon from "../assets/icons/expand-down.svg";
 import toolbarRibbon from "../assets/icons/toolbar-ribbon.svg";
 import toolbarClassic from "../assets/icons/toolbar-classic.svg";
 import toolbarSource from "../assets/icons/toolbar-source.svg";
-import codeblock from "../assets/icons/codeblock.svg";
+import code from "../assets/icons/code.svg";
 
 /**
  * 文档顶部菜单栏
@@ -59,7 +59,7 @@ export class Header extends HTMLElement implements UAIEditorEventListener {
         // 创建源码编辑器
         this.sourceMenu = document.createElement("div");
         this.sourceMenu.classList.add("uai-source-menu");
-        this.sourceMenu.innerHTML = `<img src="${codeblock}" width="20" />&nbsp;${t('toolbar.source')}`;
+        this.sourceMenu.innerHTML = `<img src="${code}" width="20" />&nbsp;${t('toolbar.source')}`;
     }
 
     /**

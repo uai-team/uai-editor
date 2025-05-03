@@ -8,20 +8,20 @@ import { t } from "i18next";
 import { UAIEditorEventListener, UAIEditorOptions } from "../../../../core/UAIEditor.ts";
 import { MenuButton, MenuButtonOptions } from "../../MenuButton.ts";
 
-import icon from "../../../../assets/icons/codeblock.svg";
+import icon from "../../../../assets/icons/code.svg";
 
 /**
- * 基础菜单：设置代码块
+ * 基础菜单：设置代码
  */
-export class CodeBlock extends HTMLElement implements UAIEditorEventListener {
+export class Code extends HTMLElement implements UAIEditorEventListener {
     // 按钮选项
     menuButtonOptions: MenuButtonOptions = {
         menuType: "button",
         enable: true,
         icon: icon,
         hideText: true,
-        text: t('base.codeblock'),
-        tooltip: t('base.codeblock'),
+        text: t('base.code'),
+        tooltip: t('base.code'),
         shortcut: "Ctrl+E",
     }
 

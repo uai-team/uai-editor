@@ -56,7 +56,7 @@ import { Outdent } from "./menus/toolbar/base/Outdent.ts";
 import { LineHeight } from "./menus/toolbar/base/LineHeight.ts";
 
 import { BlockQuote } from "./menus/toolbar/base/BlockQuote.ts";
-import { CodeBlock } from "./menus/toolbar/base/CodeBlock.ts";
+import { Code } from "./menus/toolbar/base/Code.ts";
 
 import { Print } from "./menus/toolbar/base/Print.ts";
 
@@ -170,7 +170,7 @@ defineCustomElement('uai-editor-base-menu-outdent', Outdent);
 defineCustomElement('uai-editor-base-menu-lineheight', LineHeight);
 
 defineCustomElement('uai-editor-base-menu-blockquote', BlockQuote);
-defineCustomElement('uai-editor-base-menu-codeblock', CodeBlock);
+defineCustomElement('uai-editor-base-menu-code', Code);
 
 defineCustomElement('uai-editor-base-menu-print', Print);
 

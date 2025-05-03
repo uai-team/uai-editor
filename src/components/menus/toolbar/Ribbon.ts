@@ -45,7 +45,7 @@ import { Outdent } from "./base/Outdent.ts";
 import { LineHeight } from "./base/LineHeight.ts";
 
 import { BlockQuote } from "./base/BlockQuote.ts";
-import { CodeBlock } from "./base/CodeBlock.ts";
+import { Code } from "./base/Code.ts";
 
 import { Print } from "./base/Print.ts";
 
@@ -159,7 +159,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
     baseMenuAlignJustify!: AlignJustify;
     baseMenuAlignDistributed!: AlignDistributed;
     baseMenuBlockQuote!: BlockQuote;
-    baseMenuCodeBlock!: CodeBlock;
+    baseMenuCode!: Code;
     baseMenuPrint!: Print;
 
     // 插入菜单
@@ -410,8 +410,8 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         this.baseMenuBlockQuote = new BlockQuote({ menuType: "button", enable: true });
         this.eventComponents.push(this.baseMenuBlockQuote);
 
-        this.baseMenuCodeBlock = new CodeBlock({ menuType: "button", enable: true });
-        this.eventComponents.push(this.baseMenuCodeBlock);
+        this.baseMenuCode = new Code({ menuType: "button", enable: true });
+        this.eventComponents.push(this.baseMenuCode);
 
         this.baseMenuPrint = new Print({ menuType: "button", enable: true, huge: true, hideText: false });
         this.eventComponents.push(this.baseMenuPrint);
@@ -584,7 +584,7 @@ export class Ribbon extends HTMLElement implements UAIEditorEventListener {
         group3row2.appendChild(this.baseMenuAlignJustify);
         group3row2.appendChild(this.baseMenuAlignDistributed);
         group3row2.appendChild(this.baseMenuBlockQuote);
-        group3row2.appendChild(this.baseMenuCodeBlock);
+        group3row2.appendChild(this.baseMenuCode);
 
         const group4 = document.createElement("div");
         group4.classList.add("uai-ribbon-virtual-group");
