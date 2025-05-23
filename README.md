@@ -159,6 +159,93 @@ npm i
 npm run dev
 ```
 
+### 与人工智能集成
+
+如果要在 UAI Editor 中使用 AI 功能，需要在初始化 UAIEditor 的时候配置相关的配置项：
+
+```js
+new UAIEditor({
+    element: "#uai-editor",
+    content: 'UAI Editor 是一个面向 AI 的、现代 UI 风格的下一代富文本编辑器。开箱即用、支持所有前端框架。',
+    ai: { // AI 配置项
+        chat: { // 聊天配置项
+            models: { // 模型配置项
+                "default": {
+                    modelType: 'openai',
+                    baseUrl: 'https://open.bigmodel.cn/api/paas/v4',
+                    apiKey: process.env.CHATGLM_APIKEY,
+                    model: 'glm-4-flash'
+                },
+                "GLM-4": { // 聊天功能选择使用的模型，配置智谱AI的GLM-4-Flash模型
+                    modelType: 'openai',
+                    baseUrl: 'https://open.bigmodel.cn/api/paas/v4',
+                    apiKey: process.env.CHATGLM_APIKEY, // 此处填写您智谱AI的 API Key
+                    model: 'glm-4-flash'
+                },
+                "InternLM2.5": { // 聊天功能选择使用的模型，配置上海人工智能实验室的InternLM2.5模型
+                    modelType: 'openai',
+                    baseUrl: 'https://internlm-chat.intern-ai.org.cn/puyu/api/v1',
+                    apiKey: process.env.INTERNLM_TOKEN, // 此处填写您上海人工智能实验室的 API Key
+                    model: 'internlm2.5-latest'
+                },
+            },
+        },
+        image: { // 图像配置项
+            models: { // 模型配置项
+                text2image: { // 文本生成图像模型配置项
+                    "default": {
+                        modelType: 'openai',
+                        baseUrl: 'https://open.bigmodel.cn/api/paas/v4', // images/generations
+                        apiKey: process.env.CHATGLM_APIKEY,
+                        model: 'cogview-3-flash'
+                    },
+                    "CogView-3": { // 绘图功能选择使用的模型，配置智谱AI的CogView-3-Flash模型
+                        modelType: 'openai',
+                        baseUrl: 'https://open.bigmodel.cn/api/paas/v4', // images/generations
+                        apiKey: process.env.CHATGLM_APIKEY, // 此处填写您智谱AI的 API Key
+                        model: 'cogview-3-flash'
+                    },
+                }
+            }
+        }
+    }
+})
+```
+
+## 帮助文档
+
+UAI Editor 提供了一份使用文档，您可以通过以下方式访问：
+
+安装必要的软件`docsify`：
+
+```bash
+npm i docsify -g
+```
+
+### 用户文档
+
+启动文档服务：
+
+```bash
+docsify serve docs/user --port 3010
+```
+
+访问文档：
+
+[http://localhost:3010](http://localhost:3010)。
+
+### 开发者文档
+
+启动文档服务：
+
+```bash
+docsify serve docs/developer --port 3020
+```
+
+访问文档：
+
+[http://localhost:3020](http://localhost:3020)。
+
 ## 开源优势
 
 * **免费使用：** 作为开源项目，UAI Editor 采用 [MIT 许可证](LICENSE) 对所有用户免费开放，无需担心版权问题。

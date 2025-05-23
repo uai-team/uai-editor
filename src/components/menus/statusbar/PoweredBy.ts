@@ -50,7 +50,7 @@ export class PoweredBy extends HTMLElement implements UAIEditorEventListener {
         this.addEventListener("click", () => {
             if (this.menuButtonOptions.enable) {
                 const anchor = document.createElement('a');
-                anchor.href = "https://wux-labs.github.io/UAI-Editor";
+                anchor.href = "https://gitee.com/uai-team/uai-editor";
                 anchor.target = '_blank';
                 anchor.click();
             }

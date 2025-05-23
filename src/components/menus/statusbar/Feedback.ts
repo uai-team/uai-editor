@@ -50,7 +50,7 @@ export class Feedback extends HTMLElement implements UAIEditorEventListener {
         this.addEventListener("click", () => {
             if (this.menuButtonOptions.enable) {
                 const anchor = document.createElement('a');
-                anchor.href = "https://gitee.com/AI-Labs/uai-editor/issues";
+                anchor.href = "https://gitee.com/uai-team/uai-editor/issues";
                 anchor.target = '_blank';
                 anchor.click();
             }
