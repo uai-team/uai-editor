@@ -9,12 +9,12 @@
 
 - 人工智能
   - [文本生成](chat.md)
-  - [语音生成](tts.md)
-  - [语音识别](asr.md)
   - [文生图片](text2image.md)
   - [图片优化](image2image.md)
   - [局部重绘](inpainting.md)
   - [图片理解](imagevision.md)
-  - [图生视频](image2video.md)
+  - [语音生成](tts.md)
+  - [语音识别](asr.md)
   - [文生视频](text2video.md)
+  - [图生视频](image2video.md)
   - [视频理解](videovision.md)
