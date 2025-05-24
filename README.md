@@ -8,6 +8,17 @@
 - **【全功能】** 功能丰富：文本编辑、格式排版、多媒体插入、表格制作等。
 - **【全模态】** 人工智能：文字、语音、图片、视频，全模态功能创作体验。
 
+<table>
+  <tr>
+    <td>
+      <img src="./docs/images/image-01.png" alt="image-01"/>
+    </td>
+    <td>
+      <img src="./docs/images/image-02.png" alt="image-02"/>
+    </td>
+  </tr>
+</table>
+
 ## 与众不同
 
 UAI Editor 提供了完善的文档编辑能力和 AI 创作能力，支持 Markdown 语法，支持基础的富文本编辑功能，支持插入多种节点类型，提供了多种类型的实用工具。作为一个独立的纯前端文档编辑器，UAI Editor 可以轻松无缝集成到 Vue、React、Layui、Angular 等几乎任何前端框架。
@@ -149,16 +160,6 @@ function App() {
 export default App
 ```
 
-## 软件运行
-
-最后，我们需要运行项目，执行以下命令可以运行项目或自己的项目：
-
-```bash
-npm i
-
-npm run dev
-```
-
 ### 与人工智能集成
 
 如果要在 UAI Editor 中使用 AI 功能，需要在初始化 UAIEditor 的时候配置相关的配置项：
@@ -212,6 +213,16 @@ new UAIEditor({
 })
 ```
 
+## 软件运行
+
+最后，我们需要运行项目，执行以下命令可以运行项目或自己的项目：
+
+```bash
+npm i
+
+npm run dev
+```
+
 ## 帮助文档
 
 UAI Editor 提供了一份使用文档，您可以通过以下方式访问：
@@ -233,6 +244,19 @@ docsify serve docs/user --port 3010
 访问文档：
 
 [http://localhost:3010](http://localhost:3010)。
+
+<table>
+  <tr>
+    <td>
+      <img src="./docs/images/image-91.png" alt="image-01"/>
+    </td>
+    <td>
+      <img src="./docs/images/image-92.png" alt="image-02"/>
+    </td>
+  </tr>
+</table>
+
+或者，您也可以直接访问：[文档编辑](docs/user/base.md)、[附件插入](docs/user/insert.md)、[文档导出](docs/user/export.md)、[AI 功能](docs/user/chat.md)等文档。
 
 ### 开发者文档
 
